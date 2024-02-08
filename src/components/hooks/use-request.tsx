@@ -15,7 +15,6 @@ export default function useRequest(
   async function makeRequest(data?: any, params?: Record<string, any>) {
     setLoading(true);
 
-    // Append query parameters to the URL
     const queryParams = new URLSearchParams(params).toString();
     const urlWithParams = queryParams
       ? `${baseURL}${endpoint}?${queryParams}`
