@@ -45,7 +45,7 @@ const DashboardLayout = () => {
         className={classNames (
        "pr-2 py-2 md:py-5 flex-grow overflow-y-scroll transition-all duration-300",
        {
-        "pl-32": sidebarOpen,
+        "pl-16": sidebarOpen,
         "pl-2 md:pl-3.5": !sidebarOpen,
       }
         )}

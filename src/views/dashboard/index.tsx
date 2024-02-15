@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import Tabs from "../../components/tab";
 
 const Dashboard = () => {
-  return <div>Dashboard</div>;
+  const [activeTab, setActiveTab] = useState<"merchant" | "buyer">("merchant");
+  return (
+    <div>
+      Dashboard
+      <Tabs
+        activeTab={activeTab}
+        tabs={["merchant", "buyer"]}
+        setActiveTab={setActiveTab}
+      />
+    </div>
+  );
 };
 
 export default Dashboard;
