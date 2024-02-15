@@ -1,7 +1,7 @@
 import { useRoutes } from "react-router-dom";
 
 import Landing from "./landing";
-import Login from "../pages/login";
+import Login from "../pages/auth/login";
 import MainRoutes from "./main-routes";
 
 // ================|| ROUTING RENDER ||================ //

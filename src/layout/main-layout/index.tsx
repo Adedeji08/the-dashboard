@@ -8,22 +8,22 @@ const DashboardLayout = () => {
   const { pathname } = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const { id } = useParams();
-  const newCheck = pathname.split("/")[1];
+  const sidebarBackgroundCheck = pathname.split("/")[1];
 
   useEffect(() => {
     if (
-      newCheck === "" ||
-      newCheck === "dashboard" ||
-      newCheck === "support" ||
-      newCheck === "mediation" ||
-      newCheck === "mediation-request" ||
-      newCheck === "recommendation"
+      sidebarBackgroundCheck === "" ||
+      sidebarBackgroundCheck === "dashboard" ||
+      sidebarBackgroundCheck === "support" ||
+      sidebarBackgroundCheck === "mediation" ||
+      sidebarBackgroundCheck === "mediation-request" ||
+      sidebarBackgroundCheck === "recommendation"
     ) {
       setSidebarOpen(true);
     } else {
       setSidebarOpen(false);
     }
-  }, [newCheck]);
+  }, [sidebarBackgroundCheck]);
 
   return (
     <div className="max-w-1500 mx-auto flex flex-col md:flex-row">
