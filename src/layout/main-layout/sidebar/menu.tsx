@@ -24,7 +24,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ to, label }) => {
 
 const Menu: React.FC = () => {
   const menuItems: MenuItemProps[] = [
-    { to: "/account", label: "Account" },
+    { to: "/", label: "Account" },
     { to: "/transactions", label: "Transactions" },
     { to: "/refunds", label: "Refunds" },
     { to: "/mediation", label: "Mediation" },

@@ -8,7 +8,7 @@ import MainRoutes from "./main-routes";
 
 export default function ThemeRoutes() {
   return useRoutes([
-    Landing,
+    // Landing,
     MainRoutes,
     { path: "/login", element: <Login /> },
   ]);

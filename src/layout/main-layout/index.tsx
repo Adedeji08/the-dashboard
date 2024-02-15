@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Outlet, useParams, useLocation } from "react-router-dom";
 import Sidebar from "./sidebar";
 import logo from "../../assets/logo.png";
+import classNames from "classnames";
 
 const DashboardLayout = () => {
   const { pathname } = useLocation();
@@ -11,7 +12,7 @@ const DashboardLayout = () => {
 
   useEffect(() => {
     if (
-      newCheck === "account" ||
+      newCheck === "" ||
       newCheck === "dashboard" ||
       newCheck === "support" ||
       newCheck === "mediation" ||
@@ -26,11 +27,14 @@ const DashboardLayout = () => {
 
   return (
     <div className="max-w-1500 mx-auto flex flex-col md:flex-row">
-      {/* <div className="sticky top-16 h-1 bg-gray-200"></div> */}
       <aside
-        className={`${
-          sidebarOpen ? "w-60" : "w-0"
-        } bg-gray-100 overflow-y-scroll transition-all duration-300 h-[100vh] border-r border-gray-200`}
+       className={classNames(
+        "bg-gray-100 overflow-y-scroll transition-all duration-300 h-[100vh] border-r border-gray-200",
+        {
+          "w-60": sidebarOpen,
+          "w-0": !sidebarOpen,
+        }
+      )}
       >
         <div className="p-4">
           <img src={logo} alt="logo" />
@@ -38,9 +42,13 @@ const DashboardLayout = () => {
         <Sidebar open={sidebarOpen} />
       </aside>
       <main
-        className={`${
-          sidebarOpen ? "pl-32" : "pl-2 md:pl-3.5"
-        } pr-2 py-2 md:py-5 flex-grow overflow-y-scroll transition-all duration-300`}
+        className={classNames (
+       "pr-2 py-2 md:py-5 flex-grow overflow-y-scroll transition-all duration-300",
+       {
+        "pl-32": sidebarOpen,
+        "pl-2 md:pl-3.5": !sidebarOpen,
+      }
+        )}
       >
         <Outlet />
       </main>
