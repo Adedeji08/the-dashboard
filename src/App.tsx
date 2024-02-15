@@ -1,12 +1,8 @@
-import React from 'react';
-import './App.css';
+import React, { useEffect } from "react";
+import Routes from "./routes";
 
-function App() {
-  return (
-    <div className="text-[100px]">
-    hjcgmh,bjknl
-    </div>
-  );
-}
+const App: React.FC = () => {
+  return <Routes />;
+};
 
 export default App;
