@@ -137,7 +137,7 @@ const Login = () => {
         </div>
 
         <div className="flex justify-center items-center mt-10">
-          <Button size="sm" variant="primary" type="submit">
+          <Button size="md" variant="primary" type="submit">
             {loading ? (
               <CircleLoader color="#ffffff" loading={loading} size={20} />
             ) : (
