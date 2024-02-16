@@ -3,7 +3,6 @@ import Tabs from "../../components/tab";
 import Buyer from "./buyer";
 import Merchant from "./merchant";
 import useRequest from "../../components/hooks/use-request";
-import Input from "../../components/input";
 import Icon from "../../assets/icons";
 
 interface UserData {
@@ -12,10 +11,15 @@ interface UserData {
 
 const Dashboard = () => {
   const [data, setData] = useState<UserData[]>([]);
+  const [stat, setStat] = useState([]);
   const [activeTab, setActiveTab] = useState<"merchant" | "buyer">("merchant");
   const [searchQuery, setSearchQuery] = useState("");
   const userToken = localStorage.getItem("token");
   const { makeRequest } = useRequest("/users", "GET", {
+    Authorization: `Bearer ${userToken}`,
+  });
+
+  const { makeRequest: getStat } = useRequest("/users/statistics", "GET", {
     Authorization: `Bearer ${userToken}`,
   });
 
@@ -34,6 +38,16 @@ const Dashboard = () => {
 const handleSearchChange = (event:any) => {
   setSearchQuery(event.target.value);
 };
+
+useEffect(() => {
+  const fetchData = async () => {
+    const [response] = await getStat();
+    setStat(response.data);
+  };
+
+  fetchData();
+}, []);
+
 
   return (
     <>
@@ -69,8 +83,8 @@ const handleSearchChange = (event:any) => {
         setActiveTab={setActiveTab}
       />
       <div>
-        {activeTab === "merchant" && <Merchant data={data} />}
-        {activeTab === "buyer" && <Buyer data={data} />}
+        {activeTab === "merchant" && <Merchant data={data} stat={stat} />}
+        {activeTab === "buyer" && <Buyer data={data} stat={stat} />}
       </div>
     </>
   );
