@@ -1,10 +1,14 @@
-import React from 'react'
-import Cards from '../cards'
+import React from "react";
+import Cards from "../cards";
+import UserTable from "../user-table";
 
-const Buyer = () => {
+const Buyer = ({ data }: any) => {
   return (
-       <Cards />
-  )
-}
+    <div>
+      <Cards />
+      <UserTable data={data} />
+    </div>
+  );
+};
 
-export default Buyer
+export default Buyer;
