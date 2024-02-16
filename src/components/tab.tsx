@@ -15,13 +15,12 @@ const Tabs = (props: TabsProps) => {
   };
 
   return (
-    <div className="w-[400px] h-[50px] bg-[#CFF0FC] rounded-lg px-2 mt-9">
-      <div className="flex">
+      <div className="flex w-[400px] h-[50px] bg-[#CFF0FC] rounded-lg px-2 mt-9">
         {tabs.map((tab, index) => (
           <button
             key={index}
             className={classNames("text-[12px] flex-1 md:py-2 px-4 md:px-8", {
-              "bg-[#0979A1] text-[#fff] rounded-lg mt-2 font-medium":
+              "bg-[#0979A1] text-[#fff] rounded-lg my-2 font-medium transition-all duration-1000":
                 activeTab === tab,
             })}
             onClick={() => handleTabClick(tab)}
@@ -30,7 +29,6 @@ const Tabs = (props: TabsProps) => {
           </button>
         ))}
       </div>
-    </div>
   );
 };
 
