@@ -10,7 +10,7 @@ import Reset from "./reset";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
-  const { loading, makeRequest } = useRequest("/forgot-password", "POST");
+  const { loading, makeRequest } = useRequest("/users/forgot-password", "POST");
   const { handleSubmit, control } = useForm();
   const [success, setSuccess] = useState(false);
 
