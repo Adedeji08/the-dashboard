@@ -1,6 +1,12 @@
 import React from "react";
 
-type IconName = "personIcon" | "arrowForward" | "avartar";
+type IconName =
+  | "personIcon"
+  | "arrowForward"
+  | "avatar"
+  | "searchIcon"
+  | "msgIcon"
+  | "notificationIcon";
 
 interface IconProps {
   name: IconName;
@@ -81,7 +87,7 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
         </svg>
       );
 
-    case "avartar":
+    case "avatar":
       return (
         <svg
           className={className}
@@ -111,6 +117,127 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
             stroke-width="1.66667"
             stroke-linecap="round"
             stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "searchIcon":
+      return (
+        <svg
+          className={className}
+          width="18"
+          height="18"
+          viewBox="0 0 18 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8.625 15.75C12.56 15.75 15.75 12.56 15.75 8.625C15.75 4.68997 12.56 1.5 8.625 1.5C4.68997 1.5 1.5 4.68997 1.5 8.625C1.5 12.56 4.68997 15.75 8.625 15.75Z"
+            stroke="#6A6A6A"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M16.5 16.5L15 15"
+            stroke="#6A6A6A"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "msgIcon":
+      return (
+        <svg
+          className={className}
+          width="44"
+          height="44"
+          viewBox="0 0 44 44"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="44" height="44" rx="10" fill="#F2F4F7" />
+          <rect
+            x="0.5"
+            y="0.5"
+            width="43"
+            height="43"
+            rx="9.5"
+            stroke="#0979A1"
+            stroke-opacity="0.5"
+          />
+          <path
+            d="M18.5 29H18C14 29 12 28 12 23V18C12 14 14 12 18 12H26C30 12 32 14 32 18V23C32 27 30 29 26 29H25.5C25.19 29 24.89 29.15 24.7 29.4L23.2 31.4C22.54 32.28 21.46 32.28 20.8 31.4L19.3 29.4C19.14 29.18 18.77 29 18.5 29Z"
+            stroke="#0979A1"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M25.9965 21H26.0054"
+            stroke="#0979A1"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M21.9955 21H22.0045"
+            stroke="#0979A1"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M17.9945 21H18.0035"
+            stroke="#0979A1"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "notificationIcon":
+      return (
+        <svg
+          className={className}
+          width="44"
+          height="44"
+          viewBox="0 0 44 44"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="44" height="44" rx="10" fill="#F2F4F7" />
+          <rect
+            x="0.5"
+            y="0.5"
+            width="43"
+            height="43"
+            rx="9.5"
+            stroke="#0979A1"
+            stroke-opacity="0.5"
+          />
+          <path
+            d="M22.02 12.91C18.71 12.91 16.02 15.6 16.02 18.91V21.8C16.02 22.41 15.76 23.34 15.45 23.86L14.3 25.77C13.59 26.95 14.08 28.26 15.38 28.7C19.69 30.14 24.34 30.14 28.65 28.7C29.86 28.3 30.39 26.87 29.73 25.77L28.58 23.86C28.28 23.34 28.02 22.41 28.02 21.8V18.91C28.02 15.61 25.32 12.91 22.02 12.91Z"
+            stroke="#0979A1"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+          />
+          <path
+            d="M23.87 13.2C23.56 13.11 23.24 13.04 22.91 13C21.95 12.88 21.03 12.95 20.17 13.2C20.46 12.46 21.18 11.94 22.02 11.94C22.86 11.94 23.58 12.46 23.87 13.2Z"
+            stroke="#0979A1"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M25.02 29.06C25.02 30.71 23.67 32.06 22.02 32.06C21.2 32.06 20.44 31.72 19.9 31.18C19.36 30.64 19.02 29.88 19.02 29.06"
+            stroke="#0979A1"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
           />
         </svg>
       );
