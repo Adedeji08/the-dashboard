@@ -41,7 +41,7 @@ const Login = () => {
   });
 
   return (
-    <div className="flex flex-col mt-10 w-[40%] mx-auto ">
+    <div className="flex flex-col mt-10 lg:w-[40%] px-5 lg:px-0 mx-auto ">
       <img src={Logo} alt="logo" className="h-[27px]" />
       <p className="font-semibold text-md md:text-[26px] text-center mt-3">
         Welcome Back!
