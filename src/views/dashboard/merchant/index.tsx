@@ -1,12 +1,12 @@
 import React from "react";
-import MerchantTable from "./merchant-table";
+import UserTable from "../user-table";
 import Cards from "../cards";
 
-const Merchant = () => {
+const Merchant = ({data}: any) => {
   return (
     <div>
       <Cards />
-      <MerchantTable />
+      <UserTable data={data} />
     </div>
   );
 };
