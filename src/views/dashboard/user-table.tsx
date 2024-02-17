@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "../../components/table";
 
-const UserTable = ({ data }: any) => {
+const UserTable = ({ data, selectedStatus, handleStatusChange }: any) => {
+  const [filteredData, setFilteredData] = useState([]);
   const columns = [
     { header: "", accessor: "profilePhoto" },
     { header: "Name", accessor: "fullname" },
@@ -11,16 +12,30 @@ const UserTable = ({ data }: any) => {
     { header: "", accessor: "id" },
   ];
 
+  useEffect(() => {
+    const filtered = data.filter((user: any) => {
+      if (user.status === selectedStatus) {
+        return true;
+      }
+      return false;
+    });
+    setFilteredData(filtered);
+  }, [data, selectedStatus]);
+
   return (
     <div className="rounded-md py-3 px-3 bg-white border border-[#fff] mt-10 w-[95%] pt-5 ">
       <div className="flex justify-between">
         <p className="text-[18px] font-semibold">All Accounts</p>
         <div className="flex gap-2">
           <span className="text-[14px] font-medium">Filter by: </span>
-          <select className="border text-[12px]  px-3 py-1 rounded bg-[#0979A1] text-white">
-            <option>Recent</option>
-            <option>Recent</option>
-            <option>Recent</option>
+          <select
+            className="border text-[12px] px-3 py-1 rounded bg-[#0979A1] text-white"
+            value={selectedStatus}
+            onChange={handleStatusChange}
+          >
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            <option value="blocked">Blocked</option>
           </select>
           <button className="text-[12px] border px-3 py-1 rounded">
             {" "}
@@ -28,7 +43,12 @@ const UserTable = ({ data }: any) => {
           </button>
         </div>
       </div>
-      <Table columns={columns} data={data}/>
+
+      {filteredData.length > 0 ? (
+        <Table columns={columns} data={filteredData} />
+      ) : (
+        <h1 className="text-[30px] text-center text-gray-500 opacity-80 mt-10 font-bold">No data available</h1>
+      )}
     </div>
   );
 };

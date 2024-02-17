@@ -55,6 +55,8 @@ const Table: React.FC<TableProps> = ({ columns, data }) => {
                   <button 
                   // onClick={() => onUserClick(row["userId"])}
                   > <Icon name="avatar" /> </button>
+                ) : column.accessor === "phone" && !row[column.accessor] ? (
+                  "N/A"
                 ) : (
                   row[column.accessor]
                 )}

@@ -15,6 +15,7 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState<"merchant" | "buyer">("merchant");
   const [searchQuery, setSearchQuery] = useState("");
   const userToken = localStorage.getItem("token");
+  const [selectedStatus, setSelectedStatus] = useState<string>("active");
   const { makeRequest } = useRequest("/users", "GET", {
     Authorization: `Bearer ${userToken}`,
   });
@@ -30,7 +31,8 @@ const Dashboard = () => {
   const fetchData = async () => {
     const [response] = await makeRequest(undefined, { 
       userType: activeTab,
-      search: searchQuery
+      search: searchQuery,
+      status: selectedStatus,
     });
     setData(response.data?.users || []);
   };
@@ -47,6 +49,10 @@ useEffect(() => {
 
   fetchData();
 }, []);
+
+const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  setSelectedStatus(event.target.value);
+};
 
 
   return (
@@ -83,8 +89,8 @@ useEffect(() => {
         setActiveTab={setActiveTab}
       />
       <div>
-        {activeTab === "merchant" && <Merchant data={data} stat={stat} />}
-        {activeTab === "buyer" && <Buyer data={data} stat={stat} />}
+        {activeTab === "merchant" && <Merchant data={data} stat={stat} selectedStatus={selectedStatus} handleStatusChange={handleStatusChange}  />}
+        {activeTab === "buyer" && <Buyer data={data} stat={stat} selectedStatus={selectedStatus} handleStatusChange={handleStatusChange} />}
       </div>
     </>
   );
