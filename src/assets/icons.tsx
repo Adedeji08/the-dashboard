@@ -8,6 +8,7 @@ type IconName =
   | "msgIcon"
   | "notificationIcon"
   | "arrowLeft"
+  | "cancel"
 
 interface IconProps {
   name: IconName;
@@ -272,7 +273,8 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
           />
         </svg>
       );
-    default:
+  
+      default:
       return null;
   }
 };

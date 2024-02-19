@@ -23,9 +23,9 @@ export default function Textarea({
   readOnly = false,
 }: TextareaProps) {
   return (
-    <label className={`flex flex-col gap-2 ${className}`}>
+    <label className={`flex flex-col gap-2 mt-2 ${className}`}>
       {label && (
-        <div className="lg:text-[18px] text-[14px] font-normal text-[#040821] mb-3">
+        <div className="lg:text-[14px] text-[14px] font-normal text-[#040821] mb-1">
           {label}
         </div>
       )}
