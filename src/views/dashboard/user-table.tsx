@@ -3,7 +3,7 @@ import Table from "../../components/table";
 
 const UserTable = ({ data }: any) => {
   const columns = [
-    { header: "Photo", accessor: "profilePhoto" },
+    { header: "", accessor: "profilePhoto" },
     { header: "Name", accessor: "fullname" },
     { header: "Email Address", accessor: "email" },
     { header: "Phone No", accessor: "phone" },

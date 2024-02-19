@@ -31,7 +31,7 @@ const Table: React.FC<TableProps> = ({ columns, data }) => {
   return (
     <table className="table mt-6 w-full">
       <thead className="bg-[#CFF0FC] h-10 rounded">
-        <tr className="text-[16px]">
+        <tr className="text-[16px] text-left">
           {columns.map((column, index) => (
             <th className="font-medium" key={index}>
               {column.header}
@@ -54,7 +54,7 @@ const Table: React.FC<TableProps> = ({ columns, data }) => {
                 ) : column.accessor === "id" ? (
                   <button 
                   // onClick={() => onUserClick(row["userId"])}
-                  > <Icon name="avartar" /> </button>
+                  > <Icon name="avatar" /> </button>
                 ) : (
                   row[column.accessor]
                 )}

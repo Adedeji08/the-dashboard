@@ -10,7 +10,7 @@ import Visible from "../../../assets/Eye.svg";
 import Invisible from "../../../assets/eye-regular.svg";
 
 const ResetPassword = () => {
-  const { loading, makeRequest } = useRequest("/reset-password", "POST");
+  const { loading, makeRequest } = useRequest("/users/reset-password", "PUT");
   const { handleSubmit, control } = useForm();
   const [success, setSuccess] = useState(false);
 
@@ -38,11 +38,12 @@ const ResetPassword = () => {
   };
 
   const handleSubmitPassword = handleSubmit(async (formData) => {
-    const userEmail = {
+    const userReset = {
+      resetPasswordToken: formData.resetPasswordToken,
       password: formData.password,
       confirmPassword: formData.confirmPassword,
     };
-    const [response] = await makeRequest(userEmail);
+    const [response] = await makeRequest(userReset);
     if (response.status) {
       setSuccess(true);
     }
@@ -56,11 +57,34 @@ const ResetPassword = () => {
         <div className="flex flex-col mt-20 w-[40%] mx-auto ">
           <img src={Logo} alt="logo" className="h-[27px]" />
           <p className="font-semibold text-md md:text-[26px] text-center mt-3">
-         Reset Password
+            Reset Password
           </p>
-         
+
           <form className="mt-6 md:mt-8" onSubmit={handleSubmitPassword}>
             <div className="gap-4 md:gap-6 mb-5">
+              <Controller
+                name="resetPasswordToken"
+                control={control}
+                defaultValue=""
+                rules={{
+                  required: "Code is required",
+                  minLength: {
+                    value: 4,
+                    message: "Code must be 4 digits",
+                  },
+                }}
+                render={({ field, fieldState }) => (
+                  <Input
+                    value={field.value}
+                    className="w-full"
+                    label="Code"
+                    type="number"
+                    error={fieldState?.error?.message}
+                    onChange={field.onChange}
+                  />
+                )}
+              />
+
               <Controller
                 name="password"
                 control={control}
@@ -103,7 +127,7 @@ const ResetPassword = () => {
               />
 
               <Controller
-                name="confirm-password"
+                name="confirmPassword"
                 control={control}
                 defaultValue=""
                 rules={{
