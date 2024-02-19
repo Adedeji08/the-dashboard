@@ -14,6 +14,7 @@ const MainRoutes = {
       path: "/",
       element: <DashboardDefault />,
     },
+    
   ],
 };
 
