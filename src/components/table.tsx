@@ -14,11 +14,11 @@ interface TableRow {
 interface TableProps {
   columns: TableColumn[];
   data: TableRow[];
-  // selectedUserId: string | null; // Add selectedUserId prop
-  // onUserClick: (id: string) => void; // Add onUserClick prop
+  selectedUserId: string | null; 
+  onUserClick: (id: string) => void;
 }
 
-const Table: React.FC<TableProps> = ({ columns, data }) => {
+const Table: React.FC<TableProps> = ({ columns, data, onUserClick, selectedUserId }) => {
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = {
       year: "numeric",
@@ -27,6 +27,7 @@ const Table: React.FC<TableProps> = ({ columns, data }) => {
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
+
 
   return (
     <table className="table mt-6 w-full">
@@ -53,8 +54,8 @@ const Table: React.FC<TableProps> = ({ columns, data }) => {
                   />
                 ) : column.accessor === "id" ? (
                   <button 
-                  // onClick={() => onUserClick(row["id"])}
-                  > <Icon name="avatar" /> </button>
+                  onClick={() => onUserClick(row["id"])}
+                  > <Icon name="dotIcon" /> </button>
                 ) : column.accessor === "phone" && !row[column.accessor] ? (
                   "N/A"
                 ) : (

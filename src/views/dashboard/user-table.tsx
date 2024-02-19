@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Table from "../../components/table";
+import { useNavigate } from "react-router-dom";
 
 const UserTable = ({ data, selectedStatus, handleStatusChange }: any) => {
+  const navigate = useNavigate()
   const [filteredData, setFilteredData] = useState([]);
   const columns = [
     { header: "", accessor: "profilePhoto" },
@@ -21,6 +23,10 @@ const UserTable = ({ data, selectedStatus, handleStatusChange }: any) => {
     });
     setFilteredData(filtered);
   }, [data, selectedStatus]);
+
+  const handleUserClick = (id: string) => {
+    navigate(`/account/details/${id}`)
+  };
 
   return (
     <div className="rounded-md py-3 px-3 bg-white border border-[#fff] mt-10 w-[95%] pt-5 ">
@@ -45,7 +51,7 @@ const UserTable = ({ data, selectedStatus, handleStatusChange }: any) => {
       </div>
 
       {filteredData.length > 0 ? (
-        <Table columns={columns} data={filteredData} />
+        <Table columns={columns} data={filteredData} selectedUserId={null} onUserClick={handleUserClick} />
       ) : (
         <h1 className="text-[30px] text-center text-gray-500 opacity-80 mt-10 font-bold">No data available</h1>
       )}
