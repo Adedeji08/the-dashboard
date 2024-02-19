@@ -2,11 +2,11 @@ import React from "react";
 import Cards from "../cards";
 import UserTable from "../user-table";
 
-const Buyer = ({ data }: any) => {
+const Buyer = ({ data, stat, selectedStatus, handleStatusChange }: any) => {
   return (
     <div>
-      <Cards />
-      <UserTable data={data} />
+      <Cards stat={stat} />
+      <UserTable data={data} selectedStatus={selectedStatus} handleStatusChange={handleStatusChange} />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import Icon from "../../assets/icons";
 
-const Cards = () => {
+const Cards = ({ stat }: any) => {
   return (
     <div className="grid lg:grid-cols-4 gap-8 mt-7 w-[95%] ">
       <section className="bg-white rounded-md border border-[#fff]">
@@ -9,7 +9,9 @@ const Cards = () => {
           <Icon name="personIcon" />
           <Icon name="arrowForward" />
         </div>
-        <p className="font-bold text-[24px] pl-3">450 </p>
+        <p className="font-bold text-[24px] pl-3">
+          {stat?.all ? stat?.all : 0}{" "}
+        </p>
         <span className="text-[14px] font-light pl-3">Signed up accounts</span>
       </section>
 
@@ -18,7 +20,9 @@ const Cards = () => {
           <Icon name="personIcon" />
           <Icon name="arrowForward" />
         </div>
-        <p className="font-bold text-[24px] pl-3">350 </p>
+        <p className="font-bold text-[24px] pl-3">
+          {stat?.active ? stat?.active : 0}{" "}
+        </p>
         <span className="text-[14px] font-light pl-3">Active accounts</span>
       </section>
 
@@ -27,7 +31,9 @@ const Cards = () => {
           <Icon name="personIcon" />
           <Icon name="arrowForward" />
         </div>
-        <p className="font-bold text-[24px] pl-3">50 </p>
+        <p className="font-bold text-[24px] pl-3">
+          {stat?.suspended ? stat?.suspended : 0}{" "}
+        </p>
         <span className="text-[14px] font-light pl-3">Suspended accounts</span>
       </section>
 
@@ -36,7 +42,9 @@ const Cards = () => {
           <Icon name="personIcon" />
           <Icon name="arrowForward" />
         </div>
-        <p className="font-bold text-[24px] pl-3">10 </p>
+        <p className="font-bold text-[24px] pl-3">
+          {stat?.locked ? stat?.locked : 0}
+        </p>
         <span className="text-[14px] font-light pl-3">Locked accounts</span>
       </section>
     </div>

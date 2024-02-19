@@ -15,7 +15,7 @@ interface TableProps {
   columns: TableColumn[];
   data: TableRow[];
   // selectedUserId: string | null; // Add selectedUserId prop
-  // onUserClick: (userId: string) => void; // Add onUserClick prop
+  // onUserClick: (id: string) => void; // Add onUserClick prop
 }
 
 const Table: React.FC<TableProps> = ({ columns, data }) => {
@@ -53,8 +53,10 @@ const Table: React.FC<TableProps> = ({ columns, data }) => {
                   />
                 ) : column.accessor === "id" ? (
                   <button 
-                  // onClick={() => onUserClick(row["userId"])}
+                  // onClick={() => onUserClick(row["id"])}
                   > <Icon name="avatar" /> </button>
+                ) : column.accessor === "phone" && !row[column.accessor] ? (
+                  "N/A"
                 ) : (
                   row[column.accessor]
                 )}
