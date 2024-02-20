@@ -29,6 +29,7 @@ const Transaction = () => {
   const fetchData = async () => {
     const [response] = await makeRequest(undefined, {
       type: activeTab,
+      userEmail: searchQuery,
       status: selectedStatus,
     });
     setData(response.data?.transactions || []);
