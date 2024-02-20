@@ -17,7 +17,8 @@ const DashboardLayout = () => {
       sidebarBackgroundCheck === "support" ||
       sidebarBackgroundCheck === "mediation" ||
       sidebarBackgroundCheck === "mediation-request" ||
-      sidebarBackgroundCheck === "recommendation"
+      sidebarBackgroundCheck === "recommendation" ||
+      sidebarBackgroundCheck === "account"
     ) {
       setSidebarOpen(true);
     } else {
