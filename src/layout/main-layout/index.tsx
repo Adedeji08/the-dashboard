@@ -14,7 +14,7 @@ const DashboardLayout = () => {
     if (
       sidebarBackgroundCheck === "" ||
       sidebarBackgroundCheck === "dashboard" ||
-      sidebarBackgroundCheck === "support" ||
+      sidebarBackgroundCheck === "transactions" ||
       sidebarBackgroundCheck === "mediation" ||
       sidebarBackgroundCheck === "mediation-request" ||
       sidebarBackgroundCheck === "recommendation" ||
@@ -25,6 +25,7 @@ const DashboardLayout = () => {
       setSidebarOpen(false);
     }
   }, [sidebarBackgroundCheck]);
+
 
   return (
     <div className="max-w-1500 mx-auto flex flex-col md:flex-row">

@@ -25,7 +25,7 @@ interface DetailsProps {
     profilePhoto: string;
     socialMediaHandle: string;
     socialMediaPlatform: string;
-  } | null;
+  };
 }
 
 const Details: React.FC<DetailsProps> = ({ account }) => {

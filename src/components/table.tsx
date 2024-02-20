@@ -31,10 +31,10 @@ const Table: React.FC<TableProps> = ({ columns, data, onUserClick, selectedUserI
 
   return (
     <table className="table mt-6 w-full">
-      <thead className="bg-[#CFF0FC] h-10 rounded">
+      <thead className="bg-[#CFF0FC] h-10">
         <tr className="text-[16px] text-left">
           {columns.map((column, index) => (
-            <th className="font-medium" key={index}>
+            <th className="font-medium pl-3" key={index}>
               {column.header}
             </th>
           ))}
