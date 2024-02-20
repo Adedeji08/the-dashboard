@@ -1,6 +1,6 @@
 import React from 'react'
 import TransactionTable from '../transaction-table'
-import TransactionCards from '../../../components/cards/transaction-cards'
+import { TransactionCards } from '../../../components/cards/cards'
 
 const Refund = ({data, stat, selectedStatus, handleStatusChange}: any) => {
   return (
