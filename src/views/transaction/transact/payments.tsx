@@ -1,11 +1,11 @@
 import React from 'react'
-import Cards from '../cards'
 import TransactionTable from '../transaction-table'
+import TransactionCards from '../../../components/cards/transaction-cards'
 
 const Payments = ({data, stat, selectedStatus, handleStatusChange}: any) => {
   return (
     <div>
-        <Cards />
+        <TransactionCards />
         <TransactionTable data={data} selectedStatus={selectedStatus} handleStatusChange={handleStatusChange}/>
     </div>
   )
