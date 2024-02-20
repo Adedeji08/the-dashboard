@@ -7,11 +7,13 @@ import Withdrawal from "./transact/withdrawal";
 import Refund from "./transact/refund";
 
 interface UserData {
-    fullname: string;
-   }
+  fullname: string;
+}
 
 const Transaction = () => {
-  const [activeTab, setActiveTab] = useState<"payment" | "withdrawal" | "refund">("payment");
+  const [activeTab, setActiveTab] = useState<
+    "payment" | "withdrawal" | "refund"
+  >("payment");
   const [data, setData] = useState<UserData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const userToken = localStorage.getItem("token");
@@ -25,17 +27,17 @@ const Transaction = () => {
   }, [activeTab, searchQuery]);
 
   const fetchData = async () => {
-    const [response] = await makeRequest(undefined, { 
+    const [response] = await makeRequest(undefined, {
       type: activeTab,
       status: selectedStatus,
     });
     setData(response.data?.transactions || []);
   };
 
-  const handleSearchChange = (event:any) => {
+  const handleSearchChange = (event: any) => {
     setSearchQuery(event.target.value);
   };
-  
+
   const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedStatus(event.target.value);
   };
@@ -72,9 +74,29 @@ const Transaction = () => {
         setActiveTab={setActiveTab}
       />
 
-      <Payments  data={data} selectedStatus={selectedStatus} handleStatusChange={handleStatusChange} />
-      <Withdrawal data={data} selectedStatus={selectedStatus} handleStatusChange={handleStatusChange} />
-      <Refund data={data} selectedStatus={selectedStatus} handleStatusChange={handleStatusChange} />
+      {activeTab === "payment" && (
+        <Payments
+          data={data}
+          selectedStatus={selectedStatus}
+          handleStatusChange={handleStatusChange}
+        />
+      )}
+
+      {activeTab === "withdrawal" && (
+        <Withdrawal
+          data={data}
+          selectedStatus={selectedStatus}
+          handleStatusChange={handleStatusChange}
+        />
+      )}
+
+      {activeTab === "refund" && (
+        <Refund
+          data={data}
+          selectedStatus={selectedStatus}
+          handleStatusChange={handleStatusChange}
+        />
+      )}
     </>
   );
 };
