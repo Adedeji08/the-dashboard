@@ -1,6 +1,7 @@
 import React from "react";
 import UserTable from "../user-table";
-import AccountCards from "../cards";
+import { AccountCards } from "../../../components/cards/account-card";
+
 
 
 const Buyer = ({ data, stat, selectedStatus, handleStatusChange }: any) => {

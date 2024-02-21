@@ -1,6 +1,6 @@
 import React from 'react'
 import TransactionTable from '../transaction-table'
-import TransactionCards from '../cards'
+import { TransactionCards } from '../../../components/cards/transaction-card'
 
 const Withdrawal = ({data, stat, selectedStatus, handleStatusChange}: any) => {
   return (

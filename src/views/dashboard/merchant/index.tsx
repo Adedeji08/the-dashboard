@@ -1,6 +1,6 @@
 import React from "react";
 import UserTable from "../user-table";
-import AccountCards from "../cards";
+import { AccountCards } from "../../../components/cards/account-card";
 
 const Merchant = ({data, stat, selectedStatus, handleStatusChange}: any) => {
   return (
