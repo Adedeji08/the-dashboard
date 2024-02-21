@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useRequest from "../../../components/hooks/use-request";
 import Icon from "../../../assets/icons";
+import { formatDate } from "../../../utilities/functions";
 
 interface UserTransactionDetailsProps {
   account: {
@@ -91,7 +92,7 @@ const UserTransactionDetails: React.FC<UserTransactionDetailsProps> = ({
                 <p className="-mt-1 text-[12px] font-normal">
                   {transaction?.amount}{" "}
                   <span className="block text-right pt-2">
-                    {transaction?.created_at}
+                    {formatDate(transaction?.created_at ? transaction?.created_at : "N/A")}
                   </span>
                 </p>
                 <Icon name="dotIcon" />
