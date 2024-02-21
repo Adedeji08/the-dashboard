@@ -6,12 +6,12 @@ const TransactionTable = ({ data, selectedStatus, handleStatusChange }: any) => 
   const navigate = useNavigate()
   const [filteredData, setFilteredData] = useState([]);
   const columns = [
-    { header: "Order ID", accessor: "orderId" },
-    { header: "Merchant’s Email", accessor: "merchantEmail" },
-    { header: "Buyer’s Email", accessor: "buyerEmail" },
+    { header: "Order ID", accessor: "reference" },
+    { header: "Merchant’s Email", accessor: "email" },
+    // { header: "Buyer’s Email", accessor: "buyerEmail" },
     { header: "Status", accessor: "status" },
     { header: "Amount", accessor: "amount" },
-    { header: "Date", accessor: "Date" },
+    { header: "Date", accessor: "created_at" },
     { header: "", accessor: "id" },
   ];
 
