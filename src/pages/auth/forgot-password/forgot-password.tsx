@@ -7,6 +7,7 @@ import { Controller, useForm } from "react-hook-form";
 import Input from "../../../components/input";
 import { useState } from "react";
 import Reset from "./reset";
+import { showToast } from "../../../components/toast";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -21,6 +22,13 @@ const ForgotPassword = () => {
     const [response] = await makeRequest(userEmail);
     if (response.status) {
       setSuccess(true);
+      showToast(response.message, true, {
+        position: "top-center",
+      });
+    } else{
+      showToast(response.message, false, {
+        position: "top-center",
+      });
     }
   });
 

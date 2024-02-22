@@ -8,6 +8,7 @@ import { CircleLoader } from "react-spinners";
 import Logo from "../../assets/Logo Desktop.svg";
 import Visible from "../../assets/Eye.svg";
 import Invisible from "../../assets/eye-regular.svg";
+import { showToast } from "../../components/toast";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -29,13 +30,18 @@ const Login = () => {
       email: formData.email,
       password: formData.password,
     };
-
     const [response] = await makeRequest(user);
     if (response.status) {
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response?.data?.user));
+      showToast(response.message, true, {
+        position: "top-center",
+      });
       navigate("/")
     } else {
+      showToast(response.message, false, {
+        position: "top-center",
+      });
       navigate("/login")
     }
   });
