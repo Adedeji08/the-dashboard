@@ -1,7 +1,7 @@
 import React from 'react'
 import Icon from "../../assets/icons";
 
-interface Stat {
+interface Statistics {
   totalTransactions: number;
   pendingTransactions: number;
   completedTransactions: number;
@@ -9,7 +9,7 @@ interface Stat {
 }
 
 interface TransactionCardsProps {
-  stat: Stat;
+  statistics: Statistics;
 }
 
 const TransactionCard = ({ title, icon, value }: any) => {
@@ -25,29 +25,29 @@ const TransactionCard = ({ title, icon, value }: any) => {
   )
 }
 
-export const TransactionCards = ({stat}: TransactionCardsProps) => {
-  console.log('stat', stat)
+export const TransactionCards = ({statistics}: TransactionCardsProps) => {
+  console.log('statistics', statistics)
   return (
     <div className="grid lg:grid-cols-4 gap-8 mt-7 w-[95%] ">
       <TransactionCard
         title="Total transactions"
         icon="transact"
-        value={stat?.totalTransactions ? stat?.totalTransactions : 0}
+        value={statistics?.totalTransactions ? statistics?.totalTransactions : 0}
       />
       <TransactionCard
         title="Pending transactions"
         icon="transact"
-        value={stat?.pendingTransactions ? stat?.pendingTransactions : 0}
+        value={statistics?.pendingTransactions ? statistics?.pendingTransactions : 0}
       />
       <TransactionCard
         title="Completed transactions"
         icon="transact"
-        value={stat?.completedTransactions ? stat?.completedTransactions : 0}
+        value={statistics?.completedTransactions ? statistics?.completedTransactions : 0}
       />
       <TransactionCard
         title="Pending payouts"
         icon="transact"
-        value={stat?.pendingPayoutsp ? stat?.pendingPayoutsp : 0}
+        value={statistics?.pendingPayoutsp ? statistics?.pendingPayoutsp : 0}
       />
     </div>
   )

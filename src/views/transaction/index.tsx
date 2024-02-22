@@ -15,7 +15,7 @@ const Transaction = () => {
     "payment" | "withdrawal" | "refund"
   >("payment");
   const [data, setData] = useState<UserData[]>([]);
-  const [stat, setStat] = useState([]);
+  const [statistics, setStatistics] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const userToken = localStorage.getItem("token");
   const [selectedStatus, setSelectedStatus] = useState<string>("successful");
@@ -51,7 +51,7 @@ const Transaction = () => {
   useEffect(() => {
     const fetchData = async () => {
       const [response] = await getStat();
-      setStat(response.data);
+      setStatistics(response.data);
     };
 
     fetchData();
@@ -92,7 +92,7 @@ const Transaction = () => {
       {activeTab === "payment" && (
         <Payments
           data={data}
-          stat={stat}
+          statistics={statistics}
           selectedStatus={selectedStatus}
           handleStatusChange={handleStatusChange}
         />
@@ -101,7 +101,7 @@ const Transaction = () => {
       {activeTab === "withdrawal" && (
         <Withdrawal
           data={data}
-          stat={stat}
+          statistics={statistics}
           selectedStatus={selectedStatus}
           handleStatusChange={handleStatusChange}
         />
@@ -110,7 +110,7 @@ const Transaction = () => {
       {activeTab === "refund" && (
         <Refund
           data={data}
-          stat={stat}
+          statistics={statistics}
           selectedStatus={selectedStatus}
           handleStatusChange={handleStatusChange}
         />

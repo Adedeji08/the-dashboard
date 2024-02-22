@@ -135,7 +135,7 @@ const Details: React.FC<DetailsProps> = ({ account }) => {
           </p>
         </div>
 
-        <div className="flex justify-center items-center mt-10 px-6">
+        <div className="flex flex-col gap-6 mt-10 px-6">
           <Button
             size="lg"
             variant="secondary"
@@ -148,14 +148,13 @@ const Details: React.FC<DetailsProps> = ({ account }) => {
               "Suspend account"
             )}
           </Button>
-        </div>
-
-        <div className="flex justify-center items-center mt-5 px-6">
+          
           <Button
             size="lg"
             variant="primary"
             type="submit"
             onClick={handleLockClick}
+            className="mt-5"
           >
             {loading ? (
               <CircleLoader color="#ffffff" loading={loading} size={20} />

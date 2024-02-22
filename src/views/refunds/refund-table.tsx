@@ -34,8 +34,6 @@ const RefundTable = () => {
         <span className="text-[14px] font-medium">Filter by: </span>
         <select
           className="border text-[12px] px-3 py-1 rounded bg-[#0979A1] text-white"
-        //   value={selectedStatus}
-        //   onChange={handleStatusChange}
         >
           <option value="successful">Successful</option>
           <option value="pending">Pending</option>

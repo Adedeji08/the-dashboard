@@ -1,7 +1,7 @@
 import React from 'react'
 import Icon from "../../assets/icons";
 
-interface Stat {
+interface Statistics {
   all: number;
   active: number;
   suspended: number;
@@ -9,7 +9,7 @@ interface Stat {
 }
 
 interface AccountCardsProps {
-  stat: Stat;
+  statistics: Statistics;
 }
 
 const AccountCard = ({ title, icon, value }: any) => {
@@ -25,28 +25,28 @@ const AccountCard = ({ title, icon, value }: any) => {
   )
 }
 
-export const AccountCards = ({stat}: AccountCardsProps) => {
+export const AccountCards = ({statistics}: AccountCardsProps) => {
   return (
     <div className="grid lg:grid-cols-4 gap-8 mt-7 w-[95%] ">
       <AccountCard
         title="Signed up accounts"
         icon="personIcon"
-        value={stat?.all ? stat?.all : 0}
+        value={statistics?.all ? statistics?.all : 0}
       />
       <AccountCard
         title="Active accounts"
         icon="personIcon"
-        value={stat?.active ? stat?.active : 0}
+        value={statistics?.active ? statistics?.active : 0}
       />
       <AccountCard
         title="Suspended accounts"
         icon="personIcon"
-        value={stat?.suspended ? stat?.suspended : 0}
+        value={statistics?.suspended ? statistics?.suspended : 0}
       />
       <AccountCard
         title="Locked accounts"
         icon="personIcon"
-        value={stat?.locked ? stat?.locked : 0}
+        value={statistics?.locked ? statistics?.locked : 0}
       />
     </div>
   )

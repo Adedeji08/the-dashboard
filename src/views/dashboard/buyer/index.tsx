@@ -4,10 +4,10 @@ import { AccountCards } from "../../../components/cards/account-card";
 
 
 
-const Buyer = ({ data, stat, selectedStatus, handleStatusChange }: any) => {
+const Buyer = ({ data, statistics, selectedStatus, handleStatusChange }: any) => {
   return (
     <div>
-      <AccountCards stat={stat} />
+      <AccountCards statistics={statistics} />
       <UserTable data={data} selectedStatus={selectedStatus} handleStatusChange={handleStatusChange} />
     </div>
   );

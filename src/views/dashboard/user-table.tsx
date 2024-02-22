@@ -43,10 +43,7 @@ const UserTable = ({ data, selectedStatus, handleStatusChange }: any) => {
             <option value="inactive">Inactive</option>
             <option value="blocked">Blocked</option>
           </select>
-          <button className="text-[12px] border px-3 py-1 rounded">
-            {" "}
-            1 day ago{" "}
-          </button>
+         
         </div>
       </div>
 
