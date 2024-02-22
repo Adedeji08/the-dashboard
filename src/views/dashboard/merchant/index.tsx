@@ -1,11 +1,11 @@
 import React from "react";
 import UserTable from "../user-table";
-import Cards from "../cards";
+import { AccountCards } from "../../../components/cards/account-card";
 
 const Merchant = ({data, stat, selectedStatus, handleStatusChange}: any) => {
   return (
     <div>
-      <Cards  stat={stat}/>
+      <AccountCards  stat={stat}/>
       <UserTable data={data} selectedStatus={selectedStatus} handleStatusChange={handleStatusChange} />
     </div>
   );

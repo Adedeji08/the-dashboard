@@ -9,6 +9,7 @@ type IconName =
   | "notificationIcon"
   | "arrowLeft"
   | "cancel"
+  | "transact"
 
 interface IconProps {
   name: IconName;
@@ -273,8 +274,49 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
           />
         </svg>
       );
-  
-      default:
+
+    case "transact":
+      return (
+        <svg
+        className={className}
+          width="50"
+          height="50"
+          viewBox="0 0 50 50"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="25" cy="25" r="25" fill="#0979A1" />
+          <circle
+            cx="25"
+            cy="25"
+            r="24.5"
+            stroke="#6A6A6A"
+            stroke-opacity="0.2"
+          />
+          <path
+            d="M19.73 32.7C20.55 31.82 21.8 31.89 22.52 32.85L23.53 34.2C24.34 35.27 25.65 35.27 26.46 34.2L27.47 32.85C28.19 31.89 29.44 31.82 30.26 32.7C32.04 34.6 33.49 33.97 33.49 31.31V20.04C33.5 16.01 32.56 15 28.78 15H21.22C17.44 15 16.5 16.01 16.5 20.04V31.3C16.5 33.97 17.96 34.59 19.73 32.7Z"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M21 20H29"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M22 24H28"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+    default:
       return null;
   }
 };
