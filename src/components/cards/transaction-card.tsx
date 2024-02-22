@@ -26,7 +26,6 @@ const TransactionCard = ({ title, icon, value }: any) => {
 }
 
 export const TransactionCards = ({statistics}: TransactionCardsProps) => {
-  console.log('statistics', statistics)
   return (
     <div className="grid lg:grid-cols-4 gap-8 mt-7 w-[95%] ">
       <TransactionCard
