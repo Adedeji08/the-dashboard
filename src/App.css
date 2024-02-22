@@ -127,4 +127,26 @@
   .Toastify__progress-bar--bg{
     display: none !important;
   }
+
+  /* PAGINATION */
+  .pagination {
+    margin-top: 20px;
+  }
+  
+  .pagination ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .pagination ul li {
+    display: inline-block;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  
+  .pagination ul li.active {
+    font-weight: bold;
+  }
+  
   

@@ -4,9 +4,10 @@ import Buyer from "./buyer";
 import Merchant from "./merchant";
 import useRequest from "../../components/hooks/use-request";
 import Icon from "../../assets/icons";
+import Pagination from "../../components/pagination/pagination";
 
 interface UserData {
- fullname: string;
+  fullname: string;
 }
 
 const Dashboard = () => {
@@ -19,42 +20,50 @@ const Dashboard = () => {
   const { makeRequest } = useRequest("/users", "GET", {
     Authorization: `Bearer ${userToken}`,
   });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const itemsPerPage = 20;
 
   const { makeRequest: getStat } = useRequest("/users/statistics", "GET", {
     Authorization: `Bearer ${userToken}`,
   });
+
 
   useEffect(() => {
     fetchData();
   }, [activeTab, searchQuery, selectedStatus]);
 
   const fetchData = async () => {
-    const [response] = await makeRequest(undefined, { 
+    const [response] = await makeRequest(undefined, {
       userType: activeTab,
       search: searchQuery,
       status: selectedStatus,
     });
     setData(response.data?.users || []);
   };
+  
 
-const handleSearchChange = (event:any) => {
-  setSearchQuery(event.target.value);
-};
-
-useEffect(() => {
-  const fetchData = async () => {
-    const [response] = await getStat();
-    setStatistics(response.data);
+  const handleSearchChange = (event: any) => {
+    setSearchQuery(event.target.value);
   };
 
-  fetchData();
-}, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const [response] = await getStat();
+      setStatistics(response.data);
+    };
 
-const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  setSelectedStatus(event.target.value);
-};
+    fetchData();
+  }, []);
 
+  const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedStatus(event.target.value);
+  };
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    fetchData()
+  };
 
   return (
     <>
@@ -82,7 +91,6 @@ const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
           <Icon name="msgIcon" />
           <Icon name="notificationIcon" />
         </section>
-
       </div>
       <Tabs
         activeTab={activeTab}
@@ -90,9 +98,29 @@ const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setActiveTab={setActiveTab}
       />
       <div>
-        {activeTab === "merchant" && <Merchant data={data} statistics={statistics} selectedStatus={selectedStatus} handleStatusChange={handleStatusChange}  />}
-        {activeTab === "buyer" && <Buyer data={data} statistics={statistics} selectedStatus={selectedStatus} handleStatusChange={handleStatusChange} />}
+        {activeTab === "merchant" && (
+          <Merchant
+            data={data}
+            statistics={statistics}
+            selectedStatus={selectedStatus}
+            handleStatusChange={handleStatusChange}
+          />
+        )}
+        {activeTab === "buyer" && (
+          <Buyer
+            data={data}
+            statistics={statistics}
+            selectedStatus={selectedStatus}
+            handleStatusChange={handleStatusChange}
+          />
+        )}
       </div>
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </>
   );
 };
