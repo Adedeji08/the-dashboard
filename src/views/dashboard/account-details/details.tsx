@@ -54,6 +54,15 @@ const Details: React.FC<DetailsProps> = ({ account }) => {
     setLockModalVisible(true);
   };
 
+  const Details = ({ title, value, img }: any) => {
+    return (
+      <div className="flex justify-between px-6 mt-4">
+        <p>{title}</p>
+        <p className="text-left">{value}</p>
+      </div>
+    );
+  };
+
   return (
     <div className="flex justify-between gap-10">
       <div className=" bg-white border border-[#fff] mt-10 pt-7 rounded-lg w-full">
@@ -67,59 +76,60 @@ const Details: React.FC<DetailsProps> = ({ account }) => {
           />
         </div>
 
-        <div className="flex justify-between px-6 mt-4">
-          <p className="">Full Name:</p>
-          <p className="">
-            {capitalizeFirstLetter(
-              account?.fullname ? account?.fullname : "N/A"
-            )}
-          </p>
-        </div>
+        <Details
+          title="Full Name:"
+          value={capitalizeFirstLetter(
+            account?.fullname ? account?.fullname : "N/A"
+          )}
+        />
 
-        <div className="flex justify-between px-6 mt-4">
-          <p className="">Phone number:</p>
-          <p className="text-left">{account?.phone ? account?.phone : "N/A"}</p>
-        </div>
+        <Details
+          title="Full Name:"
+          value={capitalizeFirstLetter(
+            account?.fullname ? account?.fullname : "N/A"
+          )}
+        />
 
-        <div className="flex justify-between px-6 mt-4">
-          <p className="">Email Address:</p>
-          <p className="">{account?.email ? account?.email : "N/A"}</p>
-        </div>
+        <Details
+          title="Phone number:"
+          value={account?.phone ? account?.phone : "N/A"}
+        />
 
-        <div className="flex justify-between px-6 mt-4">
-          <p className="">Social media platform:</p>
-          <p className="">
-            {account?.socialMediaPlatform
-              ? account?.socialMediaPlatform
-              : "N/A"}
-          </p>
-        </div>
+        <Details
+          title="Email address:"
+          value={account?.email ? account?.email : "N/A"}
+        />
 
-        <div className="flex justify-between px-6 mt-4">
-          <p className="">Social media handle:</p>
-          <p className="">
-            {account?.socialMediaHandle ? account?.socialMediaHandle : "N/A"}
-          </p>
-        </div>
+        <Details
+          title="Social media platform:"
+          value={
+            account?.socialMediaPlatform ? account?.socialMediaPlatform : "N/A"
+          }
+        />
 
-        <div className="flex justify-between px-6 mt-4">
-          <p className="">Bank name:</p>
-          <p className="">{account?.bankName ? account?.bankName : "N/A"}</p>
-        </div>
+        <Details
+          title="Social media handle:"
+          value={
+            account?.socialMediaHandle ? account?.socialMediaHandle : "N/A"
+          }
+        />
 
-        <div className="flex justify-between px-6 mt-4">
-          <p className="">Bank account number:</p>
-          <p className="">
-            {account?.bankAccountNumber ? account?.bankAccountNumber : "N/A"}
-          </p>
-        </div>
+        <Details
+          title="Bank name:"
+          value={account?.bankName ? account?.bankName : "N/A"}
+        />
 
-        <div className="flex justify-between px-6 mt-4">
-          <p className="">Date Joined:</p>
-          <p className="">
-            {formatDate(account?.created_at ? account?.created_at : "N/A")}
-          </p>
-        </div>
+        <Details
+          title="Bank account number:"
+          value={
+            account?.bankAccountNumber ? account?.bankAccountNumber : "N/A"
+          }
+        />
+
+        <Details
+          title="Date Joined:"
+          value={formatDate(account?.created_at ? account?.created_at : "N/A")}
+        />
 
         <div className="flex justify-between px-6 mt-4">
           <p className="">Account status:</p>
@@ -148,7 +158,7 @@ const Details: React.FC<DetailsProps> = ({ account }) => {
               "Suspend account"
             )}
           </Button>
-          
+
           <Button
             size="lg"
             variant="primary"
