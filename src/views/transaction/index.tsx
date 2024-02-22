@@ -15,10 +15,14 @@ const Transaction = () => {
     "payment" | "withdrawal" | "refund"
   >("payment");
   const [data, setData] = useState<UserData[]>([]);
+  const [stat, setStat] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const userToken = localStorage.getItem("token");
   const [selectedStatus, setSelectedStatus] = useState<string>("successful");
   const { makeRequest } = useRequest("/transactions", "GET", {
+    Authorization: `Bearer ${userToken}`,
+  });
+  const { makeRequest: getStat } = useRequest("/transactions/statistics", "GET", {
     Authorization: `Bearer ${userToken}`,
   });
 
@@ -42,6 +46,16 @@ const Transaction = () => {
   const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedStatus(event.target.value);
   };
+
+  //Statistics
+  useEffect(() => {
+    const fetchData = async () => {
+      const [response] = await getStat();
+      setStat(response.data);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -78,6 +92,7 @@ const Transaction = () => {
       {activeTab === "payment" && (
         <Payments
           data={data}
+          stat={stat}
           selectedStatus={selectedStatus}
           handleStatusChange={handleStatusChange}
         />
@@ -86,6 +101,7 @@ const Transaction = () => {
       {activeTab === "withdrawal" && (
         <Withdrawal
           data={data}
+          stat={stat}
           selectedStatus={selectedStatus}
           handleStatusChange={handleStatusChange}
         />
@@ -94,6 +110,7 @@ const Transaction = () => {
       {activeTab === "refund" && (
         <Refund
           data={data}
+          stat={stat}
           selectedStatus={selectedStatus}
           handleStatusChange={handleStatusChange}
         />
