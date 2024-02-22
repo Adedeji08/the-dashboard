@@ -1,6 +1,17 @@
 import React from 'react'
 import Icon from "../../assets/icons";
 
+interface Stat {
+  all: number;
+  active: number;
+  suspended: number;
+  locked: number;
+}
+
+interface AccountCardsProps {
+  stat: Stat;
+}
+
 const AccountCard = ({ title, icon, value }: any) => {
   return (
     <section className="bg-white rounded-md border border-[#fff]">
@@ -14,7 +25,7 @@ const AccountCard = ({ title, icon, value }: any) => {
   )
 }
 
-export const AccountCards = ({stat}: any) => {
+export const AccountCards = ({stat}: AccountCardsProps) => {
   return (
     <div className="grid lg:grid-cols-4 gap-8 mt-7 w-[95%] ">
       <AccountCard

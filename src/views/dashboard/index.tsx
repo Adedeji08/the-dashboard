@@ -26,7 +26,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchData();
-  }, [activeTab, searchQuery]);
+  }, [activeTab, searchQuery, selectedStatus]);
 
   const fetchData = async () => {
     const [response] = await makeRequest(undefined, { 
@@ -53,6 +53,7 @@ useEffect(() => {
 const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
   setSelectedStatus(event.target.value);
 };
+
 
 
   return (

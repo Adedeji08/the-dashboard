@@ -4,6 +4,7 @@ import DashboardDefault from "../views/dashboard";
 import AccountDetails from "../views/dashboard/account-details";
 import Refund from "../views/refunds";
 import Transaction from "../views/transaction";
+import TransactionDetails from "../views/transaction/transaction-details";
 
 
 const MainRoutes = {
@@ -29,6 +30,10 @@ const MainRoutes = {
     {
       path: "/refunds",
       element: <Refund />,
+    },
+    {
+      path: "/transaction/details/:id",
+      element: <TransactionDetails />,
     },
   ],
 };
