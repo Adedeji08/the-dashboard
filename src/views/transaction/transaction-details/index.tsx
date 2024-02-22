@@ -23,7 +23,6 @@ const TransactionDetails = () => {
     fetchData();
   }, []);
 
-  console.log('data', data)
   return (
     <>
       <div className="flex gap-5 mt-5">
