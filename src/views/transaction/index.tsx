@@ -24,12 +24,12 @@ const Transaction = () => {
 
   useEffect(() => {
     fetchData();
-  }, [activeTab, searchQuery]);
+  }, [activeTab, searchQuery, selectedStatus]);
 
   const fetchData = async () => {
     const [response] = await makeRequest(undefined, {
+      email: searchQuery,
       type: activeTab,
-      userEmail: searchQuery,
       status: selectedStatus,
     });
     setData(response.data?.transactions || []);

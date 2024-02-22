@@ -2,7 +2,10 @@ import MainLayout from "../layout/main-layout";
 import AuthGuard from "../utilities/constant/private-route";
 import DashboardDefault from "../views/dashboard";
 import AccountDetails from "../views/dashboard/account-details";
+import Refund from "../views/refunds";
 import Transaction from "../views/transaction";
+import TransactionDetails from "../views/transaction/transaction-details";
+
 
 const MainRoutes = {
   path: "/",
@@ -23,6 +26,14 @@ const MainRoutes = {
     {
       path: "/transactions",
       element: <Transaction />,
+    },
+    {
+      path: "/refunds",
+      element: <Refund />,
+    },
+    {
+      path: "/transaction/details/:id",
+      element: <TransactionDetails />,
     },
   ],
 };

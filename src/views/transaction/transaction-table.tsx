@@ -11,7 +11,7 @@ const TransactionTable = ({ data, selectedStatus, handleStatusChange }: any) => 
     { header: "Buyer’s Email", accessor: "buyerEmail" },
     { header: "Status", accessor: "status" },
     { header: "Amount", accessor: "amount" },
-    { header: "Date", accessor: "Date" },
+    { header: "Date", accessor: "created_at" },
     { header: "", accessor: "id" },
   ];
 
@@ -26,8 +26,15 @@ const TransactionTable = ({ data, selectedStatus, handleStatusChange }: any) => 
   }, [data, selectedStatus]);
 
   const handleUserClick = (id: string) => {
-    navigate(`/account/details/${id}`)
+    navigate(`/transaction/details/${id}`)
   };
+
+  const mappedData = filteredData.map((transaction: any) => ({
+    ...transaction,
+    orderId: transaction.order.orderId,
+    buyerEmail: transaction.order.buyerEmail,
+    merchantEmail: transaction.order.merchantEmail,
+  }));
 
   return (
     <div className="rounded-md py-3 px-3 bg-white border border-[#fff] mt-10 w-[95%] pt-5 ">
@@ -48,7 +55,7 @@ const TransactionTable = ({ data, selectedStatus, handleStatusChange }: any) => 
       </div>
 
       {filteredData.length > 0 ? (
-        <Table columns={columns} data={filteredData} selectedUserId={null} onUserClick={handleUserClick} />
+        <Table columns={columns} data={mappedData} selectedUserId={null} onUserClick={handleUserClick} />
       ) : (
         <h1 className="text-[30px] text-center text-gray-500 opacity-80 mt-10 font-bold">No data available</h1>
       )}

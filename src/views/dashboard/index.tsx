@@ -11,7 +11,7 @@ interface UserData {
 
 const Dashboard = () => {
   const [data, setData] = useState<UserData[]>([]);
-  const [stat, setStat] = useState([]);
+  const [statistics, setStatistics] = useState([]);
   const [activeTab, setActiveTab] = useState<"merchant" | "buyer">("merchant");
   const [searchQuery, setSearchQuery] = useState("");
   const userToken = localStorage.getItem("token");
@@ -26,7 +26,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchData();
-  }, [activeTab, searchQuery]);
+  }, [activeTab, searchQuery, selectedStatus]);
 
   const fetchData = async () => {
     const [response] = await makeRequest(undefined, { 
@@ -44,7 +44,7 @@ const handleSearchChange = (event:any) => {
 useEffect(() => {
   const fetchData = async () => {
     const [response] = await getStat();
-    setStat(response.data);
+    setStatistics(response.data);
   };
 
   fetchData();
@@ -53,6 +53,7 @@ useEffect(() => {
 const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
   setSelectedStatus(event.target.value);
 };
+
 
 
   return (
@@ -89,8 +90,8 @@ const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setActiveTab={setActiveTab}
       />
       <div>
-        {activeTab === "merchant" && <Merchant data={data} stat={stat} selectedStatus={selectedStatus} handleStatusChange={handleStatusChange}  />}
-        {activeTab === "buyer" && <Buyer data={data} stat={stat} selectedStatus={selectedStatus} handleStatusChange={handleStatusChange} />}
+        {activeTab === "merchant" && <Merchant data={data} statistics={statistics} selectedStatus={selectedStatus} handleStatusChange={handleStatusChange}  />}
+        {activeTab === "buyer" && <Buyer data={data} statistics={statistics} selectedStatus={selectedStatus} handleStatusChange={handleStatusChange} />}
       </div>
     </>
   );

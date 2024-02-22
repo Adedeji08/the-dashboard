@@ -15,10 +15,11 @@ const DashboardLayout = () => {
       sidebarBackgroundCheck === "" ||
       sidebarBackgroundCheck === "dashboard" ||
       sidebarBackgroundCheck === "transactions" ||
-      sidebarBackgroundCheck === "mediation" ||
       sidebarBackgroundCheck === "mediation-request" ||
       sidebarBackgroundCheck === "recommendation" ||
-      sidebarBackgroundCheck === "account"
+      sidebarBackgroundCheck === "account" ||
+      sidebarBackgroundCheck === "refunds" ||
+      sidebarBackgroundCheck === "transaction"
     ) {
       setSidebarOpen(true);
     } else {
