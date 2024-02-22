@@ -20,8 +20,6 @@ const Refund = () => {
               className="outline-none border-none w-[80%] bg-transparent"
               id="input-placeholder"
               placeholder="Search for name"
-              // value={searchQuery}
-              // onChange={handleSearchChange}
             />
           </div>
           <Icon name="msgIcon" />
