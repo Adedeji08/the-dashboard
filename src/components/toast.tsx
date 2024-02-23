@@ -24,9 +24,7 @@ const Toast: React.FC<ToastProps> = () => {
   };
 
   return (
-    <>
       <ToastContainer {...defaultOptions} style={containerStyle} className="toast-message-container" />
-    </>
   );
 };
 
