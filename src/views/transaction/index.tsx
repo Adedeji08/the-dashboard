@@ -52,8 +52,6 @@ const Transaction = () => {
     setTotalPages(Math.ceil(response.data?.totalPages / itemsPerPage));
   };
 
-  console.log("totalPages", totalPages);
-
   const handleSearchChange = (event: any) => {
     setSearchQuery(event.target.value);
   };
