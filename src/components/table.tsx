@@ -16,6 +16,8 @@ interface TableProps {
   columns: TableColumn[];
   data: TableRow[];
   selectedUserId: string | null; 
+  currentPage?: number | null;
+  onPageChange?: number | null;
   onUserClick: (id: string) => void;
 }
 

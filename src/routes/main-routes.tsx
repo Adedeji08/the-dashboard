@@ -1,5 +1,6 @@
 import MainLayout from "../layout/main-layout";
 import AuthGuard from "../utilities/constant/private-route";
+import BlackList from "../views/blacklist";
 import DashboardDefault from "../views/dashboard";
 import AccountDetails from "../views/dashboard/account-details";
 import Refund from "../views/refunds";
@@ -34,6 +35,10 @@ const MainRoutes = {
     {
       path: "/transaction/details/:id",
       element: <TransactionDetails />,
+    },
+    {
+      path: "/blacklist",
+      element: <BlackList />,
     },
   ],
 };
