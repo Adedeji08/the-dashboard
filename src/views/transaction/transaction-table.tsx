@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Table from "../../components/table";
 import { useNavigate } from "react-router-dom";
 
-const TransactionTable = ({ data, selectedStatus, handleStatusChange }: any) => {
+const TransactionTable = ({ data, selectedStatus, handleStatusChange, currentPage, onPageChange }: any) => {
   const navigate = useNavigate()
   const [filteredData, setFilteredData] = useState([]);
   const columns = [
