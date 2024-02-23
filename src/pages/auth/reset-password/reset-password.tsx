@@ -8,6 +8,7 @@ import { useState } from "react";
 import Success from "./success";
 import Visible from "../../../assets/Eye.svg";
 import Invisible from "../../../assets/eye-regular.svg";
+import { showToast } from "../../../components/toast";
 
 const ResetPassword = () => {
   const { loading, makeRequest } = useRequest("/users/reset-password", "PUT");
@@ -46,6 +47,14 @@ const ResetPassword = () => {
     const [response] = await makeRequest(userReset);
     if (response.status) {
       setSuccess(true);
+      showToast(response.message, true, {
+        position: "top-center",
+      });
+    }
+    else{
+      showToast(response.message, false, {
+        position: "top-center",
+      });
     }
   });
 
