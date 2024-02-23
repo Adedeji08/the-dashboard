@@ -50,7 +50,7 @@ const Transaction = () => {
       page,
     });
     setData(response.data?.transactions || []);
-    setTotalPages(Math.ceil(response.data?.totalPages / itemsPerPage));
+    setTotalPages(Math.ceil(response.data?.totalPages));
   };
 
   const handleSearchChange = (event: any) => {

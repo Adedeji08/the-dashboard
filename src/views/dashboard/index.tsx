@@ -22,7 +22,7 @@ const Dashboard = () => {
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState<number>(1);
-  const itemsPerPage = 20;
+  const itemsPerPage = 10;
 
   const { makeRequest: getStat } = useRequest("/users/statistics", "GET", {
     Authorization: `Bearer ${userToken}`,
@@ -34,13 +34,19 @@ const Dashboard = () => {
   }, [activeTab, searchQuery, selectedStatus]);
 
   const fetchData = async () => {
+    const page = currentPage
+    const limit = itemsPerPage;
     const [response] = await makeRequest(undefined, {
       userType: activeTab,
       search: searchQuery,
       status: selectedStatus,
+      page,
+      limit,
     });
     setData(response.data?.users || []);
+    setTotalPages(Math.ceil(response.data?.totalPages ));
   };
+
   
 
   const handleSearchChange = (event: any) => {

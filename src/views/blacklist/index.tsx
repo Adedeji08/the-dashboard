@@ -20,7 +20,7 @@ const BlackList = () => {
   const userToken = localStorage.getItem("token");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState<number>(1);
-  const itemsPerPage = 20;
+  const itemsPerPage = 10;
   const { makeRequest: getReports } = useRequest("/reports", "GET", {
     Authorization: `Bearer ${userToken}`,
   });
@@ -47,7 +47,7 @@ const BlackList = () => {
         page,
       });
       setData(response.data?.reports || []);
-      setTotalPages(Math.ceil(response.data?.totalPages / itemsPerPage));
+      setTotalPages(Math.ceil(response.data?.totalPages));
     } else if (activeTab === "blacklist") {
       const [response] = await getBlacklist(undefined, {
         search: searchQuery,
@@ -55,7 +55,7 @@ const BlackList = () => {
         page,
       });
       setBlacklist(response.data?.blacklists || []);
-      setTotalPages(Math.ceil(response.data?.totalPages / itemsPerPage));
+      setTotalPages(Math.ceil(response.data?.totalPages));
     }
   };
 
