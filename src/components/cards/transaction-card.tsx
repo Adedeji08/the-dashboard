@@ -1,6 +1,17 @@
 import React from 'react'
 import Icon from "../../assets/icons";
 
+interface Statistics {
+  totalTransactions: number;
+  pendingTransactions: number;
+  completedTransactions: number;
+  pendingPayoutsp: number;
+}
+
+interface TransactionCardsProps {
+  statistics: Statistics;
+}
+
 const TransactionCard = ({ title, icon, value }: any) => {
   return (
     <section className="bg-white rounded-md border border-[#fff]">
@@ -14,28 +25,28 @@ const TransactionCard = ({ title, icon, value }: any) => {
   )
 }
 
-export const TransactionCards = ({stat}: any) => {
+export const TransactionCards = ({statistics}: TransactionCardsProps) => {
   return (
     <div className="grid lg:grid-cols-4 gap-8 mt-7 w-[95%] ">
       <TransactionCard
         title="Total transactions"
         icon="transact"
-        value={stat?.all ? stat?.all : 0}
+        value={statistics?.totalTransactions ? statistics?.totalTransactions : 0}
       />
       <TransactionCard
         title="Pending transactions"
         icon="transact"
-        value={stat?.active ? stat?.active : 0}
+        value={statistics?.pendingTransactions ? statistics?.pendingTransactions : 0}
       />
       <TransactionCard
         title="Completed transactions"
         icon="transact"
-        value={stat?.suspended ? stat?.suspended : 0}
+        value={statistics?.completedTransactions ? statistics?.completedTransactions : 0}
       />
       <TransactionCard
         title="Pending payouts"
         icon="transact"
-        value={stat?.locked ? stat?.locked : 0}
+        value={statistics?.pendingPayoutsp ? statistics?.pendingPayoutsp : 0}
       />
     </div>
   )
