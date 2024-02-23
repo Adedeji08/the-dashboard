@@ -1,14 +1,27 @@
-import React from 'react'
-import TransactionTable from '../transaction-table'
-import { TransactionCards } from '../../../components/cards/transaction-card'
+import React from "react";
+import TransactionTable from "../transaction-table";
+import { TransactionCards } from "../../../components/cards/transaction-card";
 
-const Payments = ({data, statistics, selectedStatus, handleStatusChange, currentPage, handlePageChange}: any) => {
+const Payments = ({
+  data,
+  statistics,
+  selectedStatus,
+  handleStatusChange,
+  currentPage,
+  handlePageChange,
+}: any) => {
   return (
     <div>
-        <TransactionCards statistics={statistics} />
-        <TransactionTable data={data} selectedStatus={selectedStatus} handleStatusChange={handleStatusChange} currentPage={currentPage}onPageChange={handlePageChange}/>
+      <TransactionCards statistics={statistics} />
+      <TransactionTable
+        data={data}
+        selectedStatus={selectedStatus}
+        handleStatusChange={handleStatusChange}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default Payments
+export default Payments;

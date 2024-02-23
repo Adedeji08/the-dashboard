@@ -11,6 +11,7 @@ interface UserData {
   fullname: string;
 }
 
+
 const Transaction = () => {
   const [activeTab, setActiveTab] = useState<
     "payment" | "withdrawal" | "refund"
@@ -36,7 +37,7 @@ const Transaction = () => {
 
   useEffect(() => {
     fetchData();
-  }, [activeTab, searchQuery, selectedStatus]);
+  }, [activeTab, searchQuery, selectedStatus, currentPage]);
 
   const fetchData = async () => {
     const page = (currentPage - 1) * itemsPerPage;
@@ -51,8 +52,6 @@ const Transaction = () => {
     setData(response.data?.transactions || []);
     setTotalPages(Math.ceil(response.data?.totalPages / itemsPerPage));
   };
-
-  console.log("totalPages", totalPages);
 
   const handleSearchChange = (event: any) => {
     setSearchQuery(event.target.value);
