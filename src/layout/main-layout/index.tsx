@@ -19,7 +19,8 @@ const DashboardLayout = () => {
       sidebarBackgroundCheck === "blacklist" ||
       sidebarBackgroundCheck === "account" ||
       sidebarBackgroundCheck === "refunds" ||
-      sidebarBackgroundCheck === "transaction"
+      sidebarBackgroundCheck === "transaction" ||
+      sidebarBackgroundCheck === "report"
     ) {
       setSidebarOpen(true);
     } else {

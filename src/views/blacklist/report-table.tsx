@@ -26,7 +26,7 @@ const ReportTable = ({
   }));
 
   const handleUserClick = (id: string) => {
-    navigate(`/transaction/details/${id}`);
+    navigate(`/report/details/${id}`);
   };
   return (
     <div className="rounded-md py-3 px-3 bg-white border border-[#fff] mt-10 w-[95%] pt-5 ">
