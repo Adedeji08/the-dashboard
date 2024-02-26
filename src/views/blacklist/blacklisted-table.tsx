@@ -26,7 +26,7 @@ const BlacklistedTable = ({
   }));
 
   const handleUserClick = (id: string) => {
-    navigate(`/transaction/details/${id}`);
+    navigate(`/blacklists/report/${id}`);
   };
 
   return (

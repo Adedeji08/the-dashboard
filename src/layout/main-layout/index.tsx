@@ -17,6 +17,7 @@ const DashboardLayout = () => {
       sidebarBackgroundCheck === "transactions" ||
       sidebarBackgroundCheck === "mediation-request" ||
       sidebarBackgroundCheck === "blacklist" ||
+      sidebarBackgroundCheck === "blacklists" ||
       sidebarBackgroundCheck === "account" ||
       sidebarBackgroundCheck === "refunds" ||
       sidebarBackgroundCheck === "transaction" ||

@@ -25,7 +25,7 @@ const ReportDetails = () => {
   const selectedReport = (reports as any[]).find(
     (report) => report.id === id
   );
-  
+
   return (
     <>
       <Back />
