@@ -4,7 +4,6 @@ import {
   formatDate,
 } from "../../../utilities/functions";
 import Button from "../../../components/button";
-import useRequest from "../../../components/hooks/use-request";
 import { useForm } from "react-hook-form";
 import { showToast } from "../../../components/toast";
 
@@ -39,52 +38,9 @@ const Details: React.FC<DetailsProps> = ({ report }) => {
     );
   };
 
-  const userToken = localStorage.getItem("token");
-  const { makeRequest: getApproved } = useRequest(
-    `/reports/blacklist/${report?.id}`,
-    "POST",
-    {
-      userToken,
-    }
-  );
-
-  const { makeRequest: getDeleted } = useRequest(
-    `/reports/blacklist/delete`,
-    "DELETE",
-    {
-      userToken,
-    }
-  );
-
   const { handleSubmit, control, reset } = useForm();
 
-  const handleApproved = handleSubmit(async () => {
-    const [response] = await getApproved();
-    if (response.status) {
-      showToast(response.message, true, {
-        position: "top-center",
-      });
-      window.location.reload();
-    } else {
-      showToast(response.message, false, {
-        position: "top-center",
-      });
-    }
-  });
-
-  const handleDelete = handleSubmit(async () => {
-    const [response] = await getDeleted();
-    if (response.status) {
-      showToast(response.message, true, {
-        position: "top-center",
-      });
-      window.location.reload();
-    } else {
-      showToast(response.message[0], false, {
-        position: "top-center",
-      });
-    }
-  });
+ 
 
   return (
     <section className="w-full border-r-2">
@@ -152,17 +108,24 @@ const Details: React.FC<DetailsProps> = ({ report }) => {
         )}
       />
 
-      <div className="flex gap-8 justify-center items-center mt-5 px-10">
-        <Button size="lg" variant="secondary" type="submit" onClick={handleApproved}>
-          Approve report
-        </Button>
+      <div className="flex justify-between px-10 w-full mt-6">
+        <h1 className="text-[18px] font-semibold">Media</h1>
+        <p className="text-[12px] text-[#0979A1]">
+          View all ({report?.image?.length})
+        </p>
       </div>
 
-      <div className="flex gap-8 justify-center items-center mt-5 px-10">
-        <Button size="lg" variant="secondary" type="button" onClick={handleDelete}>
-          Delete report
-        </Button>
+      <div className="images-container">
+        {Array.isArray(report?.image) &&
+          report?.image.map((img, index) => (
+            <img
+              key={index}
+              src={`data:image/jpeg;base64,${img}`}
+              alt={`Image ${index}`}
+            />
+          ))}
       </div>
+
     </section>
   );
 };

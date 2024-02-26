@@ -31,9 +31,9 @@ const TransactionTable = ({ data, selectedStatus, handleStatusChange, currentPag
 
   const mappedData = filteredData.map((transaction: any) => ({
     ...transaction,
-    orderId: transaction.order.orderId,
-    buyerEmail: transaction.order.buyerEmail,
-    merchantEmail: transaction.order.merchantEmail,
+    orderId: transaction?.order?.orderId ? transaction?.order?.orderId : 'N/A',
+    buyerEmail: transaction?.order?.buyerEmail ? transaction?.order?.buyerEmail: 'N/A',
+    merchantEmail: transaction?.order?.merchantEmail ? transaction?.order?.merchantEmail : 'N/A',
   }));
 
   return (

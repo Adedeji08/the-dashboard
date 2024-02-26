@@ -15,20 +15,31 @@ interface TableRow {
 interface TableProps {
   columns: TableColumn[];
   data: TableRow[];
-  selectedUserId: string | null; 
+  selectedUserId: string | null;
   currentPage?: number | null;
   onPageChange?: number | null;
   onUserClick: (id: string) => void;
 }
 
-const Table: React.FC<TableProps> = ({ columns, data, onUserClick, selectedUserId }) => {
+const Table: React.FC<TableProps> = ({
+  columns,
+  data,
+  onUserClick,
+  selectedUserId,
+}) => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "successful":
         return "#D1FFC9";
+      case "active":
+        return "#D1FFC9";
       case "pending":
         return "#FCCFCF";
       case "failed":
+        return "#D9D9D9";
+      case "blocked":
+        return "#FCCFCF";
+      case "inactive":
         return "#D9D9D9";
       default:
         return "transparent";
@@ -55,13 +66,15 @@ const Table: React.FC<TableProps> = ({ columns, data, onUserClick, selectedUserI
                   formatDate(row[column.accessor])
                 ) : column.accessor === "profilePhoto" ? (
                   <img
-                    src={row[column.accessor] ? row[column.accessor] : PlaceholderImage}
+                    src={
+                      row[column.accessor]
+                        ? row[column.accessor]
+                        : PlaceholderImage
+                    }
                     alt="profile"
                   />
                 ) : column.accessor === "id" ? (
-                  <button 
-                    onClick={() => onUserClick(row["id"])}
-                  >
+                  <button onClick={() => onUserClick(row["id"])}>
                     <Icon name="dotIcon" />
                   </button>
                 ) : column.accessor === "phone" && !row[column.accessor] ? (
