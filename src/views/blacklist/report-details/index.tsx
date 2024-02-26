@@ -26,7 +26,6 @@ const ReportDetails = () => {
     (report) => report.id === id
   );
 
-  console.log('selectedReport', selectedReport)
   return (
     <>
       <Back />

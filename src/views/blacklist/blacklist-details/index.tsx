@@ -19,8 +19,6 @@ const Blacklist = () => {
       };
       fetchData();
     }, []);
-
-    console.log('blacklists', blacklists)
   
     const selectedReport = (blacklists as any[]).find(
       (blacklist) => blacklist.id === id

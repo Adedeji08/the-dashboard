@@ -112,7 +112,7 @@ const ResetPassword = () => {
                 render={({ field, fieldState }) => (
                   <div className="w-full relative">
                     <Input
-                      label="Password"
+                      label="New Password"
                       type={viewPassword ? "text" : "password"}
                       value={field.value}
                       className="w-full mt-3"
@@ -153,7 +153,7 @@ const ResetPassword = () => {
                 render={({ field, fieldState }) => (
                   <div className="w-full relative">
                     <Input
-                      label="New Password"
+                      label="Confirm Password"
                       type={confirmViewPassword ? "text" : "password"}
                       value={field.value}
                       className="w-full mt-3"
