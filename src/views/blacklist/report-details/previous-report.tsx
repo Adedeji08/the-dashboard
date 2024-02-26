@@ -32,7 +32,6 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
   const userToken = localStorage.getItem("token");
   const reportId = report?.id;
   const merchantEmail = report?.reportedMerchant?.email;
-  console.log(reportId)
   const { makeRequest: getApproved } = useRequest(
     `/reports/blacklist/reportId`,
     "POST",
