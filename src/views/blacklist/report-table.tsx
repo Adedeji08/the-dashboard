@@ -14,6 +14,7 @@ const ReportTable = ({
     //   { header: "Case ID", accessor: "orderId" },
     { header: "Email Address", accessor: "email" },
     { header: "Name", accessor: "fullname" },
+    { header: "Status", accessor: "status" },
     { header: "Date", accessor: "created_at" },
     { header: "", accessor: "id" },
   ];
@@ -22,11 +23,12 @@ const ReportTable = ({
     ...report,
     email: report.reportedMerchant.email,
     fullname: report.reportedMerchant.fullname,
+    status: report.reportedMerchant.status,
     created_at: report.reportedMerchant.created_at,
   }));
 
   const handleUserClick = (id: string) => {
-    navigate(`/transaction/details/${id}`);
+    navigate(`/report/details/${id}`);
   };
   return (
     <div className="rounded-md py-3 px-3 bg-white border border-[#fff] mt-10 w-[95%] pt-5 ">
