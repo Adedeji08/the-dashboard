@@ -2,10 +2,10 @@ import React from 'react'
 import Icon from "../../assets/icons";
 
 interface Statistics {
-  all: number;
-  active: number;
-  suspended: number;
-  locked: number;
+  totalReports: number;
+  approvedReports: number;
+  pendingReports: number;
+  cancelledReports: number;
 }
 
 interface ReportCardProps {
@@ -26,27 +26,28 @@ const ReportCard = ({ title, icon, value }: any) => {
 }
 
 export const ReportCards = ({statistics}: ReportCardProps) => {
+  console.log('statsss', statistics)
   return (
     <div className="grid lg:grid-cols-4 gap-8 mt-7 w-[95%] ">
       <ReportCard
         title="All reports"
         icon="personIcon"
-        value={statistics?.all ? statistics?.all : 0}
+        value={statistics?.totalReports ? statistics?.totalReports : 0}
       />
       <ReportCard
         title="Approved reports"
         icon="personIcon"
-        value={statistics?.active ? statistics?.active : 0}
+        value={statistics?.approvedReports ? statistics?.approvedReports : 0}
       />
       <ReportCard
         title="pending reports"
         icon="personIcon"
-        value={statistics?.suspended ? statistics?.suspended : 0}
+        value={statistics?.pendingReports ? statistics?.pendingReports : 0}
       />
       <ReportCard
         title="Cancelled requests"
         icon="personIcon"
-        value={statistics?.locked ? statistics?.locked : 0}
+        value={statistics?.cancelledReports ? statistics?.cancelledReports : 0}
       />
     </div>
   )

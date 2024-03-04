@@ -14,13 +14,24 @@ const BlackList = () => {
   const [activeTab, setActiveTab] = useState<"reports" | "blacklist">(
     "reports"
   );
+
   const [data, setData] = useState<UserData[]>([]);
   const [blacklist, setBlacklist] = useState<UserData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [statistics, setStatistics] = useState([]);
   const userToken = localStorage.getItem("token");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const itemsPerPage = 10;
+
+  const { makeRequest: getStatistics } = useRequest(
+    "/reports/statistic",
+    "GET",
+    {
+      Authorization: `Bearer ${userToken}`,
+    }
+  );
+
   const { makeRequest: getReports } = useRequest("/reports", "GET", {
     Authorization: `Bearer ${userToken}`,
   });
@@ -68,6 +79,15 @@ const BlackList = () => {
     setSearchQuery(event.target.value);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const [response] = await getStatistics();
+      setStatistics(response.data);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <div className="flex justify-between w-[95%]">
@@ -102,7 +122,7 @@ const BlackList = () => {
         setActiveTab={setActiveTab}
       />
 
-      {activeTab === "reports" && <Reports data={data} />}
+      {activeTab === "reports" && <Reports data={data} statistics={statistics} />}
 
       {activeTab === "blacklist" && <BlacklistedReport blacklist={blacklist} />}
 
