@@ -29,7 +29,7 @@ const Blacklist = () => {
       <Back />
       <div className=" bg-white border border-[#fff] mt-10 pt-7 rounded-lg w-full flex">
         <Details blacklist={selectedReport} />
-       <PreviousReport/>
+       <PreviousReport  report={selectedReport}/>
       </div>
     </>
   )
