@@ -6,6 +6,7 @@ import useRequest from "../../../components/hooks/use-request";
 import { showToast } from "../../../components/toast";
 import { Link, useNavigate } from "react-router-dom";
 import Placeholder from "../../../assets/Ellipse 5.svg";
+import { CircleLoader } from "react-spinners";
 
 interface DetailsProps {
   report: {
@@ -52,11 +53,17 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
   const userToken = localStorage.getItem("token");
   const reportId = report?.id;
   const [data, setData] = useState<MerchantDetailsProps[]>([]);
-  const [displayedData, setDisplayedData] = useState<MerchantDetailsProps[]>([]);
+  const [displayedData, setDisplayedData] = useState<MerchantDetailsProps[]>(
+    []
+  );
   const [showAll, setShowAll] = useState(false);
   const merchantEmail = report?.reportedMerchant?.email;
-  const { makeRequest: getApproved } = useRequest( `/reports/blacklist/${reportId}`,"POST",{userToken});
- 
+  const { makeRequest: getApproved, loading } = useRequest(
+    `/reports/blacklist/${reportId}`,
+    "POST",
+    { userToken }
+  );
+
   const { makeRequest: getDeleted } = useRequest(
     `/reports/delete/${reportId}`,
     "DELETE",
@@ -93,7 +100,6 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
     fetchData();
   }, [report?.reportedMerchant?.id]);
 
-
   useEffect(() => {
     if (showAll) {
       setDisplayedData(data);
@@ -120,10 +126,7 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
   });
 
   const handleDelete = async () => {
-    const userEmail = {
-      email: merchantEmail,
-    };
-    const [response] = await getDeleted(userEmail);
+    const [response] = await getDeleted();
     if (response.status) {
       showToast(response.message, true, {
         position: "top-center",
@@ -230,8 +233,12 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
           )}
         />
         <div className="flex gap-8 justify-center items-center mt-5 ">
-          <Button size="lg" variant="primary" type="submit">
-            Approve report
+          <Button size="lg" type="submit" variant="primary">
+            {loading ? (
+              <CircleLoader color="#fff" loading={loading} size={20} />
+            ) : (
+              "Approve report"
+            )}
           </Button>
         </div>
       </form>
@@ -239,11 +246,15 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
       <div className="flex gap-8 justify-center items-center mt-5">
         <Button
           size="lg"
-          variant="secondary"
           type="button"
           onClick={handleDelete}
+          variant="secondary"
         >
-          Delete report
+          {loading ? (
+            <CircleLoader color="#fff" loading={loading} size={20} />
+          ) : (
+            "Delete report"
+          )}
         </Button>
       </div>
     </section>
