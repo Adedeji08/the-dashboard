@@ -4,6 +4,10 @@ import {
   capitalizeFirstLetter,
   formatDate,
 } from "../../../utilities/functions";
+import Button from "../../../components/button";
+import { CircleLoader } from "react-spinners";
+import useRequest from "../../../components/hooks/use-request";
+import { showToast } from "../../../components/toast";
 
 interface DetailsProps {
   blacklist: {
@@ -27,6 +31,13 @@ interface DetailsProps {
 }
 
 const Details: React.FC<DetailsProps> = ({ blacklist }) => {
+  const merchantEmail = blacklist?.merchant?.email;
+  const userToken = localStorage.getItem("token");
+  const { makeRequest: getDeleted, loading } = useRequest(
+    `/reports/blacklist`,
+    "DELETE",
+    { userToken }
+  );
   const Details = ({ title, value, img }: any) => {
     return (
       <div className="flex justify-between px-10 mt-4">
@@ -46,6 +57,22 @@ const Details: React.FC<DetailsProps> = ({ blacklist }) => {
         return "#D9D9D9";
       default:
         return "transparent";
+    }
+  };
+
+  const handleDelete = async () => {
+    const userEmail = {
+      email: merchantEmail,
+    };
+    const [response] = await getDeleted(userEmail);
+    if (response.status) {
+      showToast(response.message, true, {
+        position: "top-center",
+      });
+    } else {
+      showToast(response.message[0], false, {
+        position: "top-center",
+      });
     }
   };
 
@@ -139,6 +166,15 @@ const Details: React.FC<DetailsProps> = ({ blacklist }) => {
         </p>
       </div>
 
+      <div className="flex gap-8 justify-center items-center mt-5 px-8">
+        <Button size="lg" variant="secondary" onClick={handleDelete}>
+          {loading ? (
+            <CircleLoader color="#0979A1" loading={loading} size={20} />
+          ) : (
+            " Reinstate"
+          )}
+        </Button>
+      </div>
     </section>
   );
 };

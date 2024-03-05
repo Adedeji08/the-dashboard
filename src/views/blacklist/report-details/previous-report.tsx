@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Textarea from "../../../components/textarea";
 import { Controller, useForm } from "react-hook-form";
 import Button from "../../../components/button";
 import useRequest from "../../../components/hooks/use-request";
 import { showToast } from "../../../components/toast";
+import { Link, useNavigate } from "react-router-dom";
+import Placeholder from "../../../assets/Ellipse 5.svg";
+import { CircleLoader } from "react-spinners";
 
 interface DetailsProps {
   report: {
@@ -27,34 +30,89 @@ interface DetailsProps {
   };
 }
 
+interface MerchantDetailsProps {
+  id: string;
+  note: string;
+  image: string[];
+  status: string;
+  reportedMerchant: {
+    id: string;
+    fullname: string;
+    email: string;
+    phone: string;
+    socialMediaPlatform: string;
+    socialMediaHandle: string;
+    status: string;
+    profilePhoto: string;
+  };
+}
+
 const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
+  const navigate = useNavigate();
   const { handleSubmit, control, reset } = useForm();
   const userToken = localStorage.getItem("token");
   const reportId = report?.id;
+  const [data, setData] = useState<MerchantDetailsProps[]>([]);
+  const [displayedData, setDisplayedData] = useState<MerchantDetailsProps[]>(
+    []
+  );
+  const [showAll, setShowAll] = useState(false);
   const merchantEmail = report?.reportedMerchant?.email;
-  const { makeRequest: getApproved } = useRequest(
-    `/reports/blacklist/reportId`,
+  const { makeRequest: getApproved, loading } = useRequest(
+    `/reports/blacklist/${reportId}`,
     "POST",
-    {
-      userToken,
-    }
+    { userToken }
   );
 
   const { makeRequest: getDeleted } = useRequest(
-    `/reports/blacklist/delete`,
+    `/reports/delete/${reportId}`,
     "DELETE",
-    {
-      userToken,
-    }
+    { userToken }
   );
+
+  const { makeRequest: getReportId } = useRequest(
+    `/reports/${report?.reportedMerchant?.id}`,
+    "GET",
+    { Authorization: `Bearer ${userToken}` }
+  );
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "active":
+        return "#D1FFC9";
+      case "blocked":
+        return "#FCCFCF";
+      case "inactive":
+        return "#D9D9D9";
+      default:
+        return "transparent";
+    }
+  };
+
+  const fetchData = async () => {
+    if (report?.reportedMerchant?.id) {
+      const [response] = await getReportId();
+      setData(response.data?.report || []);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [report?.reportedMerchant?.id]);
+
+  useEffect(() => {
+    if (showAll) {
+      setDisplayedData(data);
+    } else {
+      setDisplayedData(data.slice(0, 3));
+    }
+  }, [data, showAll]);
 
   const handleApproved = handleSubmit(async (formData) => {
     const UserReason = {
       reason: formData.reason,
     };
-    const [response] = await getApproved(UserReason, {
-      reportId: reportId
-    });
+    const [response] = await getApproved(UserReason);
     if (response.status) {
       showToast(response.message, true, {
         position: "top-center",
@@ -68,10 +126,7 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
   });
 
   const handleDelete = async () => {
-    const userEmail = {
-      email: merchantEmail,
-    };
-    const [response] = await getDeleted(userEmail);
+    const [response] = await getDeleted();
     if (response.status) {
       showToast(response.message, true, {
         position: "top-center",
@@ -81,6 +136,10 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
         position: "top-center",
       });
     }
+  };
+
+  const handleClick = () => {
+    navigate(`/report/details/${reportId}`);
   };
 
   return (
@@ -98,6 +157,54 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
         >
           Send Email
         </Button>
+      </div>
+
+      <div className="flex justify-between mt-10">
+        <h2 className="text-[14px] font-medium">Previous Reports</h2>
+        <p className="text-[12px]">
+          <Link to="/blacklist">see all</Link> ({data?.length})
+        </p>
+      </div>
+
+      <div>
+        {displayedData.map((report, id) => (
+          <div key={id} className="pt-4">
+            <div className="flex gap-5">
+              <img
+                src={
+                  report?.reportedMerchant?.profilePhoto
+                    ? report?.reportedMerchant?.profilePhoto
+                    : Placeholder
+                }
+                width={25}
+                className="rounded-full"
+                alt="photo"
+              />
+              <p
+                className="text-[10px] rounded-md h-6 w-20 text-center pt-1 "
+                style={{
+                  backgroundColor: getStatusColor(
+                    report?.reportedMerchant?.status
+                      ? report?.reportedMerchant?.status
+                      : "N/A"
+                  ),
+                }}
+              >
+                {report?.reportedMerchant?.status}
+              </p>
+            </div>
+
+            <div className="flex gap-5 justify-between pl-14">
+              <p className="text-[14px]">{report?.reportedMerchant?.email}</p>
+              <button
+                onClick={handleClick}
+                className="text-[8px] bg-[#0979A1] text-white rounded-md w-[90px] h-[20px]"
+              >
+                View Details
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
 
       <form onSubmit={handleApproved} className="mt-10">
@@ -126,12 +233,12 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
           )}
         />
         <div className="flex gap-8 justify-center items-center mt-5 ">
-          <Button
-            size="lg"
-            variant="primary"
-            type="submit"
-          >
-            Approve report
+          <Button size="lg" type="submit" variant="primary">
+            {loading ? (
+              <CircleLoader color="#fff" loading={loading} size={20} />
+            ) : (
+              "Approve report"
+            )}
           </Button>
         </div>
       </form>
@@ -139,11 +246,15 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
       <div className="flex gap-8 justify-center items-center mt-5">
         <Button
           size="lg"
-          variant="secondary"
           type="button"
           onClick={handleDelete}
+          variant="secondary"
         >
-          Delete report
+          {loading ? (
+            <CircleLoader color="#0979A1" loading={loading} size={20} />
+          ) : (
+            "Delete report"
+          )}
         </Button>
       </div>
     </section>
