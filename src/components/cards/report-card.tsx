@@ -26,7 +26,6 @@ const ReportCard = ({ title, icon, value }: any) => {
 }
 
 export const ReportCards = ({statistics}: ReportCardProps) => {
-  console.log('statsss', statistics)
   return (
     <div className="grid lg:grid-cols-4 gap-8 mt-7 w-[95%] ">
       <ReportCard
