@@ -31,22 +31,22 @@ export const AccountCards = ({statistics}: AccountCardsProps) => {
       <AccountCard
         title="Signed up accounts"
         icon="personIcon"
-        value={statistics?.all ? statistics?.all : 0}
+        value={statistics?.all || 0}
       />
       <AccountCard
         title="Active accounts"
         icon="personIcon"
-        value={statistics?.active ? statistics?.active : 0}
+        value={statistics?.active || 0}
       />
       <AccountCard
         title="Suspended accounts"
         icon="personIcon"
-        value={statistics?.suspended ? statistics?.suspended : 0}
+        value={statistics?.suspended || 0}
       />
       <AccountCard
         title="Locked accounts"
         icon="personIcon"
-        value={statistics?.locked ? statistics?.locked : 0}
+        value={statistics?.locked || 0}
       />
     </div>
   )

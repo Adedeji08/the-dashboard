@@ -31,22 +31,22 @@ export const ReportCards = ({statistics}: ReportCardProps) => {
       <ReportCard
         title="All reports"
         icon="personIcon"
-        value={statistics?.totalReports ? statistics?.totalReports : 0}
+        value={statistics?.totalReports || 0}
       />
       <ReportCard
         title="Approved reports"
         icon="personIcon"
-        value={statistics?.approvedReports ? statistics?.approvedReports : 0}
+        value={statistics?.approvedReports || 0}
       />
       <ReportCard
         title="pending reports"
         icon="personIcon"
-        value={statistics?.pendingReports ? statistics?.pendingReports : 0}
+        value={statistics?.pendingReports || 0}
       />
       <ReportCard
         title="Cancelled requests"
         icon="personIcon"
-        value={statistics?.cancelledReports ? statistics?.cancelledReports : 0}
+        value={statistics?.cancelledReports  || 0}
       />
     </div>
   )

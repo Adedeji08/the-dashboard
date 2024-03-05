@@ -31,22 +31,22 @@ export const TransactionCards = ({statistics}: TransactionCardsProps) => {
       <TransactionCard
         title="Total transactions"
         icon="transact"
-        value={statistics?.totalTransactions ? statistics?.totalTransactions : 0}
+        value={statistics?.totalTransactions || 0}
       />
       <TransactionCard
         title="Pending transactions"
         icon="transact"
-        value={statistics?.pendingTransactions ? statistics?.pendingTransactions : 0}
+        value={statistics?.pendingTransactions || 0}
       />
       <TransactionCard
         title="Completed transactions"
         icon="transact"
-        value={statistics?.completedTransactions ? statistics?.completedTransactions : 0}
+        value={statistics?.completedTransactions || 0}
       />
       <TransactionCard
         title="Pending payouts"
         icon="transact"
-        value={statistics?.pendingPayoutsp ? statistics?.pendingPayoutsp : 0}
+        value={statistics?.pendingPayoutsp || 0}
       />
     </div>
   )
