@@ -26,28 +26,27 @@ const ReportCard = ({ title, icon, value }: any) => {
 }
 
 export const ReportCards = ({statistics}: ReportCardProps) => {
-  console.log('statsss', statistics)
   return (
     <div className="grid lg:grid-cols-4 gap-8 mt-7 w-[95%] ">
       <ReportCard
         title="All reports"
         icon="personIcon"
-        value={statistics?.totalReports ? statistics?.totalReports : 0}
+        value={statistics?.totalReports || 0}
       />
       <ReportCard
         title="Approved reports"
         icon="personIcon"
-        value={statistics?.approvedReports ? statistics?.approvedReports : 0}
+        value={statistics?.approvedReports || 0}
       />
       <ReportCard
         title="pending reports"
         icon="personIcon"
-        value={statistics?.pendingReports ? statistics?.pendingReports : 0}
+        value={statistics?.pendingReports || 0}
       />
       <ReportCard
         title="Cancelled requests"
         icon="personIcon"
-        value={statistics?.cancelledReports ? statistics?.cancelledReports : 0}
+        value={statistics?.cancelledReports  || 0}
       />
     </div>
   )
