@@ -251,7 +251,7 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
           variant="secondary"
         >
           {loading ? (
-            <CircleLoader color="#fff" loading={loading} size={20} />
+            <CircleLoader color="#0979A1" loading={loading} size={20} />
           ) : (
             "Delete report"
           )}
