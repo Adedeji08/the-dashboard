@@ -9,12 +9,14 @@ interface MenuItemProps {
 const MenuItem: React.FC<MenuItemProps> = ({ to, label }) => {
   const location = useLocation();
   const active = location.pathname === to;
+  const isSettings = to === "/settings";
 
   return (
     <Link to={to}>
-      <div
+       <div
         className={`flex items-center mb-4 p-2 rounded-md font-semibold text-base cursor-pointer
-          ${active ? "bg-[#0979A1CC] text-[#fff]" : "hover:bg-gray-100"}`}
+          ${active ? "bg-[#0979A1CC] text-[#fff]" : "hover:bg-gray-100"}
+          ${isSettings ? "mt-20" : ""}`}
       >
         {label}
       </div>
@@ -31,6 +33,7 @@ const Menu: React.FC = () => {
     { to: "/blacklist", label: "Blacklist" },
     { to: "/support", label: "Customer Support" },
     { to: "/analytics", label: "Analytics" },
+    { to: "/settings", label: "Settings" },
   ];
 
   return (
