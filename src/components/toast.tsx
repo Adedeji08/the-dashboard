@@ -10,7 +10,7 @@ const Toast: React.FC<ToastProps> = () => {
     position: 'bottom-right',
     autoClose: 3000,
     hideProgressBar: false,
-    closeOnClick: false,
+    closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
   };
