@@ -1,6 +1,5 @@
 import { Modal } from "antd";
 import React from "react";
-import { Controller, useForm } from "react-hook-form";
 import Button from "../../../components/button";
 import { CircleLoader } from "react-spinners";
 import Cancel from "../../../assets/cancel.svg";
@@ -28,7 +27,6 @@ const Suspend = ({ visible, loading, handleClose, account }: any) => {
     }
   };
 
-//Do not remove this
   return (
     <>
       <Modal

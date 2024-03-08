@@ -7,7 +7,6 @@ import useRequest from "../../../components/hooks/use-request";
 import { showToast } from "../../../components/toast";
 
   const Lock = ({ visible, loading, handleClose, account }: any) => {
-    console.log('detailsProps', account?.id);
     const userToken = localStorage.getItem("token");
     const { makeRequest: getBlocked } = useRequest(
       `/users/${account?.id}/block`,
