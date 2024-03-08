@@ -6,8 +6,8 @@ import {
 import PlaceholderImage from "../../../assets/Ellipse 5.svg";
 import { CircleLoader } from "react-spinners";
 import Button from "../../../components/button";
-import Suspend from "./suspend";
-import Lock from "./lock";
+import SuspendUser from "./suspend";
+import BlockUser from "./lock";
 import UserTransactionDetails from "./user-transaction-details";
 
 interface DetailsProps {
@@ -162,18 +162,18 @@ const Details: React.FC<DetailsProps> = ({ account }) => {
             {loading ? (
               <CircleLoader color="#ffffff" loading={loading} size={20} />
             ) : (
-              "Lock account"
+              "Block account"
             )}
           </Button>
         </div>
 
-        <Suspend
+        <SuspendUser
           visible={modalVisible}
           handleClose={() => setModalVisible(false)}
           account={account}
         />
 
-        <Lock
+        <BlockUser
           visible={lockKModalVisible}
           handleClose={() => setLockModalVisible(false)}
           account={account}
