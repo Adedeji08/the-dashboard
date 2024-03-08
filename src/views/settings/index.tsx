@@ -51,7 +51,6 @@ const Settings = () => {
           onClick={(tab: string) => {
             if (tab === "Sign Out") {
               toggleSignoutModal();
-              console.log(toggleSignoutModal);
             }
           }}
         />

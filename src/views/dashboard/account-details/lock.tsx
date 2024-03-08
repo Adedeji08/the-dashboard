@@ -6,7 +6,7 @@ import Locks from "../../../assets/lock.svg";
 import useRequest from "../../../components/hooks/use-request";
 import { showToast } from "../../../components/toast";
 
-  const Lock = ({ visible, loading, handleClose, account }: any) => {
+  const BlockUser = ({ visible, loading, handleClose, account }: any) => {
     const userToken = localStorage.getItem("token");
     const { makeRequest: getBlocked } = useRequest(
       `/users/${account?.id}/block`,
@@ -14,7 +14,7 @@ import { showToast } from "../../../components/toast";
       { userToken }
     );
   
-    const handleBlockAccount = async () => {
+    const handleBlockUser = async () => {
       const [response] = await getBlocked();
       if (response.status) {
         showToast(response.message, true, {
@@ -61,7 +61,7 @@ import { showToast } from "../../../components/toast";
             )}
           </Button>
 
-          <Button size="lg" variant="primary" type="button" onClick={handleBlockAccount}>
+          <Button size="lg" variant="primary" type="button" onClick={handleBlockUser}>
             {loading ? (
               <CircleLoader color="#ffffff" loading={loading} size={20} />
             ) : (
@@ -74,4 +74,4 @@ import { showToast } from "../../../components/toast";
   );
 };
 
-export default Lock;
+export default BlockUser;

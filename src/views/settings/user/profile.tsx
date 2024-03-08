@@ -7,8 +7,6 @@ import Button from "../../../components/button";
 const Profile = () => {
   const userData = localStorage.getItem("user");
   const user = userData ? JSON.parse(userData) : null;
-  console.log("user", user?.fullname);
-
   const {
     handleSubmit,
     control,

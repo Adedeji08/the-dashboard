@@ -30,7 +30,7 @@ const SettingsTab = (props: TabsProps) => {
                     })}
                     onClick={() => handleTabClick(tab)}
                 >
-                    {typeof tab === 'string' ? tab.charAt(0).toUpperCase() + tab.slice(1) : tab}
+                   {tab.charAt(0).toUpperCase() + tab.slice(1)}
                 </button>
             ))}
         </div>

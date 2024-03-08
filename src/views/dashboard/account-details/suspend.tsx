@@ -6,7 +6,7 @@ import Cancel from "../../../assets/cancel.svg";
 import useRequest from "../../../components/hooks/use-request";
 import { showToast } from "../../../components/toast";
 
-const Suspend = ({ visible, loading, handleClose, account }: any) => {
+const SuspendUser = ({ visible, loading, handleClose, account }: any) => {
   const userToken = localStorage.getItem("token");
   const { makeRequest: getSuspended } = useRequest(
     `/users/${account?.id}/suspend`,
@@ -75,4 +75,4 @@ const Suspend = ({ visible, loading, handleClose, account }: any) => {
   );
 };
 
-export default Suspend;
+export default SuspendUser;
