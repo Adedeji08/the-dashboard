@@ -6,10 +6,11 @@ import Invisible from "../../../assets/eye-regular.svg";
 import { CircleLoader } from "react-spinners";
 import Button from "../../../components/button";
 import useRequest from "../../../components/hooks/use-request";
+import { showToast } from "../../../components/toast";
 
 const ChangePassword = () => {
-  const { loading, makeRequest } = useRequest("/users/reset-password", "PUT");
-  const { handleSubmit, control } = useForm();
+  const {loading,  makeRequest: changePassword } = useRequest("/admin/change-password", "POST");
+  const { handleSubmit, control, reset } = useForm();
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmViewPassword, setConfirmViewPassword] = useState("");
@@ -44,6 +45,25 @@ const ChangePassword = () => {
     event.preventDefault();
   };
 
+  const handleChangePassword = handleSubmit(async (formData) => {
+    const userChangePassword = {
+      currentPassword: formData.currentPassword,
+      newPassword: formData.newPassword,
+      confirmPassword: formData.confirmPassword,
+    };
+    const [response] = await changePassword(userChangePassword);
+    if (response.status) {
+      showToast(response.message, true, {
+        position: "top-center",
+      });
+      reset();
+    } else {
+      showToast(response.message, false, {
+        position: "top-center",
+      });
+    }
+  });
+
   return (
     <div className="mt-14 w-[60%]">
       <p className="text-[14px] font-semibold">Change Password</p>
@@ -51,10 +71,10 @@ const ChangePassword = () => {
         Enter your current password to change your password
       </p>
 
-      <form className="mt-6 md:mt-8">
+      <form className="mt-6 md:mt-8" onSubmit={handleChangePassword}>
         <div className="gap-4 md:gap-6 mb-5">
           <Controller
-            name="password"
+            name="currentPassword"
             control={control}
             defaultValue=""
             rules={{
@@ -91,7 +111,7 @@ const ChangePassword = () => {
           />
 
           <Controller
-            name="password"
+            name="newPassword"
             control={control}
             defaultValue=""
             rules={{

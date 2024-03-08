@@ -17,8 +17,11 @@ interface AdminUser {
   };
 }
 const Profile = () => {
-  const { loading, makeRequest: getUser } = useRequest("/admin/profile", "GET");
-  const { makeRequest: editProfile } = useRequest("/admin/edit-profile", "PATCH");
+  const {  makeRequest: getUser } = useRequest("/admin/profile", "GET");
+  const { loading, makeRequest: editProfile } = useRequest(
+    "/admin/edit-profile",
+    "PATCH"
+  );
   const [adminUser, setAdminUser] = useState<AdminUser | null>(null);
 
   useEffect(() => {
@@ -31,9 +34,6 @@ const Profile = () => {
 
     fetchData();
   }, []);
-
-  const userData = localStorage.getItem("user");
-  const user = userData ? JSON.parse(userData) : getUser();
 
   const {
     handleSubmit,
@@ -53,6 +53,7 @@ const Profile = () => {
         position: "top-center",
       });
       reset();
+      window.location.reload()
     } else {
       showToast(response.message, false, {
         position: "top-center",
@@ -77,12 +78,13 @@ const Profile = () => {
         </p>
       </div>
 
+      {adminUser ? (
       <form className="w-full mt-10" onSubmit={EditProfile}>
         <div className="flex gap-6 mx-auto">
           <Controller
             name="fullname"
             control={control}
-            defaultValue={adminUser?.admin?.fullname || user?.fullname}
+            defaultValue={adminUser?.admin?.fullname || ""}
             rules={{
               required: "Full Name is required",
               minLength: {
@@ -105,7 +107,7 @@ const Profile = () => {
           <Controller
             name="phone"
             control={control}
-            defaultValue={user?.phone || null}
+            defaultValue={adminUser?.admin?.phone || null}
             rules={{
               required: "Phone Number is required",
               pattern: {
@@ -126,15 +128,18 @@ const Profile = () => {
         </div>
 
         <div className="flex gap-8 justify-center items-center mt-8">
-          <Button size="sm" variant="primary" type="submit">
+          <Button size="sm" variant="primary">
             {loading ? (
               <CircleLoader color="#ffffff" loading={loading} size={20} />
             ) : (
-              " Save Changes"
+              "Save Changes"
             )}
           </Button>
         </div>
       </form>
+      ) : (
+        <div>Loading...</div>
+      )}
     </div>
   );
 };
