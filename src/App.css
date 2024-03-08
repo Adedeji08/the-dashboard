@@ -1,3 +1,4 @@
+@import './index.css';
 @media (max-width: 300px) {
     .toast-message-container {
       width: 200px !important;
@@ -70,6 +71,7 @@
     margin-right: 8px
   }
   
+  
  
   /* WARNING */
   .Toastify__toast.toast-message-container--warning {
@@ -120,14 +122,32 @@
     color: #0068db;
     margin-right: 22px;
   }
-
-  .Toastify__progress-bar{
-    display: none !important;
-  }
   .Toastify__progress-bar--bg{
     display: none !important;
   }
 
+  .Toastify__toast-body {
+    font-size: 16px;
+    line-height: normal;
+    width: 100%;
+    font-weight: 500;
+    padding: 0px;
+    margin: 0px;
+    margin-left: 20px !important;
+  }
+  
+  .Toastify__toast>button>svg {
+    display: none;
+  }
+  
+  .Toastify__toast-icon {
+    display: none !important;
+  }
+  
+  .Toastify__progress-bar {
+    visibility: hidden;
+  }
+  
   /* PAGINATION */
   .pagination {
     margin-top: 20px;
