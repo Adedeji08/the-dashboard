@@ -77,7 +77,7 @@ const Details: React.FC<DetailsProps> = ({ account }) => {
         </div>
 
         <Details
-          title="Full Name:"
+          title="Business Name:"
           value={capitalizeFirstLetter(
             account?.fullname ? account?.fullname : "N/A"
           )}
