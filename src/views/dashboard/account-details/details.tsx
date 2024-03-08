@@ -170,11 +170,13 @@ const Details: React.FC<DetailsProps> = ({ account }) => {
         <Suspend
           visible={modalVisible}
           handleClose={() => setModalVisible(false)}
+          account={account}
         />
 
         <Lock
           visible={lockKModalVisible}
           handleClose={() => setLockModalVisible(false)}
+          account={account}
         />
       </div>
 

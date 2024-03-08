@@ -1,134 +1,42 @@
 import { Modal } from "antd";
-import React, { useState } from "react";
+import React from "react";
 import { Controller, useForm } from "react-hook-form";
-import Select from "../../../components/select";
-import Textarea from "../../../components/textarea";
-import UploadEvidence from "./upload";
 import Button from "../../../components/button";
 import { CircleLoader } from "react-spinners";
 import Cancel from "../../../assets/cancel.svg";
+import useRequest from "../../../components/hooks/use-request";
+import { showToast } from "../../../components/toast";
 
-const Suspend = (props: any) => {
-  const { visible, loading } = props;
-  const [isModalVisible, setIsModalVisible] = useState(false);
+const Suspend = ({ visible, loading, handleClose, account }: any) => {
+  const userToken = localStorage.getItem("token");
+  const { makeRequest: getSuspended } = useRequest(
+    `/users/${account?.id}/suspend`,
+    "PUT",
+    { userToken }
+  );
 
-  const handleOk = () => {
-    setIsModalVisible(true);
+  const handleSuspend = async () => {
+    const [response] = await getSuspended();
+    if (response.status) {
+      showToast(response.message, true, {
+        position: "top-center",
+      });
+    } else {
+      showToast(response.message, false, {
+        position: "top-center",
+      });
+    }
   };
 
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-
-  const Refund: Record<string, string> = {
-    suspicious: "Suspicious Transaction",
-    chargeback: "Chargeback Request",
-    violate: "Violation of Terms and conditions",
-    violation: "Violation of Privacy Policy",
-    blacklist: "Blacklist Report(s)",
-    spam: "Spam Report",
-    investigation: "Investigation",
-    other: "Other",
-  };
-
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm();
 //Do not remove this
   return (
     <>
       <Modal
-        width={600}
         visible={visible}
-        closable={true}
-        footer={null}
-        onCancel={() => props.handleClose()}
-      >
-        <h3 className="text-[18px] font-semibold mt-4">Suspend account</h3>
-        <p className="text-[14px]">
-          Are you sure you want to suspend this account?
-        </p>
-
-        <div className=" mt-3">
-          <Controller
-            name="reason"
-            control={control}
-            defaultValue=""
-            rules={{ required: "Select a Platform" }}
-            render={({ field, fieldState }) => (
-              <Select
-                label="Reason"
-                name="reason"
-                options={Object.entries(Refund).map((platform) => {
-                  const [value, label] = platform;
-                  return {
-                    value,
-                    label,
-                  };
-                })}
-                className=""
-                onChange={(selectedValue) => {
-                  field.onChange(selectedValue);
-                }}
-                value={field.value}
-                error={fieldState?.error?.message}
-              />
-            )}
-          />
-
-          <Controller
-            name="description"
-            control={control}
-            defaultValue=""
-            rules={{ required: "Select a Platform" }}
-            render={({ field, fieldState }) => (
-              <Textarea
-                value={field.value}
-                label="Additional Note"
-                className="w-full"
-                error={fieldState?.error?.message}
-                onChange={field.onChange}
-              />
-            )}
-          />
-        </div>
-
-        <UploadEvidence />
-
-        <div className="flex gap-8 justify-center items-center mt-5">
-          <Button
-            size="lg"
-            variant="secondary"
-            type="submit"
-            onClick={() => props.handleClose()}
-          >
-            {loading ? (
-              <CircleLoader color="#ffffff" loading={loading} size={20} />
-            ) : (
-              "Cancel"
-            )}
-          </Button>
-
-          <Button size="lg" variant="primary" type="button" onClick={handleOk}>
-            {loading ? (
-              <CircleLoader color="#ffffff" loading={loading} size={20} />
-            ) : (
-              "Suspend"
-            )}
-          </Button>
-        </div>
-      </Modal>
-
-      <Modal
-        visible={isModalVisible}
-        onCancel={handleCancel} 
         width={690}
         closable={true}
         footer={null}
+        onCancel={handleClose}
         className="flex justify-center items-center"
       >
         <div className="flex justify-center items-center">
@@ -147,7 +55,7 @@ const Suspend = (props: any) => {
             size="lg"
             variant="secondary"
             type="submit"
-            onClick={handleCancel}
+            onClick={handleClose}
           >
             {loading ? (
               <CircleLoader color="#ffffff" loading={loading} size={20} />
@@ -156,7 +64,7 @@ const Suspend = (props: any) => {
             )}
           </Button>
 
-          <Button size="lg" variant="primary" type="button">
+          <Button size="lg" variant="primary" type="button"  onClick={handleSuspend}>
             {loading ? (
               <CircleLoader color="#ffffff" loading={loading} size={20} />
             ) : (
