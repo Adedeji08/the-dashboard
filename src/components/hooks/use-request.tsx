@@ -4,7 +4,7 @@ const baseURL = process.env.BACKEND_URL ? process.env.BACKEND_URL : "https://sta
 
 export default function useRequest(
   endpoint: string,
-  method: "GET" | "POST" | "PUT" | "DELETE",
+  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH",
   headers?: Record<string, any>
 ) {
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ export default function useRequest(
         ...headers,
       },
       body:
-        method === "POST" || method === "PUT" || method === "DELETE"
+        method === "POST" || method === "PUT" || method === "DELETE" || method === "PATCH"
           ? JSON.stringify(data)
           : undefined,
     });
