@@ -30,6 +30,7 @@ interface DetailsProps {
 }
 
 const Details: React.FC<DetailsProps> = ({ account }) => {
+  console.log(account)
   const [modalVisible, setModalVisible] = useState(false);
   const [lockKModalVisible, setLockModalVisible] = useState(false);
   const [loading, setLoading] = useState();
@@ -41,6 +42,8 @@ const Details: React.FC<DetailsProps> = ({ account }) => {
         return "#FCCFCF";
       case "inactive":
         return "#D9D9D9";
+      case "suspended":
+        return "#FBFCCF";
       default:
         return "transparent";
     }
@@ -62,6 +65,8 @@ const Details: React.FC<DetailsProps> = ({ account }) => {
       </div>
     );
   };
+
+  
 
   return (
     <div className="flex justify-between gap-10">
@@ -139,32 +144,43 @@ const Details: React.FC<DetailsProps> = ({ account }) => {
         </div>
 
         <div className="flex flex-col gap-6 mt-10 px-6">
-          <Button
-            size="lg"
-            variant="secondary"
+
+          <button
+            className={`border-2 ${
+              account?.status === "blocked"
+                ? "border-[#D9D9D9] text-[#D9D9D9]"
+                : "border-[#0979A1]"
+            } w-[389px] h-[43px] font-bold text-[#0979A1] rounded-md`}
             type="submit"
             onClick={handleSuspendClick}
+            disabled={account?.status === "blocked"}
           >
             {loading ? (
               <CircleLoader color="#ffffff" loading={loading} size={20} />
+            ) : account?.status === "suspended" ? (
+              "Unsuspend account"
             ) : (
               "Suspend account"
             )}
-          </Button>
+          </button>
 
-          <Button
-            size="lg"
-            variant="primary"
+          <button
+            className={`border-2 ${
+              account?.status === "suspended"
+                ? "bg-[#D9D9D9]"
+                : "border-[#0979A1] bg-[#0979A1]"
+            } w-[389px] h-[43px] font-bold text-[#fff] rounded-md`}
             type="submit"
             onClick={handleLockClick}
-            className="mt-5"
           >
             {loading ? (
               <CircleLoader color="#ffffff" loading={loading} size={20} />
+            ) : account?.status === "blocked" ? (
+              "Blocked account"
             ) : (
               "Block account"
             )}
-          </Button>
+          </button>
         </div>
 
         <SuspendUser

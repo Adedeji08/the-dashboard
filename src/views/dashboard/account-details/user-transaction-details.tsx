@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import useRequest from "../../../components/hooks/use-request";
 import Icon from "../../../assets/icons";
 import { formatDate } from "../../../utilities/functions";
+import NoTransaction from "../../../assets/image 16.svg";
 
 interface UserTransactionDetailsProps {
   account: {
@@ -92,7 +93,9 @@ const UserTransactionDetails: React.FC<UserTransactionDetailsProps> = ({
                 <p className="-mt-1 text-[12px] font-normal">
                   {transaction?.amount}{" "}
                   <span className="block text-right pt-2">
-                    {formatDate(transaction?.created_at ? transaction?.created_at : "N/A")}
+                    {formatDate(
+                      transaction?.created_at ? transaction?.created_at : "N/A"
+                    )}
                   </span>
                 </p>
                 <Icon name="dotIcon" />
@@ -100,9 +103,14 @@ const UserTransactionDetails: React.FC<UserTransactionDetailsProps> = ({
             </div>
           ))
         ) : (
-          <p className="text-center font-semibold text-[24px] mt-10 text-[#E9E9E9]">
-            No recent transactions
-          </p>
+          <>
+            <div className="flex flex-col-1 justify-center justify-items-center m5-5">
+              <img src={NoTransaction} alt="NoTransaction" />
+            </div>
+            <p className="text-center font-semibold text-[14px] text-[#000]">
+              Nothing to see here- yet
+            </p>
+          </>
         )}
       </div>
     </div>
