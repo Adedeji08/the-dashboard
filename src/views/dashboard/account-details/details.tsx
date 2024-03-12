@@ -30,7 +30,6 @@ interface DetailsProps {
 }
 
 const Details: React.FC<DetailsProps> = ({ account }) => {
-  console.log(account)
   const [modalVisible, setModalVisible] = useState(false);
   const [lockKModalVisible, setLockModalVisible] = useState(false);
   const [loading, setLoading] = useState();
