@@ -11,7 +11,7 @@ const Settings = () => {
   const navigate = useNavigate();
   const [isSignoutModalVisible, setIsSignoutModalVisible] = useState(false);
   const [activeTab, setActiveTab] = useState<
-    "User Profile" | "Change Password" | "Sign Out" | "Deactivate Account"
+    "User Profile" | "Change Password" | "Sign Out"
   >("User Profile");
 
   const handleSignOut = () => {
@@ -45,7 +45,6 @@ const Settings = () => {
             "User Profile",
             "Change Password",
             "Sign Out",
-            "Deactivate Account",
           ]}
           setActiveTab={setActiveTab}
           onClick={(tab: string) => {

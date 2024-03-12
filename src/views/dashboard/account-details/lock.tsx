@@ -20,6 +20,7 @@ import { showToast } from "../../../components/toast";
         showToast(response.message, true, {
           position: "top-center",
         });
+        window.location.reload()
       } else {
         showToast(response.message, false, {
           position: "top-center",

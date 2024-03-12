@@ -14,7 +14,7 @@ interface UserData {
 
 const Transaction = () => {
   const [activeTab, setActiveTab] = useState<
-    "payment" | "withdrawal" | "refund"
+    "payment" | "withdrawal"
   >("payment");
   const [data, setData] = useState<UserData[]>([]);
   const [statistics, setStatistics] = useState([]);
@@ -104,7 +104,7 @@ const Transaction = () => {
 
       <Tabs
         activeTab={activeTab}
-        tabs={["payment", "withdrawal", "refund"]}
+        tabs={["payment", "withdrawal"]}
         setActiveTab={setActiveTab}
       />
 
@@ -119,15 +119,6 @@ const Transaction = () => {
 
       {activeTab === "withdrawal" && (
         <Withdrawal
-          data={data}
-          statistics={statistics}
-          selectedStatus={selectedStatus}
-          handleStatusChange={handleStatusChange}
-        />
-      )}
-
-      {activeTab === "refund" && (
-        <Refund
           data={data}
           statistics={statistics}
           selectedStatus={selectedStatus}

@@ -20,6 +20,7 @@ const SuspendUser = ({ visible, loading, handleClose, account }: any) => {
       showToast(response.message, true, {
         position: "top-center",
       });
+      window.location.reload()
     } else {
       showToast(response.message, false, {
         position: "top-center",
