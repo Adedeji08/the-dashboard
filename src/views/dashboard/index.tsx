@@ -28,13 +28,12 @@ const Dashboard = () => {
     Authorization: `Bearer ${userToken}`,
   });
 
-
   useEffect(() => {
     fetchData();
   }, [activeTab, searchQuery, selectedStatus]);
 
   const fetchData = async () => {
-    const page = currentPage
+    const page = currentPage;
     const limit = itemsPerPage;
     const [response] = await makeRequest(undefined, {
       userType: activeTab,
@@ -44,10 +43,8 @@ const Dashboard = () => {
       limit,
     });
     setData(response.data?.users || []);
-    setTotalPages(Math.ceil(response.data?.totalPages ));
+    setTotalPages(Math.ceil(response.data?.totalPages));
   };
-
-  
 
   const handleSearchChange = (event: any) => {
     setSearchQuery(event.target.value);
@@ -68,7 +65,7 @@ const Dashboard = () => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    fetchData()
+    fetchData();
   };
 
   return (

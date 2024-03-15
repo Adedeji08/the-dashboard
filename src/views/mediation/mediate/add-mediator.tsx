@@ -32,10 +32,10 @@ const AddMediator = ({ visible, handleClose }: any) => {
             control={control}
             defaultValue={""}
             rules={{
-              required: "Full Name is required",
+              required: "Mediator Name is required",
               minLength: {
                 value: 3,
-                message: "Name must be at least 3 characters",
+                message: "Mediator must be at least 3 characters",
               },
             }}
             render={({ field, fieldState }) => (
@@ -50,16 +50,16 @@ const AddMediator = ({ visible, handleClose }: any) => {
           />
 
           <Controller
-            name="merchantPhoneNumber"
+            name="username"
             control={control}
             defaultValue={''}
             rules={{
-              required: "Phone Number is required",
-              pattern: {
-                value: /^\d{11}$/,
-                message: "Enter a valid eleven-digit phone number",
-              },
-            }}
+                required: "Username is required",
+                minLength: {
+                  value: 3,
+                  message: "Username must be at least 3 characters",
+                },
+              }}
             render={({ field, fieldState }) => (
               <Input
                 value={field.value}
@@ -91,7 +91,6 @@ const AddMediator = ({ visible, handleClose }: any) => {
                 className="w-full"
                 error={fieldState?.error?.message}
                 onChange={field.onChange}
-                readOnly
               />
             )}
           />

@@ -4,15 +4,21 @@ import MediationTable from '../mediation-table'
 
 const Mediator = ({
     statistics,
-    // selectedStatus,
-    // handleStatusChange,
-    // currentPage,
-    // handlePageChange,
+    data,
+    selectedStatus,
+    handleStatusChange,
+    currentPage,
+    handlePageChange,
 }: any) => {
   return (
     <div>
         <MediationCards statistics={statistics} />
         <MediationTable 
+         data={data}
+         selectedStatus={selectedStatus}
+         handleStatusChange={handleStatusChange}
+         currentPage={currentPage}
+         onPageChange={handlePageChange}
         />
     </div>
   )

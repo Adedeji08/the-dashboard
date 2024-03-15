@@ -5,7 +5,6 @@ import {
 } from "../../../utilities/functions";
 import PlaceholderImage from "../../../assets/Ellipse 5.svg";
 import { CircleLoader } from "react-spinners";
-import Button from "../../../components/button";
 import SuspendUser from "./suspend";
 import BlockUser from "./lock";
 import UserTransactionDetails from "./user-transaction-details";
@@ -64,8 +63,6 @@ const Details: React.FC<DetailsProps> = ({ account }) => {
       </div>
     );
   };
-
-  
 
   return (
     <div className="flex justify-between gap-10">
@@ -143,7 +140,6 @@ const Details: React.FC<DetailsProps> = ({ account }) => {
         </div>
 
         <div className="flex flex-col gap-6 mt-10 px-6">
-
           <button
             className={`border-2 ${
               account?.status === "blocked"
