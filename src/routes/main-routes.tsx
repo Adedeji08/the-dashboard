@@ -5,6 +5,7 @@ import Blacklist from "../views/blacklist/blacklist-details";
 import ReportDetails from "../views/blacklist/report-details";
 import DashboardDefault from "../views/dashboard";
 import AccountDetails from "../views/dashboard/account-details";
+import Mediation from "../views/mediation";
 import Refund from "../views/refunds";
 import Settings from "../views/settings";
 import Transaction from "../views/transaction";
@@ -54,6 +55,10 @@ const MainRoutes = {
     {
       path: "/settings",
       element: <Settings />,
+    },
+    {
+      path: "/mediation",
+      element: <Mediation />,
     },
   ],
 };

@@ -22,7 +22,8 @@ const DashboardLayout = () => {
       sidebarBackgroundCheck === "refunds" ||
       sidebarBackgroundCheck === "transaction" ||
       sidebarBackgroundCheck === "report" ||
-      sidebarBackgroundCheck === "settings"
+      sidebarBackgroundCheck === "settings" ||
+      sidebarBackgroundCheck === "mediation"
     ) {
       setSidebarOpen(true);
     } else {
