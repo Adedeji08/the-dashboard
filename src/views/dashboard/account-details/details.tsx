@@ -10,22 +10,22 @@ import BlockUser from "./lock";
 import UserTransactionDetails from "./user-transaction-details";
 
 interface DetailsProps {
-  account: {
-    id: string;
-    balance: number;
-    fullname: string;
-    bankAccountNumber: number;
-    email: string;
-    bankName: string;
-    status: string;
-    created_at: string;
-    orderId: string;
-    password: string;
-    phone: string;
-    profilePhoto: string;
-    socialMediaHandle: string;
-    socialMediaPlatform: string;
-  };
+      account: {
+        id: string;
+        balance: number;
+        fullname: string;
+        bankAccountNumber: number;
+        email: string;
+        bankName: string;
+        status: string;
+        created_at: string;
+        orderId: string;
+        password: string;
+        phone: string;
+        profilePhoto: string;
+        socialMediaHandle: string;
+        socialMediaPlatform: string;
+        };
 }
 
 const Details: React.FC<DetailsProps> = ({ account }) => {
