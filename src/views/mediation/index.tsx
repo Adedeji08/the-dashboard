@@ -3,9 +3,12 @@ import Icon from "../../assets/icons";
 import Mediator from "./mediate/mediator";
 import useRequest from "../../components/hooks/use-request";
 import AddMediator from "./mediate/add-mediator";
+import Pagination from "../../components/pagination/pagination";
 
 interface UserData {
-  fullname: string;
+  channels: {
+    fullname: string;
+  };
 }
 
 const Mediation = () => {
@@ -13,30 +16,44 @@ const Mediation = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const itemsPerPage = 10;
-  const [data, setData] = useState<UserData[]>([]);
+  const [data, setData] = useState<UserData>();
   const [statistics, setStatistics] = useState([]);
-  const [selectedStatus, setSelectedStatus] = useState<string>("successful");
+  const [selectedStatus, setSelectedStatus] = useState<string>("active");
   const [searchQuery, setSearchQuery] = useState("");
   const userToken = localStorage.getItem("token");
-  const { makeRequest } = useRequest("/transactions", "GET", {
+  const { makeRequest } = useRequest("/mediation", "GET", {
     Authorization: `Bearer ${userToken}`,
   });
+
+  const { makeRequest: getStatistics } = useRequest(
+    "/mediation/channels/statistics",
+    "GET",
+    {
+      Authorization: `Bearer ${userToken}`,
+    }
+  );
 
   useEffect(() => {
     fetchData();
   }, [searchQuery, selectedStatus, currentPage]);
 
   const fetchData = async () => {
-    const page = (currentPage - 1) * itemsPerPage;
+    const page = currentPage;
     const limit = itemsPerPage;
     const [response] = await makeRequest(undefined, {
-      email: searchQuery,
+      caseID: searchQuery,
+      title: searchQuery,
       status: selectedStatus,
       limit,
       page,
     });
-    setData(response.data?.transactions || []);
+    setData(response.data?.channels || []);
     setTotalPages(Math.ceil(response.data?.totalPages));
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    fetchData();
   };
 
   const handleSearchChange = (event: any) => {
@@ -50,6 +67,15 @@ const Mediation = () => {
   const addMediator = () => {
     setModalVisible(true);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const [response] = await getStatistics();
+      setStatistics(response.data);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -69,7 +95,7 @@ const Mediation = () => {
             <input
               className="outline-none border-none w-[80%] bg-transparent"
               id="input-placeholder"
-              placeholder="Search for name"
+              placeholder="Search for title"
               value={searchQuery}
               onChange={handleSearchChange}
             />
@@ -78,13 +104,13 @@ const Mediation = () => {
           <Icon name="notificationIcon" />
         </section>
       </div>
-
-      <button
+      {/* CAN STILL BE USEFUL */}
+      {/* <button
         className="h-[50px] mt-8 w-[300px] bg-[#0979A1] text-white rounded-md font-bold text-[12px] "
         onClick={addMediator}
       >
         Add A Mediator
-      </button>
+      </button> */}
 
       <Mediator
         data={data}
@@ -93,10 +119,16 @@ const Mediation = () => {
         handleStatusChange={handleStatusChange}
       />
 
-      <AddMediator 
-       visible={modalVisible}
-       handleClose={() => setModalVisible(false)}
-       />
+      <AddMediator
+        visible={modalVisible}
+        handleClose={() => setModalVisible(false)}
+      />
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </>
   );
 };

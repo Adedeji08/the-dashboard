@@ -37,6 +37,8 @@ const Table: React.FC<TableProps> = ({
         return "#FCCFCF";
       case "failed":
         return "#D9D9D9";
+        case "closed":
+          return "#FCCFCF";
       case "blocked":
         return "#FCCFCF";
       case "inactive":
@@ -62,7 +64,7 @@ const Table: React.FC<TableProps> = ({
           <tr key={rowIndex}>
             {columns.map((column, colIndex) => (
               <td key={colIndex} className="pt-5">
-                {column.accessor === "created_at" ? (
+                {column.accessor === "created_at" || column.accessor === "createdAt" ? (
                   formatDate(row[column.accessor])
                 ) : column.accessor === "profilePhoto" ? (
                   <img
@@ -71,10 +73,15 @@ const Table: React.FC<TableProps> = ({
                         ? row[column.accessor]
                         : PlaceholderImage
                     }
+                    width={40}
                     alt="profile"
                   />
                 ) : column.accessor === "id" ? (
                   <button onClick={() => onUserClick(row["id"])}>
+                    <Icon name="dotIcon" />
+                  </button>
+                ): column.accessor === "_id" ? (
+                  <button onClick={() => onUserClick(row["_id"])}>
                     <Icon name="dotIcon" />
                   </button>
                 ) : column.accessor === "phone" && !row[column.accessor] ? (

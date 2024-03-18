@@ -3,9 +3,8 @@ import Icon from "../../assets/icons";
 
 interface Statistics {
   all: number;
-  completed: number;
   active: number;
-  cancelled: number;
+  closed: number;
 }
 
 interface AccountCardsProps {
@@ -26,16 +25,11 @@ const MediationCard = ({ title, icon, value }: any) => {
 
 export const MediationCards = ({statistics}: AccountCardsProps) => {
   return (
-    <div className="grid lg:grid-cols-4 gap-8 mt-7 w-[95%] ">
+    <div className="grid lg:grid-cols-3 gap-8 mt-7 w-[95%] ">
       <MediationCard
         title="All requests"
         icon="mediate"
         value={statistics?.all || 0}
-      />
-      <MediationCard
-        title="Completed requests"
-        icon="mediate"
-        value={statistics?.completed || 0}
       />
       <MediationCard
         title="Active requests"
@@ -45,7 +39,7 @@ export const MediationCards = ({statistics}: AccountCardsProps) => {
       <MediationCard
         title="Cancelled requests"
         icon="mediate"
-        value={statistics?.cancelled || 0}
+        value={statistics?.closed || 0}
       />
     </div>
   )

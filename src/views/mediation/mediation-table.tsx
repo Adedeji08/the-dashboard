@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
   const navigate = useNavigate()
   const [filteredData, setFilteredData] = useState([]);
   const columns = [
-    { header: "Case ID", accessor: "orderId" },
+    { header: "Case ID", accessor: "caseID" },
     { header: "Request Title", accessor: "title" },
-    { header: "Name", accessor: "name" },
+    { header: "Name", accessor: "fullName" },
     { header: "Status", accessor: "status" },
-    { header: "Date", accessor: "created_at" },
-    { header: "", accessor: "id" },
+    { header: "Date", accessor: "createdAt" },
+    { header: "", accessor: "_id" },
   ];
 
   useEffect(() => {
@@ -24,15 +24,13 @@ import { useNavigate } from "react-router-dom";
     setFilteredData(filtered);
   }, [data, selectedStatus]);
 
-  const handleUserClick = (id: string) => {
-    navigate(`/transaction/details/${id}`)
+  const handleUserClick = (_id: string) => {
+    navigate(`/mediation/details/${_id}`)
   };
 
-  const mappedData = filteredData?.map((transaction: any) => ({
-    ...transaction,
-    orderId: transaction?.order?.orderId ? transaction?.order?.orderId : 'N/A',
-    buyerEmail: transaction?.order?.buyerEmail ? transaction?.order?.buyerEmail: 'N/A',
-    merchantEmail: transaction?.order?.merchantEmail ? transaction?.order?.merchantEmail : 'N/A',
+  const mappedData = filteredData?.map((mediate: any) => ({
+    ...mediate,
+    fullName: mediate?.claimant?.fullName || 'N/A',
   }));
   return (
     <div className="rounded-md py-3 px-3 bg-white border border-[#fff] mt-10 w-[95%] pt-5 ">
@@ -45,9 +43,9 @@ import { useNavigate } from "react-router-dom";
             value={selectedStatus}
             onChange={handleStatusChange}
           >
-            <option value="successful">Recent</option>
-            <option value="pending">Pending</option>
-            <option value="failed">Failed</option>
+            <option value="active">Active</option>
+            <option value="cancelled">Cancelled</option>
+            <option value="closed">Closed</option>
           </select>
         </div>
       </div>
