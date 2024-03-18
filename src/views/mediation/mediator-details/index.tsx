@@ -4,30 +4,43 @@ import { useParams } from "react-router-dom";
 import Details from "./details";
 import useRequest from "../../../components/hooks/use-request";
 
+interface DetailsProps {
+  channel: {
+    _id: string;
+    status: string;
+    title: string;
+    createdAt: string;
+    caseID: string;
+    description: string;
+    claimant: {
+      email: string;
+      fullName: string;
+      isResponseAble: boolean;
+    };
+  };
+}
 const MediatorDetails = () => {
-  const [mediate, setMediate] = useState([]);
+  const [mediateById, setMediateById] = useState<DetailsProps>();;
   const { _id } = useParams<{ _id: string }>();
-  const { makeRequest: getMediation } = useRequest("/mediation", "GET");
+  const { makeRequest: getMediationById } = useRequest(`/mediation/${_id}`, "GET");
 
-  const selectedChannel = (mediate as any[]).find(
-    (channels) => channels._id === _id
-  );
 
   useEffect(() => {
     const fetchData = async () => {
-      const [response] = await getMediation();
-      setMediate(response?.data?.channels || []);
+      const [response] = await getMediationById();
+      setMediateById(response?.data || []);
     };
     fetchData();
+  
   }, []);
 
   return (
     <>
       <div className="flex gap-5 mt-5">
         <Back />
-        <h2 className="text-[24px] font-bold">Requests/Case ID {_id}</h2>
+        <h2 className="text-[24px] font-bold">Requests/Case ID {mediateById?.channel?.caseID}</h2>
       </div>
-      <Details channels={selectedChannel} />
+      <Details mediateById={mediateById} />
     </>
   );
 };

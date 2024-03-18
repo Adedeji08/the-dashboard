@@ -6,22 +6,24 @@ import {
 import AssignMediator from "../mediate/assign-mediator";
 
 interface DetailsProps {
-  channels: {
-    id: string;
-    status: string;
-    title: string;
-    createdAt: string;
-    caseID: string;
-    description: string;
-    claimant: {
-      email: string;
-      fullName: string;
-      isResponseAble: boolean;
+  mediateById: {
+    channel: {
+      _id: string;
+      status: string;
+      title: string;
+      createdAt: string;
+      caseID: string;
+      description: string;
+      claimant: {
+        email: string;
+        fullName: string;
+        isResponseAble: boolean;
+      };
     };
-  };
+  } | undefined;
 }
 
-const Details: React.FC<DetailsProps> = ({ channels }) => {
+const Details: React.FC<DetailsProps> = ({ mediateById }) => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "active":
@@ -59,49 +61,49 @@ const Details: React.FC<DetailsProps> = ({ channels }) => {
             className="text-[10px] flex gap-3 w-20 h-4 text-center rounded-md"
             style={{
               backgroundColor: getStatusColor(
-                channels?.status ? channels?.status : "N/A"
+                mediateById?.channel?.status ? mediateById?.channel?.status : "N/A"
               ),
             }}
           >
             <span
               style={{
                 backgroundColor:
-                  channels?.status === "active"
-                    ? "green" // Change this color to the shade of green you want for active status
-                    : "red", // Default color for other statuses
+                  mediateById?.channel?.status === "active"
+                    ? "green"
+                    : "red",
               }}
               className="h-[6px] w-[6px] rounded-full mt-1 ml-3"
             ></span>
 
-            {capitalizeFirstLetter(channels?.status)}
+            {capitalizeFirstLetter(mediateById?.channel?.status || '')}
           </p>
         </div>
 
         <Detail
           title="Name"
-          value={capitalizeFirstLetter(channels?.claimant?.fullName || "N/A")}
+          value={capitalizeFirstLetter(mediateById?.channel?.claimant?.fullName || "N/A")}
         />
 
         <Detail
           title="Email address"
-          value={channels?.claimant?.email || "N/A"}
+          value={mediateById?.channel?.claimant?.email || "N/A"}
         />
 
-        <Detail title="Case ID" value={channels?.caseID || "N/A"} />
+        <Detail title="Case ID" value={mediateById?.channel?.caseID || "N/A"} />
 
-        <Detail title="Date" value={formatDate(channels?.createdAt || "N/A")} />
+        <Detail title="Date" value={formatDate(mediateById?.channel?.createdAt || "N/A")} />
 
         <div className=" mt-5">
           <p>Request Title:</p>
           <p className="border pl-10 text-[14px] p-3 mt-3 rounded-md">
-            {channels?.title}
+            {mediateById?.channel?.title || 'N/A'}
           </p>
         </div>
 
         <div className=" mt-5">
           <p>Request:</p>
           <p className="border pl-10 text-[14px] p-3 mt-3 rounded-md">
-            {channels?.description}
+            {mediateById?.channel?.description || 'N/A'}
           </p>
         </div>
 
