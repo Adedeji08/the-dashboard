@@ -43,7 +43,7 @@ export const AccountCards = ({statistics}: AccountCardsProps) => {
         value={statistics?.suspended || 0}
       />
       <AccountCard
-        title="Locked accounts"
+        title="Blocked accounts"
         icon="personIcon"
         value={statistics?.locked || 0}
       />

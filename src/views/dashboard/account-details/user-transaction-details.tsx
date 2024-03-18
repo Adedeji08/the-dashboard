@@ -36,7 +36,7 @@ const UserTransactionDetails: React.FC<UserTransactionDetailsProps> = ({
   const fetchData = async () => {
     if (account?.email) {
       const [response] = await makeRequest(undefined, {
-        email: account.email,
+        email: account?.email,
       });
       setData(response.data?.transactions || []);
     }
