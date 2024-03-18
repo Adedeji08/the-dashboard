@@ -10,6 +10,7 @@ type IconName =
   | "arrowLeft"
   | "cancel"
   | "transact"
+  | "mediate";
 
 interface IconProps {
   name: IconName;
@@ -278,7 +279,7 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
     case "transact":
       return (
         <svg
-        className={className}
+          className={className}
           width="50"
           height="50"
           viewBox="0 0 50 50"
@@ -311,6 +312,66 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
             d="M22 24H28"
             stroke="white"
             stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "mediate":
+      return (
+        <svg
+          width="50"
+          height="50"
+          viewBox="0 0 50 50"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="25" cy="25" r="25" fill="#0979A1" />
+          <circle
+            cx="25"
+            cy="25"
+            r="24.5"
+            stroke="#6A6A6A"
+            stroke-opacity="0.2"
+          />
+          <path
+            d="M18.9 30.3335H31.09C32.99 30.3335 33.99 29.3335 33.99 27.4335V15.3335H15.99V27.4335C16 29.3335 17 30.3335 18.9 30.3335Z"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M15 15.3335H35"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M21 35.3335L25 33.3335V30.3335"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M29 35.3335L25 33.3335"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M20.5 24.3335L23.65 21.7035C23.9 21.4935 24.23 21.5535 24.4 21.8335L25.6 23.8335C25.77 24.1135 26.1 24.1635 26.35 23.9635L29.5 21.3335"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
