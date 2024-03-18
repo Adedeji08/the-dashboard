@@ -6,21 +6,23 @@ import {
 import AssignMediator from "../mediate/assign-mediator";
 
 interface DetailsProps {
-  mediateById: {
-    channel: {
-      _id: string;
-      status: string;
-      title: string;
-      createdAt: string;
-      caseID: string;
-      description: string;
-      claimant: {
-        email: string;
-        fullName: string;
-        isResponseAble: boolean;
-      };
-    };
-  } | undefined;
+  mediateById:
+    | {
+        channel: {
+          _id: string;
+          status: string;
+          title: string;
+          createdAt: string;
+          caseID: string;
+          description: string;
+          claimant: {
+            email: string;
+            fullName: string;
+            isResponseAble: boolean;
+          };
+        };
+      }
+    | undefined;
 }
 
 const Details: React.FC<DetailsProps> = ({ mediateById }) => {
@@ -61,27 +63,29 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
             className="text-[10px] flex gap-3 w-20 h-4 text-center rounded-md"
             style={{
               backgroundColor: getStatusColor(
-                mediateById?.channel?.status ? mediateById?.channel?.status : "N/A"
+                mediateById?.channel?.status
+                  ? mediateById?.channel?.status
+                  : "N/A"
               ),
             }}
           >
             <span
               style={{
                 backgroundColor:
-                  mediateById?.channel?.status === "active"
-                    ? "green"
-                    : "red",
+                  mediateById?.channel?.status === "active" ? "green" : "red",
               }}
               className="h-[6px] w-[6px] rounded-full mt-1 ml-3"
             ></span>
 
-            {capitalizeFirstLetter(mediateById?.channel?.status || '')}
+            {capitalizeFirstLetter(mediateById?.channel?.status || "")}
           </p>
         </div>
 
         <Detail
           title="Name"
-          value={capitalizeFirstLetter(mediateById?.channel?.claimant?.fullName || "N/A")}
+          value={capitalizeFirstLetter(
+            mediateById?.channel?.claimant?.fullName || "N/A"
+          )}
         />
 
         <Detail
@@ -91,23 +95,27 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
 
         <Detail title="Case ID" value={mediateById?.channel?.caseID || "N/A"} />
 
-        <Detail title="Date" value={formatDate(mediateById?.channel?.createdAt || "N/A")} />
+        <Detail
+          title="Date"
+          value={formatDate(mediateById?.channel?.createdAt || "N/A")}
+        />
 
         <div className=" mt-5">
           <p>Request Title:</p>
           <p className="border pl-10 text-[14px] p-3 mt-3 rounded-md">
-            {mediateById?.channel?.title || 'N/A'}
+            {mediateById?.channel?.title || "N/A"}
           </p>
         </div>
 
         <div className=" mt-5">
           <p>Request:</p>
           <p className="border pl-10 text-[14px] p-3 mt-3 rounded-md">
-            {mediateById?.channel?.description || 'N/A'}
+            {mediateById?.channel?.description || "N/A"}
           </p>
         </div>
 
-        <button
+        {/* CAN STILL BE USEFUL */}
+        {/* <button
           className="h-[50px] mt-8 w-full bg-[#0979A1] text-white rounded-md font-bold text-[12px] "
           onClick={addMediator}
         >
@@ -116,7 +124,7 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
 
         <button className="h-[50px] mt-8 w-full bg-transparent text-[#0979A1] border border-[#0979A1] rounded-md font-bold text-[12px] ">
           Delete Request
-        </button>
+        </button> */}
       </section>
       <AssignMediator
         visible={modalVisible}

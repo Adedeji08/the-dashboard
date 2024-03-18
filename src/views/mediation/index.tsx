@@ -104,13 +104,13 @@ const Mediation = () => {
           <Icon name="notificationIcon" />
         </section>
       </div>
-
-      <button
+      {/* CAN STILL BE USEFUL */}
+      {/* <button
         className="h-[50px] mt-8 w-[300px] bg-[#0979A1] text-white rounded-md font-bold text-[12px] "
         onClick={addMediator}
       >
         Add A Mediator
-      </button>
+      </button> */}
 
       <Mediator
         data={data}
