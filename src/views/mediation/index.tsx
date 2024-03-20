@@ -35,13 +35,13 @@ const Mediation = () => {
 
   useEffect(() => {
     fetchData();
+   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, selectedStatus, currentPage]);
 
   const fetchData = async () => {
     const page = currentPage;
     const limit = itemsPerPage;
     const [response] = await makeRequest(undefined, {
-      caseID: searchQuery,
       title: searchQuery,
       status: selectedStatus,
       limit,
@@ -104,13 +104,13 @@ const Mediation = () => {
           <Icon name="notificationIcon" />
         </section>
       </div>
-      {/* CAN STILL BE USEFUL */}
-      {/* <button
+      
+      <button
         className="h-[50px] mt-8 w-[300px] bg-[#0979A1] text-white rounded-md font-bold text-[12px] "
         onClick={addMediator}
       >
         Add A Mediator
-      </button> */}
+      </button>
 
       <Mediator
         data={data}

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   capitalizeFirstLetter,
   formatDate,
 } from "../../../utilities/functions";
-import AssignMediator from "../mediate/assign-mediator";
+import useRequest from "../../../components/hooks/use-request";
+import { useForm } from "react-hook-form";
+import { showToast } from "../../../components/toast";
 
 interface DetailsProps {
   mediateById:
@@ -26,12 +28,50 @@ interface DetailsProps {
 }
 
 const Details: React.FC<DetailsProps> = ({ mediateById }) => {
+  const userToken = localStorage.getItem("token");
+  const id = mediateById?.channel?._id
+  const {  makeRequest: getMediators } = useRequest(`/mediation/mediators/${id}`, "GET", {
+    userToken 
+  });
+  const { makeRequest: assignMediators } = useRequest(`/mediation/channel/${id}/assign-mediator`, "PATCH", {
+    userToken
+  });
+  const [mediate, setMediate] = useState([])
+
+  useEffect(() => {
+   const fetchData = async () => {
+    if(id){
+      const [response] = await getMediators()
+      setMediate(response.data || []);
+    }
+   }
+   fetchData()
+  }, [])
+
+  const {
+    handleSubmit,
+  } = useForm();
+
+  const handleAssignMediator = handleSubmit(async (formData) => {
+    const mediatorID = {
+      mediatorId: id,
+    };
+    const [response] = await assignMediators(mediatorID);
+    if (response.status) {
+      showToast(response.message, true, {
+        position: "top-center",
+      });
+    } else {
+      showToast(response.message, false, {
+        position: "top-center",
+      });
+    }
+  });
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "active":
         return "#D1FFC9";
-      case "active":
-        return "#057517";
       case "closed":
         return "#FCCFCF";
       case "cancelled":
@@ -49,11 +89,7 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
       </div>
     );
   };
-  const [modalVisible, setModalVisible] = useState(false);
 
-  const addMediator = () => {
-    setModalVisible(true);
-  };
   return (
     <div className=" bg-white border border-[#fff] mt-10 pt-7 rounded-lg w-[95%] ">
       <section className="w-[36%] mx-auto">
@@ -114,22 +150,19 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
           </p>
         </div>
 
-        {/* CAN STILL BE USEFUL */}
-        {/* <button
+        <button
           className="h-[50px] mt-8 w-full bg-[#0979A1] text-white rounded-md font-bold text-[12px] "
-          onClick={addMediator}
+          onClick={handleAssignMediator}
         >
           Assign a Mediator
         </button>
 
-        <button className="h-[50px] mt-8 w-full bg-transparent text-[#0979A1] border border-[#0979A1] rounded-md font-bold text-[12px] ">
+        {/* DO NOT REMOVE */}
+        {/* <button className="h-[50px] mt-8 w-full bg-transparent text-[#0979A1] border border-[#0979A1] rounded-md font-bold text-[12px] ">
           Delete Request
         </button> */}
       </section>
-      <AssignMediator
-        visible={modalVisible}
-        handleClose={() => setModalVisible(false)}
-      />
+     
     </div>
   );
 };
