@@ -8,6 +8,7 @@ import { CircleLoader } from "react-spinners";
 import SuspendUser from "./suspend";
 import BlockUser from "./lock";
 import UserTransactionDetails from "./user-transaction-details";
+import useRequest from "../../../components/hooks/use-request";
 
 interface DetailsProps {
   account: {
@@ -29,10 +30,10 @@ interface DetailsProps {
   };
 }
 
-const Details: React.FC<DetailsProps> = ({ account }: any) => {
+const Details: React.FC<DetailsProps> = ({ account }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [lockKModalVisible, setLockModalVisible] = useState(false);
-  const [loading, setLoading] = useState();
+  const {loading} = useRequest('/', 'GET')
   const getStatusColor = (status: string) => {
     switch (status) {
       case "active":
