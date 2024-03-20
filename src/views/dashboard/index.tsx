@@ -45,7 +45,6 @@ const Dashboard = () => {
     setData(response.data?.users || []);
     setTotalPages(Math.ceil(response.data?.totalPages));
   };
-
   const handleSearchChange = (event: any) => {
     setSearchQuery(event.target.value);
   };
@@ -104,6 +103,7 @@ const Dashboard = () => {
         {activeTab === "merchant" && (
           <Merchant
             data={data}
+            activeTab={activeTab}
             statistics={statistics}
             selectedStatus={selectedStatus}
             handleStatusChange={handleStatusChange}
@@ -112,6 +112,7 @@ const Dashboard = () => {
         {activeTab === "buyer" && (
           <Buyer
             data={data}
+            activeTab={activeTab}
             statistics={statistics}
             selectedStatus={selectedStatus}
             handleStatusChange={handleStatusChange}
