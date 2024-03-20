@@ -5,6 +5,7 @@ import { CircleLoader } from "react-spinners";
 import Locks from "../../../assets/lock.svg";
 import useRequest from "../../../components/hooks/use-request";
 import { showToast } from "../../../components/toast";
+import { capitalizeFirstLetter } from "../../../utilities/functions";
 
   const BlockUser = ({ visible, loading, handleClose, account }: any) => {
     const userToken = localStorage.getItem("token");
@@ -45,7 +46,7 @@ import { showToast } from "../../../components/toast";
           Account Locked
         </h1>
         <p className="text-center text-base md:text-[14px] font-normal mt-4">
-          You have locked AQUA Stores Limited’s account
+          You have locked {capitalizeFirstLetter(account?.fullname)}'s account
         </p>
 
         <div className="flex gap-5 justify-center items-center mt-5">

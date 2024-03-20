@@ -5,6 +5,7 @@ import { CircleLoader } from "react-spinners";
 import Cancel from "../../../assets/cancel.svg";
 import useRequest from "../../../components/hooks/use-request";
 import { showToast } from "../../../components/toast";
+import { capitalizeFirstLetter } from "../../../utilities/functions";
 
 const SuspendUser = ({ visible, handleClose, account }: any) => {
   const userToken = localStorage.getItem("token");
@@ -50,8 +51,8 @@ const SuspendUser = ({ visible, handleClose, account }: any) => {
 
         <p className="text-center text-base md:text-[14px] font-normal mt-4">
           {isSuspended
-            ? "Do you want to unsuspend AQUA Stores Limited’s account?"
-            : "Do you want to suspend AQUA Stores Limited’s account?"}
+            ? `Do you want to unsuspend  ${capitalizeFirstLetter(account?.fullname)}'s account?`
+            :  `Do you want to suspend ${capitalizeFirstLetter(account?.fullname)}'s account?`}
         </p>
 
         <div className="flex gap-5 justify-center items-center mt-5">
