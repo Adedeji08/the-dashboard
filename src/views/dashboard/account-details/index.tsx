@@ -19,6 +19,7 @@ interface DetailsProps {
     profilePhoto: string;
     socialMediaHandle: string;
     socialMediaPlatform: string;
+    userType: string;
 }
 
 const AccountDetails = () => {
@@ -37,6 +38,7 @@ const AccountDetails = () => {
     profilePhoto: "",
     socialMediaHandle: "",
     socialMediaPlatform: "",
+    userType: ""
   });
   
   const { id } = useParams<{ id: string }>();
