@@ -51,8 +51,8 @@ const SuspendUser = ({ visible, handleClose, account }: any) => {
 
         <p className="text-center text-base md:text-[14px] font-normal mt-4">
           {isSuspended
-            ? `Do you want to unsuspend  ${capitalizeFirstLetter(account?.fullname)} account?`
-            :  `Do you want to suspend ${capitalizeFirstLetter(account?.fullname)} account?`}
+            ? `Do you want to unsuspend  ${capitalizeFirstLetter(account?.fullname)}'s account?`
+            :  `Do you want to suspend ${capitalizeFirstLetter(account?.fullname)}'s account?`}
         </p>
 
         <div className="flex gap-5 justify-center items-center mt-5">

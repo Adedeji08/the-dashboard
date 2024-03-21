@@ -46,7 +46,7 @@ import { capitalizeFirstLetter } from "../../../utilities/functions";
           Account Locked
         </h1>
         <p className="text-center text-base md:text-[14px] font-normal mt-4">
-          You have locked {capitalizeFirstLetter(account?.fullname)} account
+          You have locked {capitalizeFirstLetter(account?.fullname)}'s account
         </p>
 
         <div className="flex gap-5 justify-center items-center mt-5">
