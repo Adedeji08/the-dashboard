@@ -73,7 +73,7 @@ const Table: React.FC<TableProps> = ({
                         ? row[column.accessor]
                         : PlaceholderImage
                     }
-                    width={40}
+                    className="rounded-full w-[40px] h-[40px]"
                     alt="profile"
                   />
                 ) : column.accessor === "id" ? (
