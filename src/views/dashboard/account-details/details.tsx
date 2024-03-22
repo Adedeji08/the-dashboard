@@ -72,7 +72,7 @@ const Details: React.FC<DetailsProps> = ({ account }) => {
         <div className="flex justify-between px-6">
           <p className="">Profile picture:</p>
           <img
-            className="w-[117px]"
+            className="w-[117px] h-[117px] rounded-full"
             src={
               account?.profilePhoto || PlaceholderImage
             }

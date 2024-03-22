@@ -30,7 +30,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchData();
-  }, [activeTab, searchQuery, selectedStatus]);
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTab, searchQuery, selectedStatus, currentPage]);
 
   const fetchData = async () => {
     const page = currentPage;

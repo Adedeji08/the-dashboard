@@ -40,6 +40,7 @@ const UserTable = ({ data, selectedStatus, handleStatusChange, activeTab }: any)
             onChange={handleStatusChange}
           >
             <option value="active">Active</option>
+            <option value="suspended">Suspended</option>
             <option value="inactive">Inactive</option>
             <option value="blocked">Blocked</option>
           </select>
