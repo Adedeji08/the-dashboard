@@ -37,10 +37,11 @@ const Transaction = () => {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, searchQuery, selectedStatus, currentPage]);
 
   const fetchData = async () => {
-    const page = (currentPage - 1) * itemsPerPage;
+    const page = currentPage;
     const limit = itemsPerPage;
     const [response] = await makeRequest(undefined, {
       email: searchQuery,
@@ -73,7 +74,7 @@ const Transaction = () => {
 
   const handlePageChange = async (page: number) => {
     setCurrentPage(page);
-    await fetchData();
+     fetchData();
   };
 
   return (
