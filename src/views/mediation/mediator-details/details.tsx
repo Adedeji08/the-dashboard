@@ -4,8 +4,10 @@ import {
   formatDate,
 } from "../../../utilities/functions";
 import useRequest from "../../../components/hooks/use-request";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { showToast } from "../../../components/toast";
+import SearchSelect from "../../../components/search-select";
+import { CircleLoader } from "react-spinners";
 
 interface DetailsProps {
   mediateById:
@@ -27,34 +29,48 @@ interface DetailsProps {
     | undefined;
 }
 
+interface Mediators {
+  fullName: string;
+  _id: string;
+}
+
 const Details: React.FC<DetailsProps> = ({ mediateById }) => {
   const userToken = localStorage.getItem("token");
-  const id = mediateById?.channel?._id
-  const {  makeRequest: getMediators } = useRequest(`/mediation/mediators/${id}`, "GET", {
-    userToken 
-  });
-  const { makeRequest: assignMediators } = useRequest(`/mediation/channel/${id}/assign-mediator`, "PATCH", {
-    userToken
-  });
-  const [mediate, setMediate] = useState([])
+  const id = mediateById?.channel?._id;
+  const { makeRequest: getMediators } = useRequest(
+    `/mediation/mediators`,
+    "GET",
+    {
+      userToken,
+    }
+  );
+  const { makeRequest: assignMediators, loading } = useRequest(
+    `/mediation/channel/${id}/assign-mediator`,
+    "PATCH",
+    {
+      userToken,
+    }
+  );
+  const [mediate, setMediate] = useState<Mediators[]>([]);
 
   useEffect(() => {
-   const fetchData = async () => {
-    if(id){
-      const [response] = await getMediators()
-      setMediate(response.data || []);
-    }
-   }
-   fetchData()
-  }, [])
+    const fetchData = async () => {
+      const [response] = await getMediators();
+      const sortedMediators =
+        response?.data?.mediators?.sort((a: any, b: any) =>
+          a.fullName.localeCompare(b.fullName)
+        ) || [];
 
-  const {
-    handleSubmit,
-  } = useForm();
+      setMediate(sortedMediators);
+    };
+    fetchData();
+  }, []);
 
-  const handleAssignMediator = handleSubmit(async (formData) => {
+  const { handleSubmit, control, setValue } = useForm();
+
+  const handleAssignMediator = async (mediatorId: string) => {
     const mediatorID = {
-      mediatorId: id,
+      mediatorId: mediatorId,
     };
     const [response] = await assignMediators(mediatorID);
     if (response.status) {
@@ -66,7 +82,17 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
         position: "top-center",
       });
     }
-  });
+  };
+
+  const onSubmit = (formData: any) => {
+    const selectedMediator = mediate.find(
+      (mediator) => mediator.fullName === formData.fullName
+    );
+    if (selectedMediator) {
+      handleAssignMediator(selectedMediator._id);
+    } else {
+    }
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -150,11 +176,45 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
           </p>
         </div>
 
+        <div className="flex-[40%] mt-4">
+          <Controller
+            name="fullName"
+            control={control}
+            defaultValue=""
+            rules={{ required: "Select a Mediator" }}
+            render={({ field, fieldState }) => (
+              <SearchSelect
+                label="Assign a Mediator"
+                name="fullName"
+                options={mediate.map((mediator) => ({
+                  label: mediator.fullName,
+                  value: mediator.fullName,
+                }))}
+                className=""
+                onChange={(selectedValue) => {
+                  const selectedMediator = mediate.find(
+                    (mediator) => mediator.fullName === selectedValue
+                  );
+                  if (selectedMediator) {
+                    setValue("fullName", selectedMediator.fullName);
+                  }
+                }}
+                value={field.value}
+                error={fieldState?.error?.message}
+              />
+            )}
+          />
+        </div>
+
         <button
           className="h-[50px] mt-8 w-full bg-[#0979A1] text-white rounded-md font-bold text-[12px] "
-          onClick={handleAssignMediator}
+          onClick={handleSubmit(onSubmit)}
         >
-          Assign a Mediator
+          {loading ? (
+            <CircleLoader color="#ffffff" loading={loading} size={20} />
+          ) : (
+            "Assign a Mediator"
+          )}
         </button>
 
         {/* DO NOT REMOVE */}
@@ -162,7 +222,6 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
           Delete Request
         </button> */}
       </section>
-     
     </div>
   );
 };
