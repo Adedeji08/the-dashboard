@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import Table from "../../components/table";
 import { useNavigate } from "react-router-dom";
 
-const UserTable = ({ data, selectedStatus, handleStatusChange }: any) => {
+const UserTable = ({ data, selectedStatus, handleStatusChange, activeTab }: any) => {
   const navigate = useNavigate()
   const [filteredData, setFilteredData] = useState([]);
   const columns = [
     { header: "", accessor: "profilePhoto" },
-    { header: "Name", accessor: "fullname" },
+    { header: activeTab === "merchant" ? "Business Name" : "Name", accessor: "fullname" },
     { header: "Email Address", accessor: "email" },
     { header: "Phone No", accessor: "phone" },
     { header: "Date Joined", accessor: "created_at" },
