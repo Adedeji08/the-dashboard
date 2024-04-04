@@ -9,9 +9,9 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ open }) => {
   return (
     <div
-      className={classNames("w-60", "p-4",
+      className={classNames("w-64", "p-4",
         { block: open, hidden: !open },
-        "md:block","fixed", "left-0", "bottom-0", "h-full",
+        "md:block","", "left-0", "bottom-0", "h-full",
         { static: !open, "md:h-auto": open }
       )}
     >
