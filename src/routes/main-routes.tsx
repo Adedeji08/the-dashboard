@@ -11,6 +11,7 @@ import Refund from "../views/refunds";
 import Settings from "../views/settings";
 import Transaction from "../views/transaction";
 import TransactionDetails from "../views/transaction/transaction-details";
+import PaymentRequest from "../views/transaction/transaction-details/payment-req";
 
 
 const MainRoutes = {
@@ -61,6 +62,12 @@ const MainRoutes = {
       path: "/mediation",
       element: <Mediation />,
     },
+
+    {
+      path: "/payment/request/:id",
+      element: <PaymentRequest />,
+    },
+
     {
       path: "/mediation/details/:_id",
       element: <MediatorDetails />,

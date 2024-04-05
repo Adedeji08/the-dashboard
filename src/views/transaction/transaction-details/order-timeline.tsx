@@ -3,6 +3,7 @@ import Button from "../../../components/button";
 import useRequest from "../../../components/hooks/use-request";
 import classNames from "classnames";
 import { FaCheck } from "react-icons/fa";
+import { useNavigate } from "react-router";
 
 interface DetailsProps {
   transactions: {
@@ -21,6 +22,7 @@ type TimelineStep = {
 };
 
 const OrderTimeline: React.FC<DetailsProps> = ({ transactions }) => {
+  const navigate = useNavigate()
   const [timeline, setTimeline] = useState<TimelineStep[]>([]);
   const { makeRequest: getTimelines } = useRequest(
     `/orders/${transactions?.order?.orderId}/timeline`,
@@ -54,6 +56,10 @@ const OrderTimeline: React.FC<DetailsProps> = ({ transactions }) => {
     fetchData();
   }, [transactions?.order?.orderId]);
 
+  const Payment = () => {
+    navigate(`/payment/request/${transactions?.id}`)
+  }
+
   return (
     <>
       <div className="w-full">
@@ -84,7 +90,7 @@ const OrderTimeline: React.FC<DetailsProps> = ({ transactions }) => {
           </div>
 
           <div className="flex gap-8 justify-center items-center mt-5 px-4">
-            <Button size="lg" variant="secondary" type="button">
+            <Button size="lg" variant="secondary" type="button" onClick={Payment}>
               Payment request
             </Button>
           </div>
