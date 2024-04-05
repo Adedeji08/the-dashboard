@@ -11,19 +11,13 @@ export default function useRequest(
   const [response, setResponse] = useState<any>();
   const [statusCode, setStatusCode] = useState(0);
   const token = localStorage.getItem("token");
-
-// Inside useRequest hook
 async function makeRequest(data?: any, pathParams?: string, params?: Record<string, any>) {
   setLoading(true);
 
   let urlWithParams = `${baseURL}${endpoint}`;
-
-  // Incorporate pathParams into the URL if provided
   if (pathParams) {
     urlWithParams += `/${pathParams}`;
   }
-
-  // Add query parameters if provided
   if (params) {
     const queryParams = new URLSearchParams(params).toString();
     urlWithParams += `?${queryParams}`;
