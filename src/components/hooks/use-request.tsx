@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const baseURL =  process.env.REACT_APP_BACKEND_URL='https://staging-api.admin.vendstash.com'
+const baseURL =  process.env.REACT_APP_BACKEND_URL || 'https://staging-api.admin.vendstash.com'
 
 export default function useRequest(
   endpoint: string,
