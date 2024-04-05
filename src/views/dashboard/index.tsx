@@ -41,7 +41,7 @@ const Dashboard = () => {
   const fetchData = async () => {
     const page = currentPage;
     const limit = itemsPerPage;
-    const [response] = await makeRequest(undefined, {
+    const [response] = await makeRequest(undefined, undefined, {
       userType: activeTab,
       search: searchQuery,
       status: selectedStatus,
@@ -62,6 +62,7 @@ const Dashboard = () => {
     };
 
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

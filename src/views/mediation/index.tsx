@@ -4,6 +4,7 @@ import Mediator from "./mediate/mediator";
 import useRequest from "../../components/hooks/use-request";
 import AddMediator from "./mediate/add-mediator";
 import Pagination from "../../components/pagination/pagination";
+import NotificationModal from "../notification/notification-modal";
 
 interface UserData {
   channels: {
@@ -32,16 +33,19 @@ const Mediation = () => {
       Authorization: `Bearer ${userToken}`,
     }
   );
+  const [modalNotifyVisible, setModalNotifyVisible] = useState(false);
+
+
 
   useEffect(() => {
     fetchData();
-   // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, selectedStatus, currentPage]);
 
   const fetchData = async () => {
     const page = currentPage;
     const limit = itemsPerPage;
-    const [response] = await makeRequest(undefined, {
+    const [response] = await makeRequest(undefined, undefined, {
       title: searchQuery,
       status: selectedStatus,
       limit,
@@ -66,6 +70,10 @@ const Mediation = () => {
 
   const addMediator = () => {
     setModalVisible(true);
+  };
+
+  const openNotification = () => {
+    setModalNotifyVisible(true);
   };
 
   useEffect(() => {
@@ -101,10 +109,12 @@ const Mediation = () => {
             />
           </div>
           <Icon name="msgIcon" />
-          <Icon name="notificationIcon" />
+          <button className="-mt-3" onClick={openNotification}>
+            <Icon name="notificationIcon" />
+          </button>
         </section>
       </div>
-      
+
       <button
         className="h-[50px] mt-8 w-[300px] bg-[#0979A1] text-white rounded-md font-bold text-[12px] "
         onClick={addMediator}
@@ -128,6 +138,11 @@ const Mediation = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
+      />
+
+      <NotificationModal
+        visible={modalNotifyVisible}
+        handleClose={() => setModalNotifyVisible(false)}
       />
     </>
   );

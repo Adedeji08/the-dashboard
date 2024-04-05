@@ -37,8 +37,6 @@ const NotificationModal = ({ visible, handleClose }: any) => {
     }
   }, [notifications, showAll]);
 
-  console.log(notifications);
-
   return (
     <>
       <Modal
