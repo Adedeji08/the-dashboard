@@ -1,5 +1,10 @@
 import React from "react";
-import { NotificationData } from "./types";
+interface NotificationData {
+    id: string;
+    content: string;
+    created_at: string;
+    read: boolean;
+  }
 
 interface UpdateNotificationProps {
     notifications: NotificationData[];
