@@ -45,7 +45,7 @@ const Mediation = () => {
   const fetchData = async () => {
     const page = currentPage;
     const limit = itemsPerPage;
-    const [response] = await makeRequest(undefined, undefined, {
+    const [response] = await makeRequest(undefined, {
       title: searchQuery,
       status: selectedStatus,
       limit,

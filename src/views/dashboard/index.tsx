@@ -41,7 +41,7 @@ const Dashboard = () => {
   const fetchData = async () => {
     const page = currentPage;
     const limit = itemsPerPage;
-    const [response] = await makeRequest(undefined, undefined, {
+    const [response] = await makeRequest(undefined, {
       userType: activeTab,
       search: searchQuery,
       status: selectedStatus,

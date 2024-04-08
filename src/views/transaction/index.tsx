@@ -43,7 +43,7 @@ const Transaction = () => {
   const fetchData = async () => {
     const page = currentPage;
     const limit = itemsPerPage;
-    const [response] = await makeRequest(undefined, undefined, {
+    const [response] = await makeRequest(undefined, {
       email: searchQuery,
       type: activeTab,
       status: selectedStatus,

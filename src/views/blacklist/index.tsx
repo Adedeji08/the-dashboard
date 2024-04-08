@@ -59,7 +59,7 @@ const BlackList = () => {
     const page = currentPage;
     const limit = itemsPerPage;
     if (activeTab === "reports") {
-      const [response] = await getReports(undefined, undefined, {
+      const [response] = await getReports(undefined, {
         search: searchQuery,
         limit,
         page,
@@ -67,7 +67,7 @@ const BlackList = () => {
       setData(response.data?.reports || []);
       setTotalPages(Math.ceil(response.data?.totalPages));
     } else if (activeTab === "blacklist") {
-      const [response] = await getBlacklist(undefined, undefined, {
+      const [response] = await getBlacklist(undefined, {
         search: searchQuery,
         limit,
         page,

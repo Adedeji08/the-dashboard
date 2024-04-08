@@ -3,6 +3,7 @@ import useRequest from "../../components/hooks/use-request";
 import Back from "../../components/back";
 import { formatDistanceToNow } from "date-fns";
 import { showToast } from "../../components/toast";
+import UpdateNotification from "./update-notification";
 
 interface NotificationData {
   id: string;
@@ -14,12 +15,13 @@ interface NotificationData {
 const Notification = () => {
   const userToken = localStorage.getItem("token");
   const [notifications, setNotifications] = useState<NotificationData[]>([]);
+  const id = notifications.map(notification => notification.id)
   const { makeRequest: getNotification } = useRequest("/notifications", "GET", {
     Authorization: `Bearer ${userToken}`,
   });
 
   const { makeRequest: readNotification } = useRequest(
-    `/notifications`,
+    `/notifications/${id}`,
     "PUT",
     { Authorization: `Bearer ${userToken}` }
   );
@@ -34,8 +36,10 @@ const Notification = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  
+
   const markNotificationAsRead = async (id: string) => {
-    const [response] = await readNotification(undefined, `${id}`);
+    const [response] = await readNotification(undefined);
     if (response.status) {
       showToast(response.message, true, {
         position: "top-center",
@@ -54,6 +58,27 @@ const Notification = () => {
     }
   };
 
+  const markAllNotificationsAsRead = async () => {
+      const notificationIds = notifications.map(notification => notification.id);
+      const [response] = await readNotification(notificationIds);
+      if (response.status) {
+        setNotifications(prevNotifications => (
+          prevNotifications.map(notification => ({
+            ...notification,
+            read: true
+          }))
+        ));
+        showToast(response.message, true, {
+          position: "top-center",
+        });
+      } else {
+        showToast(response.message, false, {
+          position: "top-center",
+        });
+      }
+  };
+  
+
   return (
     <>
       <div className="mt-14 mx-10">
@@ -63,17 +88,11 @@ const Notification = () => {
         </section>
         <section className="flex mt-10 justify-between cursor-default">
           <p className="text-[20px] font-semibold">Today</p>
-          <button
-            className="text-[16px] font-normal text-[#0979A1]"
-            onClick={() => {
-              // Mark all notifications as read
-              notifications.forEach((notification) =>
-                markNotificationAsRead(notification.id)
-              );
-            }}
-          >
-            Mark all as read
-          </button>
+         <UpdateNotification 
+         notifications={notifications}
+         markAllNotificationsAsRead={markAllNotificationsAsRead}
+
+         />
         </section>
 
         {notifications.map((notification, id) => (
@@ -81,7 +100,6 @@ const Notification = () => {
             key={id}
             className="flex justify-between gap-8 mt-4 border-2 p-8 rounded-lg w-full"
             onClick={() => {
-              // Mark this specific notification as read
               markNotificationAsRead(notification.id);
             }}
           >

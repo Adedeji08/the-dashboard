@@ -11,41 +11,37 @@ export default function useRequest(
   const [response, setResponse] = useState<any>();
   const [statusCode, setStatusCode] = useState(0);
   const token = localStorage.getItem("token");
-async function makeRequest(data?: any, pathParams?: string, params?: Record<string, any>) {
-  setLoading(true);
 
-  let urlWithParams = `${baseURL}${endpoint}`;
-  if (pathParams) {
-    urlWithParams += `/${pathParams}`;
-  }
-  if (params) {
+  async function makeRequest(data?: any, params?: Record<string, any>) {
+    setLoading(true);
+
     const queryParams = new URLSearchParams(params).toString();
-    urlWithParams += `?${queryParams}`;
+    const urlWithParams = queryParams
+      ? `${baseURL}${endpoint}?${queryParams}`
+      : `${baseURL}${endpoint}`;
+
+    const response = await fetch(urlWithParams, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        ...headers,
+      },
+      body:
+        method === "POST" || method === "PUT" || method === "DELETE" || method === "PATCH"
+          ? JSON.stringify(data)
+          : undefined,
+    });
+
+    const json = await response.json();
+
+    setResponse(json);
+    setStatusCode(response.status);
+
+    setLoading(false);
+
+    return [json, response.status];
   }
-
-  const response = await fetch(urlWithParams, {
-    method,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-      ...headers,
-    },
-    body:
-      method === "POST" || method === "PUT" || method === "DELETE" || method === "PATCH"
-        ? JSON.stringify(data)
-        : undefined,
-  });
-
-  const json = await response.json();
-
-  setResponse(json);
-  setStatusCode(response.status);
-
-  setLoading(false);
-
-  return [json, response.status];
-}
-
 
   return { loading, makeRequest, response, statusCode };
 }
