@@ -31,11 +31,11 @@ const DashboardLayout = () => {
   }, [sidebarBackgroundCheck]);
 
   return (
-    <div className="max-w-1500 mx-auto flex flex-col md:flex-row">
+    <div className="max-w-1500 mx-auto flex flex-col md:flex-row pt-5">
       {showSidebar && (
         <aside
           className={classNames(
-            "bg-gray-100  transition-all duration-300 h-[120vh] border-r border-gray-200",
+            "bg-gray-100  transition-all duration-300 h-[140vh] border-r border-gray-200",
             {
               "w-64": sidebarOpen,
               "w-0": !sidebarOpen,
@@ -44,7 +44,9 @@ const DashboardLayout = () => {
         >
           <div className="p-4">
             <img src={logo} alt="logo" />
+            <hr className="mt-8"/>
           </div>
+
           <Sidebar open={sidebarOpen} />
         </aside>
       )}

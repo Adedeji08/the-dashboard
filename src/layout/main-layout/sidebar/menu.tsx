@@ -25,7 +25,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ to, label, icon }) => {
   return (
     <Link to={to}>
       <div
-        className={`flex gap-6 items-center mb-4 p-2 rounded-md font-semibold fill-base cursor-pointer
+        className={`flex gap-6 items-center mb-6 p-2 rounded-md font-semibold fill-base cursor-pointer
           ${active ? "bg-[#0979A1CC] ml-4 text-[#fff]" : "hover:bg-gray-100"}
           ${isSettings ? "mt-20" : ""}`}
         onMouseEnter={handleMouseEnter}
