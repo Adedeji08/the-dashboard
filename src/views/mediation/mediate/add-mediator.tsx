@@ -9,7 +9,7 @@ import { CircleLoader } from "react-spinners";
 
 const AddMediator = ({ visible, handleClose }: any) => {
   const userToken = localStorage.getItem("token");
-  const { loading, makeRequest } = useRequest("/add-mediator", "POST", {
+  const { loading, makeRequest } = useRequest("/mediation/add-mediator", "POST", {
     userToken
   });
   const {
@@ -79,10 +79,10 @@ const AddMediator = ({ visible, handleClose }: any) => {
               control={control}
               defaultValue={""}
               rules={{
-                required: "Email Name is required",
-                minLength: {
-                  value: 3,
-                  message: "Name must be at least 3 characters",
+                required: "Email is required",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Enter a valid email. E.g, example@gmail.com",
                 },
               }}
               render={({ field, fieldState }) => (
