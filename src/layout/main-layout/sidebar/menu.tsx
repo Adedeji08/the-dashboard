@@ -1,23 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import Icon from "../../../assets/icons";
 
 interface MenuItemProps {
   to: any;
   label: any;
+  icon: any;
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({ to, label }) => {
+const MenuItem: React.FC<MenuItemProps> = ({ to, label, icon }) => {
   const location = useLocation();
   const active = location.pathname === to;
   const isSettings = to === "/settings";
+  const [backgroundBlue, setBackgroundBlue] = useState(false);
+
+  const handleMouseEnter = () => {
+    setBackgroundBlue(true);
+  };
+
+  const handleMouseLeave = () => {
+    setBackgroundBlue(false);
+  };
 
   return (
     <Link to={to}>
-       <div
-        className={`flex items-center mb-4 p-2 rounded-md font-semibold text-base cursor-pointer
-          ${active ? "bg-[#0979A1CC] text-[#fff]" : "hover:bg-gray-100"}
+      <div
+        className={`flex gap-6 items-center mb-4 p-2 rounded-md font-semibold fill-base cursor-pointer
+          ${active ? "bg-[#0979A1CC] ml-4 text-[#fff]" : "hover:bg-gray-100"}
           ${isSettings ? "mt-20" : ""}`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
+        <Icon
+          name={icon}
+          className={backgroundBlue ? "fill-white" : "fill-white"}
+        />
         {label}
       </div>
     </Link>
@@ -26,20 +43,33 @@ const MenuItem: React.FC<MenuItemProps> = ({ to, label }) => {
 
 const Menu: React.FC = () => {
   const menuItems: MenuItemProps[] = [
-    { to: "/", label: "Account" },
-    { to: "/transactions", label: "Transactions" },
-    { to: "/refunds", label: "Refunds" },
-    { to: "/mediation", label: "Mediation" },
-    { to: "/blacklist", label: "Blacklist" },
-    { to: "/support", label: "Customer Support" },
-    { to: "/analytics", label: "Analytics" },
-    { to: "/settings", label: "Settings" },
+    { to: "/", icon: "account", label: "Account" },
+    {
+      to: "/transactions",
+      icon: "transaction",
+      label: "Transactions",
+    },
+    { to: "/refunds", icon: "refund", label: "Refunds" },
+    { to: "/mediation", icon: "mediation", label: "Mediation" },
+    { to: "/blacklist", icon: "blacklist", label: "Blacklist" },
+    {
+      to: "/support",
+      icon: "support",
+      label: "Customer Support",
+    },
+    { to: "/analytics", icon: "analytics", label: "Analytics" },
+    { to: "/settings", icon: "settings", label: "Settings" },
   ];
 
   return (
     <div>
       {menuItems.map((item, index) => (
-        <MenuItem key={index} to={item.to} label={item.label} />
+        <MenuItem
+          key={index}
+          to={item.to}
+          label={item.label}
+          icon={item.icon}
+        />
       ))}
     </div>
   );
