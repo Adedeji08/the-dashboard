@@ -35,6 +35,8 @@ interface Mediators {
 }
 
 const Details: React.FC<DetailsProps> = ({ mediateById }) => {
+  const [email, setEmail] = useState("")
+  const [fullName, setFullName] = useState("")
   const userToken = localStorage.getItem("token");
   const id = mediateById?.channel?._id;
   const { makeRequest: getMediators } = useRequest(
@@ -55,7 +57,10 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const [response] = await getMediators();
+      const [response] = await getMediators(undefined, {
+        email: email,
+        fullName: fullName,
+      });
       const sortedMediators =
         response?.data?.mediators?.sort((a: any, b: any) =>
           a.fullName.localeCompare(b.fullName)
@@ -64,7 +69,7 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
       setMediate(sortedMediators);
     };
     fetchData();
-  }, []);
+  }, [email, fullName]);
 
   const { handleSubmit, control, setValue } = useForm();
 
