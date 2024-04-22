@@ -4,23 +4,23 @@ import Tabs from "../../components/tab";
 import useRequest from "../../components/hooks/use-request";
 import Payments from "./transact/payments";
 import Withdrawal from "./transact/withdrawal";
-import Refund from "./transact/refund";
 import Pagination from "../../components/pagination/pagination";
+import NotificationModal from "../notification/notification-modal";
 
 interface UserData {
   fullname: string;
 }
 
-
 const Transaction = () => {
-  const [activeTab, setActiveTab] = useState<
-    "payment" | "withdrawal"
-  >("payment");
+  const [activeTab, setActiveTab] = useState<"payment" | "withdrawal">(
+    "payment"
+  );
   const [data, setData] = useState<UserData[]>([]);
   const [statistics, setStatistics] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const userToken = localStorage.getItem("token");
   const [selectedStatus, setSelectedStatus] = useState<string>("successful");
+  const [modalVisible, setModalVisible] = useState(false);
   const { makeRequest } = useRequest("/transactions", "GET", {
     Authorization: `Bearer ${userToken}`,
   });
@@ -70,11 +70,16 @@ const Transaction = () => {
     };
 
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handlePageChange = async (page: number) => {
     setCurrentPage(page);
-     fetchData();
+    fetchData();
+  };
+
+  const openNotification = () => {
+    setModalVisible(true);
   };
 
   return (
@@ -99,7 +104,9 @@ const Transaction = () => {
             />
           </div>
           <Icon name="msgIcon" />
+          <button className="-mt-3" onClick={openNotification}>
           <Icon name="notificationIcon" />
+          </button>
         </section>
       </div>
 
@@ -131,6 +138,11 @@ const Transaction = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
+      />
+
+      <NotificationModal
+        visible={modalVisible}
+        handleClose={() => setModalVisible(false)}
       />
     </>
   );
