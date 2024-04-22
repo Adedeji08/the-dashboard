@@ -5,6 +5,7 @@ import Merchant from "./merchant";
 import useRequest from "../../components/hooks/use-request";
 import Icon from "../../assets/icons";
 import Pagination from "../../components/pagination/pagination";
+import NotificationModal from "../notification/notification-modal";
 
 interface UserData {
   fullname: string;
@@ -23,10 +24,14 @@ const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const itemsPerPage = 10;
-
   const { makeRequest: getStat } = useRequest("/users/statistics", "GET", {
     Authorization: `Bearer ${userToken}`,
   });
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const openNotification = () => {
+    setModalVisible(true);
+  };
 
   useEffect(() => {
     fetchData();
@@ -57,6 +62,7 @@ const Dashboard = () => {
     };
 
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -92,7 +98,10 @@ const Dashboard = () => {
             />
           </div>
           <Icon name="msgIcon" />
+          
+          <button className="-mt-3" onClick={openNotification}>
           <Icon name="notificationIcon" />
+          </button>
         </section>
       </div>
       <Tabs
@@ -126,6 +135,11 @@ const Dashboard = () => {
         totalPages={totalPages}
         onPageChange={handlePageChange}
       />
+
+      <NotificationModal
+       visible={modalVisible}
+       handleClose={() => setModalVisible(false)}
+       />
     </>
   );
 };

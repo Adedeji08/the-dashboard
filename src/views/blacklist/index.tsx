@@ -5,6 +5,7 @@ import useRequest from "../../components/hooks/use-request";
 import Reports from "./reports/reports";
 import BlacklistedReport from "./reports/blacklist";
 import Pagination from "../../components/pagination/pagination";
+import NotificationModal from "../notification/notification-modal";
 
 interface UserData {
   fullname: string;
@@ -23,6 +24,7 @@ const BlackList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const itemsPerPage = 10;
+  const [modalVisible, setModalVisible] = useState(false);
 
   const { makeRequest: getStatistics } = useRequest(
     "/reports/statistic",
@@ -44,8 +46,13 @@ const BlackList = () => {
     }
   );
 
+  const openNotification = () => {
+    setModalVisible(true);
+  };
+
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, searchQuery, currentPage]);
 
   const fetchData = async () => {
@@ -112,7 +119,9 @@ const BlackList = () => {
             />
           </div>
           <Icon name="msgIcon" />
-          <Icon name="notificationIcon" />
+          <button className="-mt-3" onClick={openNotification}>
+            <Icon name="notificationIcon" />
+          </button>
         </section>
       </div>
 
@@ -122,7 +131,9 @@ const BlackList = () => {
         setActiveTab={setActiveTab}
       />
 
-      {activeTab === "reports" && <Reports data={data} statistics={statistics} />}
+      {activeTab === "reports" && (
+        <Reports data={data} statistics={statistics} />
+      )}
 
       {activeTab === "blacklist" && <BlacklistedReport blacklist={blacklist} />}
 
@@ -130,6 +141,11 @@ const BlackList = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
+      />
+
+      <NotificationModal
+        visible={modalVisible}
+        handleClose={() => setModalVisible(false)}
       />
     </>
   );

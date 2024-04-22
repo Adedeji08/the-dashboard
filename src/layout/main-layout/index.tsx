@@ -8,6 +8,7 @@ const DashboardLayout = () => {
   const { pathname } = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const sidebarBackgroundCheck = pathname.split("/")[1];
+  const showSidebar = !pathname.startsWith("/notification");
 
   useEffect(() => {
     if (
@@ -29,30 +30,33 @@ const DashboardLayout = () => {
     }
   }, [sidebarBackgroundCheck]);
 
-
   return (
-    <div className="max-w-1500 mx-auto flex flex-col md:flex-row">
-      <aside
-       className={classNames(
-        "bg-gray-100  transition-all duration-300 h-[120vh] border-r border-gray-200",
-        {
-          "w-64": sidebarOpen,
-          "w-0": !sidebarOpen,
-        }
+    <div className="max-w-1500 mx-auto flex flex-col md:flex-row pt-5">
+      {showSidebar && (
+        <aside
+          className={classNames(
+            "bg-gray-100  transition-all duration-300 h-[140vh] border-r border-gray-200",
+            {
+              "w-64": sidebarOpen,
+              "w-0": !sidebarOpen,
+            }
+          )}
+        >
+          <div className="p-4">
+            <img src={logo} alt="logo" />
+            <hr className="mt-8"/>
+          </div>
+
+          <Sidebar open={sidebarOpen} />
+        </aside>
       )}
-      >
-        <div className="p-4">
-          <img src={logo} alt="logo" />
-        </div>
-        <Sidebar open={sidebarOpen} />
-      </aside>
       <main
-        className={classNames (
-       "py-2 md:py-5 flex-grow transition-all duration-300",
-       {
-        "pl-12": sidebarOpen,
-        "pl-2 md:pl-3.5": !sidebarOpen,
-      }
+        className={classNames(
+          "py-2 md:py-5 flex-grow transition-all duration-300",
+          {
+            "pl-12": sidebarOpen,
+            "pl-2 md:pl-3.5": !sidebarOpen,
+          }
         )}
       >
         <Outlet />
