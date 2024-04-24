@@ -33,6 +33,8 @@ const Table: React.FC<TableProps> = ({
         return "#D1FFC9";
       case "active":
         return "#D1FFC9";
+        case "resolved":
+          return "#D1FFC9";
       case "pending":
         return "#FCCFCF";
       case "failed":

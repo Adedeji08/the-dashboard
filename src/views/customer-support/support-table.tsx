@@ -1,30 +1,29 @@
 import React, { useEffect, useState } from "react";
-import Table from "../../components/table";
 import { useNavigate } from "react-router-dom";
+import Table from "../../components/table";
 
-const UserTable = ({
+const SupportTable = ({
   data,
   selectedStatus,
   handleStatusChange,
-  activeTab,
+  currentPage,
+  onPageChange,
 }: any) => {
   const navigate = useNavigate();
   const [filteredData, setFilteredData] = useState([]);
   const columns = [
-    { header: "", accessor: "profilePhoto" },
-    {
-      header: activeTab === "merchant" ? "Business Name" : "Name",
-      accessor: "fullname",
-    },
+    { header: "Ticket ID", accessor: "ticketId" },
+    { header: "Subject", accessor: "subject" },
     { header: "Email Address", accessor: "email" },
-    { header: "Phone No", accessor: "phone" },
-    { header: "Date Joined", accessor: "created_at" },
+    { header: "Status", accessor: "status" },
+    { header: "Assigned To", accessor: "fullName" },
+    { header: "Date", accessor: "created_at" },
     { header: "", accessor: "id" },
   ];
 
   useEffect(() => {
-    const filtered = data.filter((user: any) => {
-      if (user.status) {
+    const filtered = data.filter((request: any) => {
+      if (request.status) {
         return true;
       }
       return false;
@@ -32,9 +31,17 @@ const UserTable = ({
     setFilteredData(filtered);
   }, [data, selectedStatus]);
 
+
+
   const handleUserClick = (id: string) => {
-    navigate(`/account/details/${id}`);
+    navigate(`/request/${id}`);
   };
+
+  const mappedData = filteredData.map((request: any) => ({
+    ...request,
+    fullName: request?.fullName || "N/A",
+  }));
+
 
   return (
     <div className="rounded-md py-3 px-3 bg-white border border-[#fff] mt-10 w-[95%] pt-5 ">
@@ -47,11 +54,11 @@ const UserTable = ({
             value={selectedStatus}
             onChange={handleStatusChange}
           >
-              <option value="">All</option>
-            <option value="active">Active</option>
-            <option value="suspended">Suspended</option>
-            <option value="inactive">Inactive</option>
-            <option value="blocked">Blocked</option>
+            <option value="">All</option>
+            <option value="resolved">Resolved</option>
+            <option value="closed">Closed</option>
+            <option value="pending">Pending</option>
+            <option value="in_progress">In Progress</option>
           </select>
         </div>
       </div>
@@ -59,7 +66,7 @@ const UserTable = ({
       {filteredData.length > 0 ? (
         <Table
           columns={columns}
-          data={filteredData}
+          data={mappedData}
           selectedUserId={null}
           onUserClick={handleUserClick}
         />
@@ -72,4 +79,4 @@ const UserTable = ({
   );
 };
 
-export default UserTable;
+export default SupportTable;

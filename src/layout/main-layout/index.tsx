@@ -23,7 +23,9 @@ const DashboardLayout = () => {
       sidebarBackgroundCheck === "report" ||
       sidebarBackgroundCheck === "settings" ||
       sidebarBackgroundCheck === "mediation" ||
-      sidebarBackgroundCheck === "payment"
+      sidebarBackgroundCheck === "payment" ||
+      sidebarBackgroundCheck === "support" ||
+      sidebarBackgroundCheck === "request"
     ) {
       setSidebarOpen(true);
     } else {
