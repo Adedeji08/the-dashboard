@@ -10,8 +10,11 @@ import MediatorDetails from "../views/mediation/mediator-details";
 import Notification from "../views/notification/notification";
 import Refund from "../views/refunds";
 import Settings from "../views/settings";
+import CustomerSupport from "../views/customer-support";
 import Transaction from "../views/transaction";
 import TransactionDetails from "../views/transaction/transaction-details";
+import PaymentRequest from "../views/transaction/transaction-details/payment-req";
+import RequestDetails from "../views/customer-support/request-details";
 
 
 const MainRoutes = {
@@ -62,6 +65,12 @@ const MainRoutes = {
       path: "/mediation",
       element: <Mediation />,
     },
+
+    {
+      path: "/payment/request/:id",
+      element: <PaymentRequest />,
+    },
+
     {
       path: "/mediation/details/:_id",
       element: <MediatorDetails />,
@@ -69,6 +78,14 @@ const MainRoutes = {
     {
       path: "/notification",
       element: <Notification />,
+    },
+    {
+      path: "/support",
+      element: <CustomerSupport />,
+    },
+    {
+      path: "/request/:id",
+      element: <RequestDetails />,
     },
   ],
 };

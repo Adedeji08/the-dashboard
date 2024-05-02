@@ -27,7 +27,7 @@ const Button = ({
         <Link
           to={href}
           className={classNames(
-            "inline-flex items-center justify-center text-center px-5 py-2 gap-2 border-2 border-[#0979A1] rounded-lg font-bold text-sm md:text-xl",
+            "inline-flex items-center justify-center text-center px-5 py-2 gap-2 border-2 border-[#0979A1] rounded-lg font-bold text-sm md:text-sm",
             {
               "w-full": size === "lg",
               "w-[75%]": size === "md",
@@ -36,14 +36,15 @@ const Button = ({
               "text-[#fff] bg-[#0979A1] hover:opacity-75":
                 variant === "primary",
               "text-[#0979A1]": variant === "secondary",
-            }
+            },
+            className
           )}>
           {children}
         </Link>
       ) : (
         <button
           className={classNames(
-            "inline-flex items-center justify-center text-center px-5 py-2 gap-2 border-2 border-[#0979A1] rounded-lg font-bold text-sm md:text-xl",
+            "inline-flex items-center justify-center text-center px-5 py-2 gap-2 border-2 border-[#0979A1] rounded-lg font-bold text-sm md:text-sm",
             {
               "w-full": size === "lg",
               "w-[75%]": size === "md",
@@ -52,7 +53,8 @@ const Button = ({
               "text-[#fff] bg-[#0979A1] hover:opacity-75":
                 variant === "primary",
               "text-[#0979A1]": variant === "secondary",
-            }
+            },
+            className
           )}
           type={type}
           onClick={onClick}>

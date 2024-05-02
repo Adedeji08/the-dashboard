@@ -1,41 +1,34 @@
 import React, { useEffect, useState } from "react";
-import Tabs from "../../components/tab";
-import Buyer from "./buyer";
-import Merchant from "./merchant";
-import useRequest from "../../components/hooks/use-request";
 import Icon from "../../assets/icons";
+import Tabs from "../../components/tab";
+import useRequest from "../../components/hooks/use-request";
+import Requests from "./support/requests";
 import Pagination from "../../components/pagination/pagination";
-import NotificationModal from "../notification/notification-modal";
 
 interface UserData {
   fullname: string;
 }
 
-const Dashboard = () => {
+const CustomerSupport = () => {
+  const [activeTab, setActiveTab] = useState<"requests" | "agents">("requests");
   const [data, setData] = useState<UserData[]>([]);
   const [statistics, setStatistics] = useState([]);
-  const [activeTab, setActiveTab] = useState<"merchant" | "buyer">("merchant");
   const [searchQuery, setSearchQuery] = useState("");
   const userToken = localStorage.getItem("token");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
-  const { makeRequest } = useRequest("/users", "GET", {
+  const { makeRequest } = useRequest("/customer-support/tickets", "GET", {
+    Authorization: `Bearer ${userToken}`,
+  });
+  const { makeRequest: getStats } = useRequest("/customer-support/statistics", "GET", {
     Authorization: `Bearer ${userToken}`,
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const itemsPerPage = 10;
-  const { makeRequest: getStat } = useRequest("/users/statistics", "GET", {
-    Authorization: `Bearer ${userToken}`,
-  });
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const openNotification = () => {
-    setModalVisible(true);
-  };
 
   useEffect(() => {
     fetchData();
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, searchQuery, selectedStatus, currentPage]);
 
   const fetchData = async () => {
@@ -55,21 +48,9 @@ const Dashboard = () => {
     }
   
     const [response] = await makeRequest(undefined, params);
-    setData(response.data?.users || []);
-    setTotalPages(Math.ceil(response.data?.totalPages));
+    setData(response.data?.data?.tickets || []);
+    setTotalPages(Math.ceil(response.data?.data?.totalPages));
   };
-
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const [response] = await getStat();
-      setStatistics(response.data);
-    };
-
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleSearchChange = (event: any) => {
     setSearchQuery(event.target.value);
@@ -79,19 +60,29 @@ const Dashboard = () => {
     setSelectedStatus(event.target.value);
   };
 
-  const handlePageChange = (page: number) => {
+  const handlePageChange = async (page: number) => {
     setCurrentPage(page);
     fetchData();
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const [response] = await getStats();
+      setStatistics(response.data);
+    };
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
       <div className="flex justify-between w-[95%]">
         <section>
           <h2 className="text-[24px] font-bold">
-            Accounts{" "}
+            Customer support{" "}
             <p className="text-[14px] font-normal">
-              See all the accounts / profiles of users
+              See all customer support requests
             </p>
           </h2>
         </section>
@@ -108,50 +99,32 @@ const Dashboard = () => {
             />
           </div>
           <Icon name="msgIcon" />
-          
-          <button className="-mt-3" onClick={openNotification}>
           <Icon name="notificationIcon" />
-          </button>
         </section>
       </div>
+
       <Tabs
         activeTab={activeTab}
-        tabs={["merchant", "buyer"]}
+        tabs={["requests", "agents"]}
         setActiveTab={setActiveTab}
       />
-      <div>
-        {activeTab === "merchant" && (
-          <Merchant
-            data={data}
-            activeTab={activeTab}
-            statistics={statistics}
-            selectedStatus={selectedStatus}
-            handleStatusChange={handleStatusChange}
-          />
-        )}
-        {activeTab === "buyer" && (
-          <Buyer
-            data={data}
-            activeTab={activeTab}
-            statistics={statistics}
-            selectedStatus={selectedStatus}
-            handleStatusChange={handleStatusChange}
-          />
-        )}
-      </div>
+
+      {activeTab === "requests" && (
+        <Requests
+          data={data}
+          statistics={statistics}
+          selectedStatus={selectedStatus}
+          handleStatusChange={handleStatusChange}
+        />
+      )}
 
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
       />
-
-      <NotificationModal
-       visible={modalVisible}
-       handleClose={() => setModalVisible(false)}
-       />
     </>
   );
 };
 
-export default Dashboard;
+export default CustomerSupport;
