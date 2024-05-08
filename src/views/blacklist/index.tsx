@@ -13,7 +13,7 @@ interface UserData {
 
 const BlackList = () => {
   const [activeTab, setActiveTab] = useState<"reports" | "blacklist">(
-    "reports"
+    (localStorage.getItem("activeTab") as "reports" | "blacklist") || "reports"
   );
 
   const [data, setData] = useState<UserData[]>([]);
@@ -21,7 +21,10 @@ const BlackList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [statistics, setStatistics] = useState([]);
   const userToken = localStorage.getItem("token");
-  const [currentPage, setCurrentPage] = useState(1);
+  const params = new URLSearchParams(new URL(window.location.href).search);
+  const [currentPage, setCurrentPage] = useState(
+    Number(params.get("page") || 1)
+  );
   const [totalPages, setTotalPages] = useState<number>(1);
   const itemsPerPage = 10;
   const [modalVisible, setModalVisible] = useState(false);
@@ -77,10 +80,15 @@ const BlackList = () => {
     }
   };
 
-  const handlePageChange = async (page: number) => {
+
+  function handlePageChange(page: number) {
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    params.set("page", page.toString());
+    url.search = params.toString();
+    window.location.href = url.toString();
     setCurrentPage(page);
-    await fetchData();
-  };
+  }
 
   const handleSearchChange = (event: any) => {
     setSearchQuery(event.target.value);
@@ -93,6 +101,15 @@ const BlackList = () => {
     };
 
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("activeTab", activeTab);
+  }, [activeTab]);
+  
+  // Add this useEffect hook to set the active tab to "reports" when the component mounts
+  useEffect(() => {
+    setActiveTab("reports");
   }, []);
 
   return (
