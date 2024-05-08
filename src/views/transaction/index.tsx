@@ -13,7 +13,7 @@ interface UserData {
 
 const Transaction = () => {
   const [activeTab, setActiveTab] = useState<"payment" | "withdrawal">(
-    "payment"
+    (localStorage.getItem("activeTab") as "payment" | "withdrawal") || "payment"
   );
   const [data, setData] = useState<UserData[]>([]);
   const [statistics, setStatistics] = useState([]);
@@ -31,7 +31,10 @@ const Transaction = () => {
       Authorization: `Bearer ${userToken}`,
     }
   );
-  const [currentPage, setCurrentPage] = useState(1);
+  const params = new URLSearchParams(new URL(window.location.href).search);
+  const [currentPage, setCurrentPage] = useState(
+    Number(params.get("page") || 1)
+  );
   const [totalPages, setTotalPages] = useState<number>(1);
   const itemsPerPage = 10;
 
@@ -54,6 +57,15 @@ const Transaction = () => {
     setTotalPages(Math.ceil(response.data?.totalPages));
   };
 
+  function handlePageChange(page: number) {
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    params.set("page", page.toString());
+    url.search = params.toString();
+    window.location.href = url.toString();
+    setCurrentPage(page);
+  }
+
   const handleSearchChange = (event: any) => {
     setSearchQuery(event.target.value);
   };
@@ -73,14 +85,17 @@ const Transaction = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handlePageChange = async (page: number) => {
-    setCurrentPage(page);
-    fetchData();
-  };
-
   const openNotification = () => {
     setModalVisible(true);
   };
+  
+  useEffect(() => {
+    localStorage.setItem("activeTab", activeTab);
+  }, [activeTab]);
+
+  useEffect(() => {
+    setActiveTab("payment");
+  }, []);
 
   return (
     <>
