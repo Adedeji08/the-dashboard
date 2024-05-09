@@ -19,6 +19,9 @@ const CustomerSupport = () => {
   const { makeRequest } = useRequest("/customer-support/tickets", "GET", {
     Authorization: `Bearer ${userToken}`,
   });
+  const { makeRequest: getAgent } = useRequest("/customer-support/agents", "GET", {
+    Authorization: `Bearer ${userToken}`,
+  });
   const { makeRequest: getStats } = useRequest("/customer-support/statistics", "GET", {
     Authorization: `Bearer ${userToken}`,
   });
@@ -38,6 +41,7 @@ const CustomerSupport = () => {
       limit: number;
       page: number;
       status?: string;
+      name?: string;
     } = {
       limit,
       page,
@@ -46,10 +50,20 @@ const CustomerSupport = () => {
     if (selectedStatus) {
       params.status = selectedStatus;
     }
+
+    if (searchQuery) {
+      params.name = searchQuery;
+    }
   
+    if(activeTab === "requests"){
     const [response] = await makeRequest(undefined, params);
     setData(response.data?.data?.tickets || []);
     setTotalPages(Math.ceil(response.data?.data?.totalPages));
+    } else if (activeTab === "agents"){
+      const [response] = await getAgent(undefined, params);
+      setData(response.data || []);
+      setTotalPages(Math.ceil(response.data?.data?.totalPages));
+    }
   };
 
   const handleSearchChange = (event: any) => {
