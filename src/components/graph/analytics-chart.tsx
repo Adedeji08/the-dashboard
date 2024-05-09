@@ -22,29 +22,6 @@ const AnalyticsChart = ({ chartdata }: DataChart) => {
     }
   }, [chartdata]);
 
-  useEffect(() => {
-    if (!loading) {
-      const chartInstance = chartRef.current.getEchartsInstance();
-      const zoomSize = 6;
-
-      const handleClick = (params: any) => {
-        const { dataAxis, data } = params.series[0].option;
-        console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
-        console.log({
-          startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
-          endValue:
-            dataAxis[
-              Math.min(params.dataIndex + zoomSize / 2, data.length - 1)
-            ],
-        });
-      };
-
-      chartInstance.on("click", handleClick);
-      return () => {
-        chartInstance.off("click", handleClick);
-      };
-    }
-  }, [loading]);
 
   const dataAxis = chartdata?.map((item) => item.name);
   const data = chartdata?.map((item) => item.value);
