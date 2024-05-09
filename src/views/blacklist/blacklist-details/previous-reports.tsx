@@ -72,7 +72,7 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
     if (showAll) {
       setDisplayedData(data);
     } else {
-      setDisplayedData(data.slice(0, 8));
+      setDisplayedData(data?.slice(0, 8));
     }
   }, [data, showAll]);
 

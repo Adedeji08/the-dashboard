@@ -2,22 +2,22 @@ import React from "react";
 import Icon from "../../../assets/icons";
 import AnalyticsChart from "../../../components/graph/analytics-chart";
 
-const ReportChart = ({
+const MediationChart = ({
   chartdata,
   selectedFilter,
   handleStatusChange,
-  accountTotal,
+  mediationTotal,
 }: any) => {
   return (
     <>
       <div className="bg-white border border-white mt-10 rounded-md w-[88%]">
         <section className="flex justify-between">
           <div className="flex gap-2 px-10 py-6">
-            <Icon name="accountchart" />
+            <Icon name="mediationchart" />
             <p className="text-[14px] font-medium">
-              Account <br />
+              Mediation <br />
               <span className="text-[10px] font-normal">
-                Number of users that signed up per month
+                Your mediation requests for this year
               </span>
             </p>
           </div>
@@ -40,24 +40,23 @@ const ReportChart = ({
         <div className="flex w-full">
           <div className="px-10 py-20 w-1/4">
             <p className="text-[12px]">Total</p>
-            <p className="text-[14px] font-medium">{accountTotal?.total}</p>
-          
+            <p className="text-[14px] font-medium">{mediationTotal?.total}</p>
             <p
               className={`flex gap-3 text-[12px] py-16 ${
-                accountTotal?.percentageChange < 0
+                mediationTotal?.percentageChange < 0
                   ? "text-[#DD0000]"
                   : "text-[#057517]"
               }`}
             >
               <Icon
                 name={
-                  accountTotal?.percentageChange < 0
+                  mediationTotal?.percentageChange < 0
                     ? "percentage-"
                     : "percentage"
                 }
               />
 
-              {accountTotal?.percentageChange}
+              {mediationTotal?.percentageChange}
             </p>
           </div>
           <div className="flex-1">
@@ -71,4 +70,4 @@ const ReportChart = ({
   );
 };
 
-export default ReportChart;
+export default MediationChart;

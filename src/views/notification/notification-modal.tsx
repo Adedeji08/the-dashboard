@@ -33,7 +33,7 @@ const NotificationModal = ({ visible, handleClose }: any) => {
     if (showAll) {
       setDisplayedData(notifications);
     } else {
-      setDisplayedData(notifications.slice(0, 3));
+      setDisplayedData(notifications?.slice(0, 3));
     }
   }, [notifications, showAll]);
 
@@ -51,7 +51,7 @@ const NotificationModal = ({ visible, handleClose }: any) => {
           Notifications
         </h1>
         <hr className="w-full" />
-        {displayedData.map((notification, id) => (
+        {displayedData?.map((notification, id) => (
           <div key={id} className="flex justify-between gap-8 mt-4">
             <div className="flex gap-5">
               <span

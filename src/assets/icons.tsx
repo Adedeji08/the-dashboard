@@ -20,7 +20,13 @@ type IconName =
   | "analytics"
   | "settings"
   | "accountchart"
-  | "percentage";
+  | "percentage"
+  | "percentage-"
+  | "orderchart"
+  | "paymentchart"
+  | "mediationchart"
+  | "blacklistchart"
+  | "supportchart";
 
 interface IconProps {
   name: IconName;
@@ -752,7 +758,7 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
     case "percentage":
       return (
         <svg
-        className={className}
+          className={className}
           width="28"
           height="28"
           viewBox="0 0 28 28"
@@ -776,6 +782,191 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
           />
         </svg>
       );
+
+    case "percentage-":
+      return (
+        <svg
+          className={className}
+          width="28"
+          height="28"
+          viewBox="0 0 28 28"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="28" height="28" rx="14" fill="#FCCFCF" />
+          <path
+            d="M18.5 16.5L14.3 12.3L12.7 14.7L9.5 11.5"
+            stroke="#DD0000"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M16.5 16.5H18.5V14.5"
+            stroke="#DD0000"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "paymentchart":
+      return (
+        <svg
+          className={className}
+          width="42"
+          height="42"
+          viewBox="0 0 42 42"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="42" height="42" rx="21" fill="#0979A1" />
+          <path
+            d="M28.3333 16.453V25.5463C28.3333 26.9397 28.205 27.9297 27.875 28.6355C27.875 28.6447 27.8658 28.663 27.8566 28.6722C27.655 28.9288 27.3892 29.0572 27.0775 29.0572C26.5917 29.0572 26.005 28.7363 25.3725 28.058C24.6209 27.2513 23.4658 27.3155 22.8058 28.1955L21.88 29.4238C21.5134 29.9188 21.0275 30.1663 20.5417 30.1663C20.0558 30.1663 19.57 29.9188 19.2033 29.4238L18.2684 28.1863C17.6175 27.3155 16.4717 27.2513 15.72 28.0488L15.7108 28.058C14.675 29.1672 13.7584 29.3322 13.2267 28.6722C13.2175 28.663 13.2083 28.6447 13.2083 28.6355C12.8783 27.9297 12.75 26.9397 12.75 25.5463V16.453C12.75 15.0597 12.8783 14.0697 13.2083 13.3638C13.2083 13.3547 13.2084 13.3455 13.2267 13.3363C13.7492 12.6672 14.675 12.8322 15.7108 13.9413L15.72 13.9505C16.4717 14.748 17.6175 14.6838 18.2684 13.813L19.2033 12.5755C19.57 12.0805 20.0558 11.833 20.5417 11.833C21.0275 11.833 21.5134 12.0805 21.88 12.5755L22.8058 13.8038C23.4658 14.6838 24.6209 14.748 25.3725 13.9413C26.005 13.263 26.5917 12.9422 27.0775 12.9422C27.3892 12.9422 27.655 13.0797 27.8566 13.3363C27.875 13.3455 27.875 13.3547 27.875 13.3638C28.205 14.0697 28.3333 15.0597 28.3333 16.453Z"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M17.3333 19.3955H24.6667"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M17.3333 22.6045H22.8333"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "mediationchart":
+      return (
+        <svg
+          className={className}
+          width="42"
+          height="42"
+          viewBox="0 0 42 42"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="42" height="42" rx="21" fill="#0979A1" />
+          <path
+            d="M15.4083 25.583H26.5825C28.3242 25.583 29.2408 24.6663 29.2408 22.9247V11.833H12.7408V22.9247C12.75 24.6663 13.6667 25.583 15.4083 25.583Z"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M11.8333 11.833H30.1667"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M17.3333 30.1663L21 28.333V25.583"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M24.6667 30.1663L21 28.333"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M16.875 20.083L19.7625 17.6722C19.9917 17.4797 20.2942 17.5347 20.45 17.7913L21.55 19.6247C21.7058 19.8813 22.0083 19.9272 22.2375 19.7438L25.125 17.333"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "blacklistchart":
+      return (
+        <svg
+          className={className}
+          width="42"
+          height="42"
+          viewBox="0 0 42 42"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="42" height="42" rx="21" fill="#0979A1" />
+          <path
+            d="M19.6158 12.0442L15.0417 13.7675C13.9875 14.1617 13.1258 15.4083 13.1258 16.5267V23.3375C13.1258 24.4192 13.8408 25.84 14.7117 26.4908L18.6533 29.4333C19.9458 30.405 22.0725 30.405 23.365 29.4333L27.3067 26.4908C28.1775 25.84 28.8925 24.4192 28.8925 23.3375V16.5267C28.8925 15.3992 28.0308 14.1525 26.9767 13.7583L22.4025 12.0442C21.6233 11.76 20.3767 11.76 19.6158 12.0442Z"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M22.9708 22.3197L19.075 18.4238"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M22.925 18.4697L19.0292 22.3656"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "supportchart":
+      return (
+        <svg
+          className={className}
+          width="42"
+          height="42"
+          viewBox="0 0 42 42"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="42" height="42" rx="21" fill="#0979A1" />
+          <path
+            d="M17.7917 19.625H24.2083"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M16.4167 26.8942H20.0833L24.1625 29.6076C24.7675 30.0109 25.5833 29.58 25.5833 28.8467V26.8942C28.3333 26.8942 30.1667 25.0609 30.1667 22.3109V16.8109C30.1667 14.0609 28.3333 12.2275 25.5833 12.2275H16.4167C13.6667 12.2275 11.8333 14.0609 11.8333 16.8109V22.3109C11.8333 25.0609 13.6667 26.8942 16.4167 26.8942Z"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
     default:
       return null;
   }
