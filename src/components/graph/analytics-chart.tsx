@@ -33,7 +33,7 @@ const AnalyticsChart = ({ chartdata }: DataChart) => {
       top: 20,
       left: 10,
       right: 40,
-      bottom: 20,
+      bottom: 21,
     },
     xAxis: {
       data: dataAxis,
