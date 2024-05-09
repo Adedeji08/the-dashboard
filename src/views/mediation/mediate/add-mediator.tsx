@@ -30,7 +30,7 @@ const AddMediator = ({ visible, handleClose }: any) => {
       });
       reset()
     } else {
-      showToast(response.message[0], false, {
+      showToast(response.message, false, {
         position: "top-center",
       });
     }
@@ -44,7 +44,7 @@ const AddMediator = ({ visible, handleClose }: any) => {
         width={790}
         closable={true}
         footer={null}
-        className="flex justify-center items-center"
+        className="flex justify-center items-center mt-14"
       >
         <h1 className="font-bold text-left text-[#040821] text-[18px]">
           Add a Mediator
@@ -77,7 +77,7 @@ const AddMediator = ({ visible, handleClose }: any) => {
             <Controller
               name="email"
               control={control}
-              defaultValue={""}
+              defaultValue={" "}
               rules={{
                 required: "Email is required",
                 pattern: {
