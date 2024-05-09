@@ -25,7 +25,7 @@ const Tabs = (props: TabsProps) => {
             })}
             onClick={() => handleTabClick(tab)}
           >
-            {tab.charAt(0).toUpperCase() + tab.slice(1)}
+            {tab.charAt(0).toUpperCase() + tab?.slice(1)}
           </button>
         ))}
       </div>

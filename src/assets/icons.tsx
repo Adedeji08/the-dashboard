@@ -18,7 +18,15 @@ type IconName =
   | "blacklist"
   | "support"
   | "analytics"
-  | "settings";
+  | "settings"
+  | "accountchart"
+  | "percentage"
+  | "percentage-"
+  | "orderchart"
+  | "paymentchart"
+  | "mediationchart"
+  | "blacklistchart"
+  | "supportchart";
 
 interface IconProps {
   name: IconName;
@@ -162,48 +170,33 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
       return (
         <svg
           className={className}
-          width="44"
-          height="44"
-          viewBox="0 0 44 44"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect width="44" height="44" rx="10" fill="#F2F4F7" />
-          <rect
-            x="0.5"
-            y="0.5"
-            width="43"
-            height="43"
-            rx="9.5"
-            stroke="#0979A1"
-            stroke-opacity="0.5"
-          />
           <path
-            d="M18.5 29H18C14 29 12 28 12 23V18C12 14 14 12 18 12H26C30 12 32 14 32 18V23C32 27 30 29 26 29H25.5C25.19 29 24.89 29.15 24.7 29.4L23.2 31.4C22.54 32.28 21.46 32.28 20.8 31.4L19.3 29.4C19.14 29.18 18.77 29 18.5 29Z"
-            stroke="#0979A1"
+            d="M7.76666 9.7334L9.9 11.8667L12.0333 9.7334"
+            stroke="white"
             stroke-width="1.5"
             stroke-miterlimit="10"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
           <path
-            d="M25.9965 21H26.0054"
-            stroke="#0979A1"
-            stroke-width="2"
+            d="M9.89999 3.33301V11.808"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
           <path
-            d="M21.9955 21H22.0045"
-            stroke="#0979A1"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M17.9945 21H18.0035"
-            stroke="#0979A1"
-            stroke-width="2"
+            d="M16.6667 10.1504C16.6667 13.8337 14.1667 16.8171 10 16.8171C5.83334 16.8171 3.33334 13.8337 3.33334 10.1504"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
@@ -444,7 +437,7 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
     case "transaction":
       return (
         <svg
-        className={className}
+          className={className}
           width="22"
           height="23"
           viewBox="0 0 22 23"
@@ -698,6 +691,274 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
           <path
             d="M1.83325 11.8066V10.1933C1.83325 9.23998 2.61242 8.45165 3.57492 8.45165C5.23409 8.45165 5.91242 7.27832 5.07825 5.83915C4.60159 5.01415 4.88575 3.94165 5.71992 3.46498L7.30575 2.55748C8.02992 2.12665 8.96492 2.38332 9.39575 3.10748L9.49659 3.28165C10.3216 4.72082 11.6783 4.72082 12.5124 3.28165L12.6133 3.10748C13.0441 2.38332 13.9791 2.12665 14.7033 2.55748L16.2891 3.46498C17.1233 3.94165 17.4074 5.01415 16.9308 5.83915C16.0966 7.27832 16.7749 8.45165 18.4341 8.45165C19.3874 8.45165 20.1758 9.23082 20.1758 10.1933V11.8066C20.1758 12.76 19.3966 13.5483 18.4341 13.5483C16.7749 13.5483 16.0966 14.7216 16.9308 16.1608C17.4074 16.995 17.1233 18.0583 16.2891 18.535L14.7033 19.4425C13.9791 19.8733 13.0441 19.6166 12.6133 18.8925L12.5124 18.7183C11.6874 17.2791 10.3308 17.2791 9.49659 18.7183L9.39575 18.8925C8.96492 19.6166 8.02992 19.8733 7.30575 19.4425L5.71992 18.535C4.88575 18.0583 4.60159 16.9858 5.07825 16.1608C5.91242 14.7216 5.23409 13.5483 3.57492 13.5483C2.61242 13.5483 1.83325 12.76 1.83325 11.8066Z"
             stroke="#6A6A6A"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "accountchart":
+      return (
+        <svg
+          className={className}
+          width="42"
+          height="42"
+          viewBox="0 0 42 42"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="42" height="42" rx="21" fill="#0979A1" />
+          <path
+            d="M26.5 16.563C26.445 16.5538 26.3808 16.5538 26.3258 16.563C25.0608 16.5172 24.0525 15.4813 24.0525 14.198C24.0525 12.8872 25.1067 11.833 26.4175 11.833C27.7283 11.833 28.7825 12.8963 28.7825 14.198C28.7733 15.4813 27.765 16.5172 26.5 16.563Z"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M25.5558 23.2365C26.8117 23.4473 28.1958 23.2273 29.1675 22.5765C30.46 21.7148 30.46 20.3032 29.1675 19.4415C28.1867 18.7907 26.7842 18.5707 25.5283 18.7907"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M15.4725 16.563C15.5275 16.5538 15.5917 16.5538 15.6467 16.563C16.9117 16.5172 17.92 15.4813 17.92 14.198C17.92 12.8872 16.8658 11.833 15.555 11.833C14.2442 11.833 13.19 12.8963 13.19 14.198C13.1992 15.4813 14.2075 16.5172 15.4725 16.563Z"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M16.4167 23.2365C15.1608 23.4473 13.7767 23.2273 12.805 22.5765C11.5125 21.7148 11.5125 20.3032 12.805 19.4415C13.7858 18.7907 15.1883 18.5707 16.4442 18.7907"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M21 23.4107C20.945 23.4015 20.8808 23.4015 20.8258 23.4107C19.5608 23.3648 18.5525 22.329 18.5525 21.0457C18.5525 19.7348 19.6067 18.6807 20.9175 18.6807C22.2283 18.6807 23.2825 19.744 23.2825 21.0457C23.2733 22.329 22.265 23.374 21 23.4107Z"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M18.3325 26.2981C17.04 27.1598 17.04 28.5714 18.3325 29.4331C19.7992 30.4139 22.2008 30.4139 23.6675 29.4331C24.96 28.5714 24.96 27.1598 23.6675 26.2981C22.21 25.3264 19.7992 25.3264 18.3325 26.2981Z"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "percentage":
+      return (
+        <svg
+          className={className}
+          width="28"
+          height="28"
+          viewBox="0 0 28 28"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="28" height="28" rx="14" fill="#E4FEE0" />
+          <path
+            d="M18.5 11.5L14.3 15.7L12.7 13.3L9.5 16.5"
+            stroke="#057517"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M16.5 11.5H18.5V13.5"
+            stroke="#057517"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "percentage-":
+      return (
+        <svg
+          className={className}
+          width="28"
+          height="28"
+          viewBox="0 0 28 28"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="28" height="28" rx="14" fill="#FCCFCF" />
+          <path
+            d="M18.5 16.5L14.3 12.3L12.7 14.7L9.5 11.5"
+            stroke="#DD0000"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M16.5 16.5H18.5V14.5"
+            stroke="#DD0000"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "paymentchart":
+      return (
+        <svg
+          className={className}
+          width="42"
+          height="42"
+          viewBox="0 0 42 42"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="42" height="42" rx="21" fill="#0979A1" />
+          <path
+            d="M28.3333 16.453V25.5463C28.3333 26.9397 28.205 27.9297 27.875 28.6355C27.875 28.6447 27.8658 28.663 27.8566 28.6722C27.655 28.9288 27.3892 29.0572 27.0775 29.0572C26.5917 29.0572 26.005 28.7363 25.3725 28.058C24.6209 27.2513 23.4658 27.3155 22.8058 28.1955L21.88 29.4238C21.5134 29.9188 21.0275 30.1663 20.5417 30.1663C20.0558 30.1663 19.57 29.9188 19.2033 29.4238L18.2684 28.1863C17.6175 27.3155 16.4717 27.2513 15.72 28.0488L15.7108 28.058C14.675 29.1672 13.7584 29.3322 13.2267 28.6722C13.2175 28.663 13.2083 28.6447 13.2083 28.6355C12.8783 27.9297 12.75 26.9397 12.75 25.5463V16.453C12.75 15.0597 12.8783 14.0697 13.2083 13.3638C13.2083 13.3547 13.2084 13.3455 13.2267 13.3363C13.7492 12.6672 14.675 12.8322 15.7108 13.9413L15.72 13.9505C16.4717 14.748 17.6175 14.6838 18.2684 13.813L19.2033 12.5755C19.57 12.0805 20.0558 11.833 20.5417 11.833C21.0275 11.833 21.5134 12.0805 21.88 12.5755L22.8058 13.8038C23.4658 14.6838 24.6209 14.748 25.3725 13.9413C26.005 13.263 26.5917 12.9422 27.0775 12.9422C27.3892 12.9422 27.655 13.0797 27.8566 13.3363C27.875 13.3455 27.875 13.3547 27.875 13.3638C28.205 14.0697 28.3333 15.0597 28.3333 16.453Z"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M17.3333 19.3955H24.6667"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M17.3333 22.6045H22.8333"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "mediationchart":
+      return (
+        <svg
+          className={className}
+          width="42"
+          height="42"
+          viewBox="0 0 42 42"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="42" height="42" rx="21" fill="#0979A1" />
+          <path
+            d="M15.4083 25.583H26.5825C28.3242 25.583 29.2408 24.6663 29.2408 22.9247V11.833H12.7408V22.9247C12.75 24.6663 13.6667 25.583 15.4083 25.583Z"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M11.8333 11.833H30.1667"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M17.3333 30.1663L21 28.333V25.583"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M24.6667 30.1663L21 28.333"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M16.875 20.083L19.7625 17.6722C19.9917 17.4797 20.2942 17.5347 20.45 17.7913L21.55 19.6247C21.7058 19.8813 22.0083 19.9272 22.2375 19.7438L25.125 17.333"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "blacklistchart":
+      return (
+        <svg
+          className={className}
+          width="42"
+          height="42"
+          viewBox="0 0 42 42"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="42" height="42" rx="21" fill="#0979A1" />
+          <path
+            d="M19.6158 12.0442L15.0417 13.7675C13.9875 14.1617 13.1258 15.4083 13.1258 16.5267V23.3375C13.1258 24.4192 13.8408 25.84 14.7117 26.4908L18.6533 29.4333C19.9458 30.405 22.0725 30.405 23.365 29.4333L27.3067 26.4908C28.1775 25.84 28.8925 24.4192 28.8925 23.3375V16.5267C28.8925 15.3992 28.0308 14.1525 26.9767 13.7583L22.4025 12.0442C21.6233 11.76 20.3767 11.76 19.6158 12.0442Z"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M22.9708 22.3197L19.075 18.4238"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M22.925 18.4697L19.0292 22.3656"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "supportchart":
+      return (
+        <svg
+          className={className}
+          width="42"
+          height="42"
+          viewBox="0 0 42 42"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="42" height="42" rx="21" fill="#0979A1" />
+          <path
+            d="M17.7917 19.625H24.2083"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M16.4167 26.8942H20.0833L24.1625 29.6076C24.7675 30.0109 25.5833 29.58 25.5833 28.8467V26.8942C28.3333 26.8942 30.1667 25.0609 30.1667 22.3109V16.8109C30.1667 14.0609 28.3333 12.2275 25.5833 12.2275H16.4167C13.6667 12.2275 11.8333 14.0609 11.8333 16.8109V22.3109C11.8333 25.0609 13.6667 26.8942 16.4167 26.8942Z"
+            stroke="white"
             stroke-width="1.5"
             stroke-miterlimit="10"
             stroke-linecap="round"
