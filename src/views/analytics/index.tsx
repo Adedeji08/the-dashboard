@@ -4,10 +4,14 @@ import NotificationModal from "../notification/notification-modal";
 import useRequest from "../../components/hooks/use-request";
 import AccountChart from "./account";
 
+interface ChartData {
+  name: string;
+}
 const Analytics = () => {
   const userToken = localStorage.getItem("token");
   const [modalVisible, setModalVisible] = useState(false);
-  const [accountChart, setAccountChart] = useState<any[]>([]);
+  const [accountChart, setAccountChart] = useState<ChartData[]>([]);
+  const [accountTotal, setAccountTotal] = useState<ChartData[]>([]);
   const [selectedFilter, setSelectedFilter] = useState<string>("day");
   const [payments, setPayments] = useState<any[]>([]);
   const openNotification = () => {
@@ -19,15 +23,19 @@ const Analytics = () => {
 
   useEffect(() => {
     fetchData();
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFilter]);
-
 
   const fetchData = async () => {
     const [response] = await makeRequest(undefined, {
       filter: selectedFilter,
     });
-    setAccountChart(response.data || []);
+    setAccountTotal(response.data || [])
+    setAccountChart(response.data?.graph || []);
+  };
+
+  const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedFilter(event.target.value);
   };
 
   return (
@@ -52,21 +60,23 @@ const Analytics = () => {
               Download Report
             </button>
           </div>
-          <button
-            className="-mt-3"
-             onClick={openNotification}
-          >
+          <button className="-mt-3" onClick={openNotification}>
             <Icon name="notificationIcon" />
           </button>
         </section>
       </div>
 
       <NotificationModal
-       visible={modalVisible}
-       handleClose={() => setModalVisible(false)}
-       />
+        visible={modalVisible}
+        handleClose={() => setModalVisible(false)}
+      />
 
-       <AccountChart />
+      <AccountChart
+       chartdata={accountChart}
+       accountTotal={accountTotal}
+       selectedFilter={selectedFilter}
+       handleStatusChange={handleStatusChange}
+      />
     </>
   );
 };
