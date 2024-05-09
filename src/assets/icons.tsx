@@ -18,7 +18,8 @@ type IconName =
   | "blacklist"
   | "support"
   | "analytics"
-  | "settings";
+  | "settings"
+  | "accountchart";
 
 interface IconProps {
   name: IconName;
@@ -162,48 +163,33 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
       return (
         <svg
           className={className}
-          width="44"
-          height="44"
-          viewBox="0 0 44 44"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect width="44" height="44" rx="10" fill="#F2F4F7" />
-          <rect
-            x="0.5"
-            y="0.5"
-            width="43"
-            height="43"
-            rx="9.5"
-            stroke="#0979A1"
-            stroke-opacity="0.5"
-          />
           <path
-            d="M18.5 29H18C14 29 12 28 12 23V18C12 14 14 12 18 12H26C30 12 32 14 32 18V23C32 27 30 29 26 29H25.5C25.19 29 24.89 29.15 24.7 29.4L23.2 31.4C22.54 32.28 21.46 32.28 20.8 31.4L19.3 29.4C19.14 29.18 18.77 29 18.5 29Z"
-            stroke="#0979A1"
+            d="M7.76666 9.7334L9.9 11.8667L12.0333 9.7334"
+            stroke="white"
             stroke-width="1.5"
             stroke-miterlimit="10"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
           <path
-            d="M25.9965 21H26.0054"
-            stroke="#0979A1"
-            stroke-width="2"
+            d="M9.89999 3.33301V11.808"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
           <path
-            d="M21.9955 21H22.0045"
-            stroke="#0979A1"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M17.9945 21H18.0035"
-            stroke="#0979A1"
-            stroke-width="2"
+            d="M16.6667 10.1504C16.6667 13.8337 14.1667 16.8171 10 16.8171C5.83334 16.8171 3.33334 13.8337 3.33334 10.1504"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
@@ -441,10 +427,11 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
         </svg>
       );
 
+
     case "transaction":
       return (
         <svg
-        className={className}
+          className={className}
           width="22"
           height="23"
           viewBox="0 0 22 23"
@@ -705,6 +692,19 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
           />
         </svg>
       );
+
+      case "accountchart":
+        return (
+          <svg className={className} width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="42" height="42" rx="21" fill="#0979A1"/>
+          <path d="M26.5 16.563C26.445 16.5538 26.3808 16.5538 26.3258 16.563C25.0608 16.5172 24.0525 15.4813 24.0525 14.198C24.0525 12.8872 25.1067 11.833 26.4175 11.833C27.7283 11.833 28.7825 12.8963 28.7825 14.198C28.7733 15.4813 27.765 16.5172 26.5 16.563Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M25.5558 23.2365C26.8117 23.4473 28.1958 23.2273 29.1675 22.5765C30.46 21.7148 30.46 20.3032 29.1675 19.4415C28.1867 18.7907 26.7842 18.5707 25.5283 18.7907" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M15.4725 16.563C15.5275 16.5538 15.5917 16.5538 15.6467 16.563C16.9117 16.5172 17.92 15.4813 17.92 14.198C17.92 12.8872 16.8658 11.833 15.555 11.833C14.2442 11.833 13.19 12.8963 13.19 14.198C13.1992 15.4813 14.2075 16.5172 15.4725 16.563Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M16.4167 23.2365C15.1608 23.4473 13.7767 23.2273 12.805 22.5765C11.5125 21.7148 11.5125 20.3032 12.805 19.4415C13.7858 18.7907 15.1883 18.5707 16.4442 18.7907" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M21 23.4107C20.945 23.4015 20.8808 23.4015 20.8258 23.4107C19.5608 23.3648 18.5525 22.329 18.5525 21.0457C18.5525 19.7348 19.6067 18.6807 20.9175 18.6807C22.2283 18.6807 23.2825 19.744 23.2825 21.0457C23.2733 22.329 22.265 23.374 21 23.4107Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M18.3325 26.2981C17.04 27.1598 17.04 28.5714 18.3325 29.4331C19.7992 30.4139 22.2008 30.4139 23.6675 29.4331C24.96 28.5714 24.96 27.1598 23.6675 26.2981C22.21 25.3264 19.7992 25.3264 18.3325 26.2981Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        );
 
     default:
       return null;
