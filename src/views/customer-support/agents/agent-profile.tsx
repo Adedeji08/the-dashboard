@@ -56,7 +56,7 @@ const AgentProfile = ({ visible, handleClose }: any) => {
           <p className="text-[16px] font-bold">{agent?.agent?.fullname} </p>
         </section>
 
-        <Details title={"Name"} value={agent?.agent?.fullname || "N/A"} />
+        <Details title={"Name:"} value={agent?.agent?.fullname || "N/A"} />
 
         <Details title={"Email address:"} value={agent?.agent?.email || "N/A"} />
 
