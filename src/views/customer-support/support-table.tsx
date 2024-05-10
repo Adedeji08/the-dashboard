@@ -22,7 +22,7 @@ const SupportTable = ({
   ];
 
   useEffect(() => {
-    const filtered = data.filter((request: any) => {
+    const filtered = data?.filter((request: any) => {
       if (request.status) {
         return true;
       }
