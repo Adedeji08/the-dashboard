@@ -105,7 +105,7 @@ const CustomerSupport = () => {
         <section>
           <h2 className="text-[24px] font-bold">
             Customer support{" "}
-            <p className="text-[14px] font-normal">
+            <p className="text-[14px] font-normal ">
               See all customer support requests
             </p>
           </h2>
