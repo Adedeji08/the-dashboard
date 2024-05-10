@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "../../components/table";
+import AgentProfile from "./agents/agent-profile";
 
-const AgentTable = ({
-  data,
-  currentPage,
-  onPageChange,
-}: any) => {
+const AgentTable = ({ data, currentPage, onPageChange }: any) => {
   const navigate = useNavigate();
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null); // State to store the selected user's ID
   const columns = [
     { header: "", accessor: "profilePhoto" },
     { header: "Name", accessor: "fullname" },
@@ -17,12 +15,13 @@ const AgentTable = ({
     { header: "", accessor: "id" },
   ];
 
-
-
   const handleUserClick = (id: string) => {
-    navigate(`/request/${id}`);
+    setSelectedUserId(id); // Set the selected user's ID when clicked
   };
 
+  const handleCloseModal = () => {
+    setSelectedUserId(null); // Close modal by setting selectedUserId to null
+  };
 
   return (
     <div className="rounded-md py-3 px-3 bg-white border border-[#fff] mt-10 w-[95%] pt-5 ">
@@ -41,6 +40,13 @@ const AgentTable = ({
         <h1 className="text-[30px] text-center text-gray-500 opacity-80 mt-10 font-bold">
           No data available
         </h1>
+      )}
+
+      {selectedUserId && (
+        <AgentProfile
+          visible={selectedUserId} // Pass the selected user's ID to the AgentProfile component
+          handleClose={handleCloseModal} // Close modal callback
+        />
       )}
     </div>
   );

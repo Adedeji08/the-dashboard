@@ -76,8 +76,6 @@ const CustomerSupport = () => {
     }
   };
 
-  console.log('agentData,', agentData)
-
   const handleSearchChange = (event: any) => {
     setSearchQuery(event.target.value);
   };
@@ -149,6 +147,7 @@ const CustomerSupport = () => {
           data={agentData}
         />
       )}
+      
 
       <Pagination
         currentPage={currentPage}
