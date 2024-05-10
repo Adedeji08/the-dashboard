@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   capitalizeFirstLetter,
   formatDate,
 } from "../../../utilities/functions";
+import useRequest from "../../../components/hooks/use-request";
+import { Controller, useForm } from "react-hook-form";
+import { showToast } from "../../../components/toast";
+import SearchSelect from "../../../components/search-select";
+import { CircleLoader } from "react-spinners";
 
 interface DetailsProps {
   request:
@@ -21,13 +26,104 @@ interface DetailsProps {
     | undefined;
 }
 
+interface Support {
+  fullname: string;
+  id: string;
+}
+
 const Details: React.FC<DetailsProps> = ({ request }) => {
+  const [fullname, setFullName] = useState("");
+  const userToken = localStorage.getItem("token");
+  const { makeRequest: getAgents } = useRequest(
+    `/customer-support/agents`,
+    "GET",
+    {
+      userToken,
+    }
+  );
+  const { makeRequest: assignAgent, loading } = useRequest(
+    `/customer-support/ticket/assign`,
+    "POST",
+    {
+      userToken,
+    }
+  );
+
+  const { makeRequest: closeTicket, } = useRequest(
+    `/customer-support/ticket/resolve`,
+    "POST",
+    {
+      userToken,
+    }
+  );
+  const [support, setSupport] = useState<Support[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const [response] = await getAgents(undefined, {
+        name: fullname,
+      });
+      const sortedAgents =
+        response?.data?.agents?.sort((a: any, b: any) =>
+          a.fullname.localeCompare(b.fullname)
+        ) || [];
+
+      setSupport(sortedAgents);
+    };
+    fetchData();
+  }, []);
+
+  const { handleSubmit, control, setValue } = useForm();
+
+  const handleAssignAgent = async (agentId: string) => {
+    const SupportID = {
+      ticketId: request?.ticket?.id,
+      agentId: agentId,
+    };
+    const [response] = await assignAgent(SupportID);
+    if (response.status) {
+      showToast(response.message, true, {
+        position: "top-center",
+      });
+    } else {
+      showToast(response.message, false, {
+        position: "top-center",
+      });
+    }
+  };
+
+  const onSubmit = (formData: any) => {
+    const selectedAgent = support.find(
+      (supports) => supports.fullname === formData.fullname
+    );
+    if (selectedAgent) {
+      handleAssignAgent(selectedAgent.id);
+    } else {
+    }
+  };
+
+  const handleResolved = async () => {
+    const [response] = await closeTicket(undefined, {
+      id: request?.ticket?.id,
+    });
+    if (response.status) {
+      showToast(response.message, true, {
+        position: "top-center",
+      });
+      window.location.reload();
+    } else {
+      showToast(response.message, false, {
+        position: "top-center",
+      });
+    }
+  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "active":
         return "#D1FFC9";
-        case "resolved":
-            return "#D1FFC9";
+      case "resolved":
+        return "#D1FFC9";
       case "closed":
         return "#FCCFCF";
       case "cancelled":
@@ -60,7 +156,9 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
             <span
               style={{
                 backgroundColor:
-                  request?.ticket?.status === "resolved" || "active" ? "green" : "red",
+                  request?.ticket?.status === "resolved" || "active"
+                    ? "green"
+                    : "red",
               }}
               className="h-[6px] w-[6px] rounded-full mt-1 ml-3"
             ></span>
@@ -102,9 +200,69 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
           </p>
         </div>
 
-        <button className="h-[50px] mt-8 w-full bg-[#0979A1] text-white rounded-md font-bold text-[12px]">
-          Assign to agent
+        <div className="flex-[40%] mt-4">
+          <Controller
+            name="fullname"
+            control={control}
+            defaultValue=""
+            rules={{ required: "Select an Agent" }}
+            render={({ field, fieldState }) => (
+              <SearchSelect
+                label="Assign an Agent"
+                name="fullName"
+                options={support.map((supports) => ({
+                  label: supports.fullname,
+                  value: supports.fullname,
+                }))}
+                className=""
+                onChange={(selectedValue) => {
+                  const selectedAgent = support.find(
+                    (supports) => supports.fullname === selectedValue
+                  );
+                  if (selectedAgent) {
+                    setValue("fullname", selectedAgent.fullname);
+                  }
+                }}
+                value={field.value}
+                error={fieldState?.error?.message}
+              />
+            )}
+          />
+        </div>
+
+        <button
+          className={`h-[50px] mt-8 w-full rounded-md font-bold text-[12px] ${
+            request?.ticket?.status === "resolved"
+              ? "bg-gray-500 text-gray-300 cursor-not-allowed"
+              : "bg-[#0979A1] text-white"
+          }`}
+          onClick={handleSubmit(onSubmit)}
+          disabled={request?.ticket?.status === "resolved"} 
+        >
+          {loading ? (
+            <CircleLoader color="#ffffff" loading={loading} size={20} />
+          ) : (
+            "  Assign to agent"
+          )}
         </button>
+        
+        <button
+          className={`h-[50px] mt-8 w-full rounded-md font-bold text-[12px] ${
+            request?.ticket?.status === "resolved"
+              ? "bg-gray-500 text-gray-300 cursor-not-allowed"
+              : "bg-[#0979A1] text-white"
+          }`}
+          onClick={handleResolved}
+          disabled={request?.ticket?.status === "resolved"} 
+        >
+          {loading ? (
+            <CircleLoader color="#ffffff" loading={loading} size={20} />
+          ) : (
+            "Close Ticket"
+          )}
+        </button>
+
+        
       </section>
     </div>
   );

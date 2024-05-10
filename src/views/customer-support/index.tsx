@@ -4,6 +4,7 @@ import Tabs from "../../components/tab";
 import useRequest from "../../components/hooks/use-request";
 import Requests from "./support/requests";
 import Pagination from "../../components/pagination/pagination";
+import Agents from "./agents/agents";
 
 interface UserData {
   fullname: string;
@@ -12,6 +13,7 @@ interface UserData {
 const CustomerSupport = () => {
   const [activeTab, setActiveTab] = useState<"requests" | "agents">("requests");
   const [data, setData] = useState<UserData[]>([]);
+  const [agentData, setAgentData] = useState<UserData[]>([]);
   const [statistics, setStatistics] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const userToken = localStorage.getItem("token");
@@ -19,12 +21,20 @@ const CustomerSupport = () => {
   const { makeRequest } = useRequest("/customer-support/tickets", "GET", {
     Authorization: `Bearer ${userToken}`,
   });
-  const { makeRequest: getAgent } = useRequest("/customer-support/agents", "GET", {
-    Authorization: `Bearer ${userToken}`,
-  });
-  const { makeRequest: getStats } = useRequest("/customer-support/statistics", "GET", {
-    Authorization: `Bearer ${userToken}`,
-  });
+  const { makeRequest: getAgent } = useRequest(
+    "/customer-support/agents",
+    "GET",
+    {
+      Authorization: `Bearer ${userToken}`,
+    }
+  );
+  const { makeRequest: getStats } = useRequest(
+    "/customer-support/statistics",
+    "GET",
+    {
+      Authorization: `Bearer ${userToken}`,
+    }
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const itemsPerPage = 10;
@@ -46,7 +56,7 @@ const CustomerSupport = () => {
       limit,
       page,
     };
-  
+
     if (selectedStatus) {
       params.status = selectedStatus;
     }
@@ -54,15 +64,15 @@ const CustomerSupport = () => {
     if (searchQuery) {
       params.name = searchQuery;
     }
-  
-    if(activeTab === "requests"){
-    const [response] = await makeRequest(undefined, params);
-    setData(response.data?.data?.tickets || []);
-    setTotalPages(Math.ceil(response.data?.data?.totalPages));
-    } else if (activeTab === "agents"){
-      const [response] = await getAgent(undefined, params);
-      setData(response.data || []);
+
+    if (activeTab === "requests") {
+      const [response] = await makeRequest(undefined, params);
+      setData(response.data?.data?.tickets || []);
       setTotalPages(Math.ceil(response.data?.data?.totalPages));
+    } else if (activeTab === "agents") {
+      const [response] = await getAgent(undefined, params);
+      setAgentData(response.data?.agents || []);
+      setTotalPages(Math.ceil(response.data?.totalPages));
     }
   };
 
@@ -131,6 +141,13 @@ const CustomerSupport = () => {
           handleStatusChange={handleStatusChange}
         />
       )}
+
+      {activeTab === "agents" && (
+        <Agents
+          data={agentData}
+        />
+      )}
+      
 
       <Pagination
         currentPage={currentPage}
