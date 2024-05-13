@@ -80,7 +80,6 @@ const BlackList = () => {
     }
   };
 
-
   function handlePageChange(page: number) {
     const url = new URL(window.location.href);
     const params = new URLSearchParams(url.search);
@@ -106,7 +105,7 @@ const BlackList = () => {
   useEffect(() => {
     localStorage.setItem("activeTab", activeTab);
   }, [activeTab]);
-  
+
   // Add this useEffect hook to set the active tab to "reports" when the component mounts
   useEffect(() => {
     setActiveTab("reports");
@@ -153,12 +152,13 @@ const BlackList = () => {
       )}
 
       {activeTab === "blacklist" && <BlacklistedReport blacklist={blacklist} />}
-
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
 
       <NotificationModal
         visible={modalVisible}

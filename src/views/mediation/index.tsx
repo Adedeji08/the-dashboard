@@ -19,7 +19,7 @@ const Mediation = () => {
   const itemsPerPage = 10;
   const [data, setData] = useState<UserData>();
   const [statistics, setStatistics] = useState([]);
-  const [selectedStatus, setSelectedStatus] = useState<string>("active");
+  const [selectedStatus, setSelectedStatus] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState("");
   const userToken = localStorage.getItem("token");
   const { makeRequest } = useRequest("/mediation", "GET", {
@@ -35,8 +35,6 @@ const Mediation = () => {
   );
   const [modalNotifyVisible, setModalNotifyVisible] = useState(false);
 
-
-
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,12 +43,18 @@ const Mediation = () => {
   const fetchData = async () => {
     const page = currentPage;
     const limit = itemsPerPage;
-    const [response] = await makeRequest(undefined, {
-      title: searchQuery,
-      status: selectedStatus,
+    const params: {
+      limit: number;
+      page: number;
+      status?: string;
+    } = {
       limit,
       page,
-    });
+    };
+    if (selectedStatus) {
+      params.status = selectedStatus;
+    }
+    const [response] = await makeRequest(undefined, params);
     setData(response.data?.channels || []);
     setTotalPages(Math.ceil(response.data?.totalPages));
   };
@@ -134,11 +138,13 @@ const Mediation = () => {
         handleClose={() => setModalVisible(false)}
       />
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
 
       <NotificationModal
         visible={modalNotifyVisible}

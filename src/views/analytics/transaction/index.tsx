@@ -2,11 +2,11 @@ import React from "react";
 import Icon from "../../../assets/icons";
 import AnalyticsChart from "../../../components/graph/analytics-chart";
 
-const SupportChart = ({
+const TransactionChart = ({
   chartdata,
-  supportFilter,
-  handleSupportStatusChange,
-  supportTotal,
+  transactionFilter,
+  handleTransactionStatusChange,
+  transactionTotal,
 }: any) => {
   return (
     <>
@@ -15,9 +15,9 @@ const SupportChart = ({
           <div className="flex gap-2 px-10 py-6">
             <Icon name="supportchart" />
             <p className="text-[14px] font-medium">
-              Customer support <br />
+            Transaction Fee <br />
               <span className="text-[10px] font-normal">
-                Your customer support requests for this year
+              Your transaction fees for this year  
               </span>
             </p>
           </div>
@@ -26,8 +26,8 @@ const SupportChart = ({
             <div className="flex gap-2">
               <select
                 className="border text-[12px] px-3 py-1 rounded bg-[#0979A1] text-white"
-                value={supportFilter}
-                onChange={handleSupportStatusChange}
+                value={transactionFilter}
+                onChange={handleTransactionStatusChange}
               >
                 <option value="year">This year</option>
                 <option value="month">This month</option>
@@ -40,23 +40,23 @@ const SupportChart = ({
         <div className="flex w-full">
           <div className="px-10 py-20 w-1/4">
             <p className="text-[12px]">Total</p>
-            <p className="text-[14px] font-medium">{supportTotal?.total}</p>
+            <p className="text-[14px] font-medium">{transactionTotal?.total}</p>
             <p
               className={`flex gap-3 text-[12px] py-16 ${
-                supportTotal?.percentageChange < 0
+                transactionTotal?.percentageChange < 0
                   ? "text-[#DD0000]"
                   : "text-[#057517]"
               }`}
             >
               <Icon
                 name={
-                  supportTotal?.percentageChange < 0
+                  transactionTotal?.percentageChange < 0
                     ? "percentage-"
                     : "percentage"
                 }
               />
 
-              {supportTotal?.percentageChange}
+              {transactionTotal?.percentageChange}
             </p>
           </div>
           <div className="flex-1">
@@ -70,4 +70,4 @@ const SupportChart = ({
   );
 };
 
-export default SupportChart;
+export default TransactionChart;

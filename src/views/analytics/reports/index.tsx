@@ -4,8 +4,8 @@ import AnalyticsChart from "../../../components/graph/analytics-chart";
 
 const ReportsChart = ({
   chartdata,
-  selectedFilter,
-  handleStatusChange,
+  reportFilter,
+  handleReportStatusChange,
   reportTotal,
 }: any) => {
   return (
@@ -26,8 +26,8 @@ const ReportsChart = ({
             <div className="flex gap-2">
               <select
                 className="border text-[12px] px-3 py-1 rounded bg-[#0979A1] text-white"
-                value={selectedFilter}
-                onChange={handleStatusChange}
+                value={reportFilter}
+                onChange={handleReportStatusChange}
               >
                 <option value="year">This year</option>
                 <option value="month">This month</option>

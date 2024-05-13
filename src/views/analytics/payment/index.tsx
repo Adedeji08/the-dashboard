@@ -4,8 +4,8 @@ import AnalyticsChart from "../../../components/graph/analytics-chart";
 
 const PaymentChart = ({
   chartdata,
-  selectedFilter,
-  handleStatusChange,
+  paymentFilter,
+  handlePaymentStatusChange,
   paymentTotal,
 }: any) => {
 
@@ -27,8 +27,8 @@ const PaymentChart = ({
             <div className="flex gap-2">
               <select
                 className="border text-[12px] px-3 py-1 rounded bg-[#0979A1] text-white"
-                value={selectedFilter}
-                onChange={handleStatusChange}
+                value={paymentFilter}
+                onChange={handlePaymentStatusChange}
               >
                 <option value="year">This year</option>
                 <option value="month">This month</option>

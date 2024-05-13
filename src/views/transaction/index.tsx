@@ -19,7 +19,7 @@ const Transaction = () => {
   const [statistics, setStatistics] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const userToken = localStorage.getItem("token");
-  const [selectedStatus, setSelectedStatus] = useState<string>("successful");
+  const [selectedStatus, setSelectedStatus] = useState<string>("");
   const [modalVisible, setModalVisible] = useState(false);
   const { makeRequest } = useRequest("/transactions", "GET", {
     Authorization: `Bearer ${userToken}`,
@@ -46,13 +46,27 @@ const Transaction = () => {
   const fetchData = async () => {
     const page = currentPage;
     const limit = itemsPerPage;
-    const [response] = await makeRequest(undefined, {
-      email: searchQuery,
-      type: activeTab,
-      status: selectedStatus,
+
+    const params: {
+      limit: number;
+      page: number;
+      status?: string;
+      userType?: string;
+    } = {
       limit,
       page,
-    });
+    };
+
+    if (activeTab === "payment") {
+      params.userType = "payment";
+    } else if (activeTab === "withdrawal") {
+      params.userType = "withdrawal";
+    }
+
+    if (selectedStatus) {
+      params.status = selectedStatus;
+    }
+    const [response] = await makeRequest(undefined, params)
     setData(response.data?.transactions || []);
     setTotalPages(Math.ceil(response.data?.totalPages));
   };
@@ -88,7 +102,7 @@ const Transaction = () => {
   const openNotification = () => {
     setModalVisible(true);
   };
-  
+
   useEffect(() => {
     localStorage.setItem("activeTab", activeTab);
   }, [activeTab]);
@@ -120,7 +134,7 @@ const Transaction = () => {
           </div>
           <Icon name="msgIcon" />
           <button className="-mt-3" onClick={openNotification}>
-          <Icon name="notificationIcon" />
+            <Icon name="notificationIcon" />
           </button>
         </section>
       </div>
@@ -148,12 +162,13 @@ const Transaction = () => {
           handleStatusChange={handleStatusChange}
         />
       )}
-
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
 
       <NotificationModal
         visible={modalVisible}
