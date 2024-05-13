@@ -15,9 +15,9 @@ const TransactionChart = ({
           <div className="flex gap-2 px-10 py-6">
             <Icon name="supportchart" />
             <p className="text-[14px] font-medium">
-            Transaction Fee <br />
+              Transaction Fee <br />
               <span className="text-[10px] font-normal">
-              Your transaction fees for this year  
+                Your transaction fees for this year
               </span>
             </p>
           </div>
@@ -40,7 +40,13 @@ const TransactionChart = ({
         <div className="flex w-full">
           <div className="px-10 py-20 w-1/4">
             <p className="text-[12px]">Total</p>
-            <p className="text-[14px] font-medium">{transactionTotal?.total}</p>
+            <p className="text-[14px] font-medium">
+              {transactionTotal?.total?.toLocaleString("en-US", {
+                style: "currency",
+                currency: "NGN",
+              })}
+            </p>
+
             <p
               className={`flex gap-3 text-[12px] py-16 ${
                 transactionTotal?.percentageChange < 0
