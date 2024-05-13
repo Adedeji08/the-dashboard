@@ -64,7 +64,7 @@ const AgentProfile = ({ visible, handleClose }: any) => {
 
         <Details title={"Email address:"} value={agent?.agent?.email || "N/A"} />
 
-        <Details title={"Phone"} value={agent?.agent?.phone || "N/A"} />
+        <Details title={"Phone:"} value={agent?.agent?.phone || "N/A"} />
       </div>
     </Modal>
   );
