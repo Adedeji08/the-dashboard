@@ -60,7 +60,7 @@ const AgentProfile = ({ visible, handleClose }: any) => {
           
         </section>
 
-        <Details title={"Name:"} value={agent?.agent?.fullname || "N/A"} />
+        <Details title={"Name"} value={agent?.agent?.fullname || "N/A"} />
 
         <Details title={"Email address:"} value={agent?.agent?.email || "N/A"} />
 
