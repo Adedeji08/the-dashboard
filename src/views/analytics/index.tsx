@@ -8,33 +8,54 @@ import PaymentChart from "./payment";
 import MediationChart from "./mediation";
 import ReportsChart from "./reports";
 import SupportChart from "./support";
+import TransactionChart from "./transaction";
 
 interface ChartData {
   name: string;
 }
+
 const Analytics = () => {
   const userToken = localStorage.getItem("token");
   const [modalVisible, setModalVisible] = useState(false);
   const [accountChart, setAccountChart] = useState<ChartData[]>([]);
   const [accountTotal, setAccountTotal] = useState<ChartData[]>([]);
+  const [selectedFilter, setSelectedFilter] = useState<string>("year");
+
   const [orderChart, setOrderChart] = useState<ChartData[]>([]);
   const [orderTotal, setOrderTotal] = useState<ChartData[]>([]);
+  const [orderFilter, setOrderFilter] = useState<string>("year");
+
   const [paymentChart, setPaymentChart] = useState<ChartData[]>([]);
   const [paymentTotal, setPaymentTotal] = useState<ChartData[]>([]);
+  const [paymentFilter, setPaymentFilter] = useState<string>("year");
+
   const [mediationChart, setMediationChart] = useState<ChartData[]>([]);
   const [mediationTotal, setMediationTotal] = useState<ChartData[]>([]);
+  const [mediationFilter, setMediationFilter] = useState<string>("year");
+
   const [reportChart, setReportChart] = useState<ChartData[]>([]);
   const [reportTotal, setReportTotal] = useState<ChartData[]>([]);
+  const [reportFilter, setReportFilter] = useState<string>("year");
+
   const [supportChart, setSupportChart] = useState<ChartData[]>([]);
   const [supportTotal, setSupportTotal] = useState<ChartData[]>([]);
-  const [selectedFilter, setSelectedFilter] = useState<string>("year");
+  const [supportFilter, setSupportFilter] = useState<string>("year");
+
+  const [transactionChart, setTransactionChart] = useState<ChartData[]>([]);
+  const [transactionTotal, setTransactionTotal] = useState<ChartData[]>([]);
+  const [transactionFilter, setTransactionFilter] = useState<string>("year");
+
   const openNotification = () => {
     setModalVisible(true);
   };
   const { makeRequest } = useRequest("/users/graph", "GET", {
     Authorization: `Bearer ${userToken}`,
   });
-  const { makeRequest: graphOrder } = useRequest(
+  const { makeRequest: graphOrder } = useRequest("/orders/graph", "GET", {
+    Authorization: `Bearer ${userToken}`,
+  });
+
+  const { makeRequest: graphTransaction } = useRequest(
     "/orders/transaction-fees/graph",
     "GET",
     {
@@ -66,6 +87,46 @@ const Analytics = () => {
     }
   );
 
+
+  const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedFilter(event.target.value);
+  };
+  const handleTransactionStatusChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setTransactionFilter(event.target.value);
+  };
+
+  const handleOrderStatusChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setOrderFilter(event.target.value);
+  };
+
+  const handlePaymentStatusChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setPaymentFilter(event.target.value);
+  };
+
+  const handleMediationStatusChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setMediationFilter(event.target.value);
+  };
+
+  const handleReportStatusChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setReportFilter(event.target.value);
+  };
+
+  const handleSupportStatusChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSupportFilter(event.target.value);
+  };
+  
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,18 +140,14 @@ const Analytics = () => {
     setAccountChart(response.data?.graph || []);
   };
 
-  const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedFilter(event.target.value);
-  };
-
   useEffect(() => {
     fetchOrderData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedFilter]);
+  }, [orderFilter]);
 
   const fetchOrderData = async () => {
     const [response] = await graphOrder(undefined, {
-      filter: selectedFilter,
+      filter: orderFilter,
     });
     setOrderTotal(response.data || []);
     setOrderChart(response.data?.graph || []);
@@ -99,11 +156,11 @@ const Analytics = () => {
   useEffect(() => {
     fetchPaymentsData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedFilter]);
+  }, [paymentFilter]);
 
   const fetchPaymentsData = async () => {
     const [response] = await graphPayment(undefined, {
-      filter: selectedFilter,
+      filter: paymentFilter,
     });
     setPaymentTotal(response.data || []);
     setPaymentChart(response.data?.graph || []);
@@ -112,11 +169,11 @@ const Analytics = () => {
   useEffect(() => {
     fetchMediationData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedFilter]);
+  }, [mediationFilter]);
 
   const fetchMediationData = async () => {
     const [response] = await graphMediation(undefined, {
-      filter: selectedFilter,
+      filter: mediationFilter,
     });
     setMediationTotal(response.data || []);
     setMediationChart(response.data?.graph || []);
@@ -125,11 +182,11 @@ const Analytics = () => {
   useEffect(() => {
     fetchReportData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedFilter]);
+  }, [reportFilter]);
 
   const fetchReportData = async () => {
     const [response] = await graphReport(undefined, {
-      filter: selectedFilter,
+      filter: reportFilter,
     });
     setReportTotal(response.data || []);
     setReportChart(response.data?.graph || []);
@@ -138,14 +195,27 @@ const Analytics = () => {
   useEffect(() => {
     fetchSupportData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedFilter]);
+  }, [supportFilter]);
 
   const fetchSupportData = async () => {
     const [response] = await graphSupport(undefined, {
-      filter: selectedFilter,
+      filter: supportFilter,
     });
     setSupportTotal(response.data || []);
     setSupportChart(response.data?.graph || []);
+  };
+
+  useEffect(() => {
+    fetchTransactionData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [transactionFilter]);
+
+  const fetchTransactionData = async () => {
+    const [response] = await graphTransaction(undefined, {
+      filter: transactionFilter,
+    });
+    setTransactionTotal(response.data || []);
+    setTransactionChart(response.data?.graph || []);
   };
 
   return (
@@ -191,36 +261,43 @@ const Analytics = () => {
       <OrderChart
         chartdata={orderChart}
         orderTotal={orderTotal}
-        selectedFilter={selectedFilter}
-        handleStatusChange={handleStatusChange}
+        orderFilter={orderFilter}
+        handleOrderStatusChange={handleOrderStatusChange}
       />
 
       <PaymentChart
         chartdata={paymentChart}
         paymentTotal={paymentTotal}
-        selectedFilter={selectedFilter}
-        handleStatusChange={handleStatusChange}
+        paymentFilter={paymentFilter}
+        handlePaymentStatusChange={handlePaymentStatusChange}
+      />
+
+      <TransactionChart
+        chartdata={transactionChart}
+        transactionTotal={transactionTotal}
+        transactionFilter={transactionFilter}
+        handleTransactionStatusChange={handleTransactionStatusChange}
       />
 
       <MediationChart
         chartdata={mediationChart}
         mediationTotal={mediationTotal}
-        selectedFilter={selectedFilter}
-        handleStatusChange={handleStatusChange}
+        mediationFilter={mediationFilter}
+        handleMediationStatusChange={handleMediationStatusChange}
       />
 
       <ReportsChart
         chartdata={reportChart}
         reportTotal={reportTotal}
-        selectedFilter={selectedFilter}
-        handleStatusChange={handleStatusChange}
+        reportFilter={reportFilter}
+        handleReportStatusChange={handleReportStatusChange}
       />
 
       <SupportChart
         chartdata={supportChart}
         supportTotal={supportTotal}
         selectedFilter={selectedFilter}
-        handleStatusChange={handleStatusChange}
+        handleSupportStatusChange={handleSupportStatusChange}
       />
     </>
   );

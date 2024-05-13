@@ -2,8 +2,14 @@ import React, { useEffect, useState } from "react";
 import Table from "../../components/table";
 import { useNavigate } from "react-router-dom";
 
-const TransactionTable = ({ data, selectedStatus, handleStatusChange, currentPage, onPageChange }: any) => {
-  const navigate = useNavigate()
+const TransactionTable = ({
+  data,
+  selectedStatus,
+  handleStatusChange,
+  currentPage,
+  onPageChange,
+}: any) => {
+  const navigate = useNavigate();
   const [filteredData, setFilteredData] = useState([]);
   const columns = [
     { header: "Order ID", accessor: "orderId" },
@@ -17,7 +23,7 @@ const TransactionTable = ({ data, selectedStatus, handleStatusChange, currentPag
 
   useEffect(() => {
     const filtered = data.filter((user: any) => {
-      if (user.status === selectedStatus) {
+      if (user.status) {
         return true;
       }
       return false;
@@ -26,14 +32,18 @@ const TransactionTable = ({ data, selectedStatus, handleStatusChange, currentPag
   }, [data, selectedStatus]);
 
   const handleUserClick = (id: string) => {
-    navigate(`/transaction/details/${id}`)
+    navigate(`/transaction/details/${id}`);
   };
 
   const mappedData = filteredData.map((transaction: any) => ({
     ...transaction,
-    orderId: transaction?.order?.orderId ? transaction?.order?.orderId : 'N/A',
-    buyerEmail: transaction?.order?.buyerEmail ? transaction?.order?.buyerEmail: 'N/A',
-    merchantEmail: transaction?.order?.merchantEmail ? transaction?.order?.merchantEmail : 'N/A',
+    orderId: transaction?.order?.orderId ? transaction?.order?.orderId : "N/A",
+    buyerEmail: transaction?.order?.buyerEmail
+      ? transaction?.order?.buyerEmail
+      : "N/A",
+    merchantEmail: transaction?.order?.merchantEmail
+      ? transaction?.order?.merchantEmail
+      : "N/A",
   }));
 
   return (
@@ -47,6 +57,7 @@ const TransactionTable = ({ data, selectedStatus, handleStatusChange, currentPag
             value={selectedStatus}
             onChange={handleStatusChange}
           >
+            <option value="">All</option>
             <option value="successful">Successful</option>
             <option value="pending">Pending</option>
             <option value="failed">Failed</option>
@@ -55,9 +66,16 @@ const TransactionTable = ({ data, selectedStatus, handleStatusChange, currentPag
       </div>
 
       {filteredData.length > 0 ? (
-        <Table columns={columns} data={mappedData} selectedUserId={null} onUserClick={handleUserClick} />
+        <Table
+          columns={columns}
+          data={mappedData}
+          selectedUserId={null}
+          onUserClick={handleUserClick}
+        />
       ) : (
-        <h1 className="text-[30px] text-center text-gray-500 opacity-80 mt-10 font-bold">No data available</h1>
+        <h1 className="text-[30px] text-center text-gray-500 opacity-80 mt-10 font-bold">
+          No data available
+        </h1>
       )}
     </div>
   );

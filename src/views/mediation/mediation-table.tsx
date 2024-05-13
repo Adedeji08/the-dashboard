@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Table from "../../components/table";
 import { useNavigate } from "react-router-dom";
 
-  const MediationTable = ({ data, selectedStatus, handleStatusChange, currentPage, onPageChange }: any) => {
+  const MediationTable = ({ data, selectedStatus, handleStatusChange }: any) => {
   const navigate = useNavigate()
   const [filteredData, setFilteredData] = useState([]);
   const columns = [
@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 
   useEffect(() => {
     const filtered = data?.filter((user: any) => {
-      if (user.status === selectedStatus) {
+      if (user.status) {
         return true;
       }
       return false;
@@ -43,6 +43,7 @@ import { useNavigate } from "react-router-dom";
             value={selectedStatus}
             onChange={handleStatusChange}
           >
+             <option value="">All</option>
             <option value="active">Active</option>
             <option value="cancelled">Cancelled</option>
             <option value="closed">Closed</option>

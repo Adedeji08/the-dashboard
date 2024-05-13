@@ -17,7 +17,7 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState<"merchant" | "buyer">(
     (localStorage.getItem("activeTab") as "merchant" | "buyer") || "merchant"
   );
-  
+
   const [searchQuery, setSearchQuery] = useState("");
   const userToken = localStorage.getItem("token");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
@@ -99,11 +99,10 @@ const Dashboard = () => {
     setSelectedStatus(event.target.value);
   };
 
-
   useEffect(() => {
     localStorage.setItem("activeTab", activeTab);
   }, [activeTab]);
-  
+
   // Add this useEffect hook to set the active tab to "reports" when the component mounts
   useEffect(() => {
     setActiveTab("merchant");
@@ -165,11 +164,13 @@ const Dashboard = () => {
         )}
       </div>
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
 
       <NotificationModal
         visible={modalVisible}

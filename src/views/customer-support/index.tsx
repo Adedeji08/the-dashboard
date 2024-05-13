@@ -142,18 +142,15 @@ const CustomerSupport = () => {
         />
       )}
 
-      {activeTab === "agents" && (
-        <Agents
-          data={agentData}
+      {activeTab === "agents" && <Agents data={agentData} />}
+
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
         />
       )}
-      
-
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
     </>
   );
 };
