@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Icon from "../../../assets/icons";
 import AnalyticsChart from "../../../components/graph/analytics-chart";
+import { formatCurrency } from "../../../utilities/functions";
 
 const PaymentChart = ({
   chartdata,
@@ -8,7 +9,7 @@ const PaymentChart = ({
   handlePaymentStatusChange,
   paymentTotal,
 }: any) => {
-
+  const [amount, setAmount] = useState(0);
   return (
     <>
       <div className="bg-white border border-white mt-10 rounded-md w-[88%]">
@@ -16,9 +17,9 @@ const PaymentChart = ({
           <div className="flex gap-2 px-10 py-6">
             <Icon name="paymentchart" />
             <p className="text-[14px] font-medium">
-            Payments <br />
+              Payments <br />
               <span className="text-[10px] font-normal">
-              User transactions for this year  
+                User transactions for this year
               </span>
             </p>
           </div>
@@ -41,7 +42,13 @@ const PaymentChart = ({
         <div className="flex w-full">
           <div className="px-10 py-20 w-1/4">
             <p className="text-[12px]">Total</p>
-            <p className="text-[14px] font-medium">{paymentTotal?.total}</p>
+            <p className="text-[14px] font-medium">
+              {paymentTotal?.total?.toLocaleString("en-US", {
+                style: "currency",
+                currency: "NGN",
+              })}
+            </p>
+
             <p
               className={`flex gap-3 text-[12px] py-16 ${
                 paymentTotal?.percentageChange < 0
