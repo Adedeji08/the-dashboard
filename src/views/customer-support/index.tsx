@@ -11,7 +11,9 @@ interface UserData {
 }
 
 const CustomerSupport = () => {
-  const [activeTab, setActiveTab] = useState<"requests" | "agents">("requests");
+  const [activeTab, setActiveTab] = useState<"requests" | "agents">(
+    (localStorage.getItem("activeTab") as "requests" | "agents") || "requests"
+  );
   const [data, setData] = useState<UserData[]>([]);
   const [agentData, setAgentData] = useState<UserData[]>([]);
   const [statistics, setStatistics] = useState([]);
@@ -97,6 +99,15 @@ const CustomerSupport = () => {
 
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("activeTab", activeTab);
+  }, [activeTab]);
+
+  // Add this useEffect hook to set the active tab to "reports" when the component mounts
+  useEffect(() => {
+    setActiveTab("requests");
   }, []);
 
   return (
