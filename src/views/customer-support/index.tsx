@@ -11,7 +11,9 @@ interface UserData {
 }
 
 const CustomerSupport = () => {
-  const [activeTab, setActiveTab] = useState<"requests" | "agents">("requests");
+  const [activeTab, setActiveTab] = useState<"requests" | "agents">(
+    (localStorage.getItem("activeTab") as "requests" | "agents") || "requests"
+  );
   const [data, setData] = useState<UserData[]>([]);
   const [agentData, setAgentData] = useState<UserData[]>([]);
   const [statistics, setStatistics] = useState([]);
@@ -99,6 +101,15 @@ const CustomerSupport = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("activeTab", activeTab);
+  }, [activeTab]);
+
+  // Add this useEffect hook to set the active tab to "reports" when the component mounts
+  useEffect(() => {
+    setActiveTab("requests");
+  }, []);
+
   return (
     <>
       <div className="flex justify-between w-[95%]">
@@ -117,7 +128,7 @@ const CustomerSupport = () => {
             <input
               className="outline-none border-none w-[80%] bg-transparent"
               id="input-placeholder"
-              placeholder="Search for name"
+              placeholder="Search"
               value={searchQuery}
               onChange={handleSearchChange}
             />

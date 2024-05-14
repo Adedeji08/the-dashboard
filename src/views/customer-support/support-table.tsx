@@ -39,7 +39,7 @@ const SupportTable = ({
 
   const mappedData = filteredData.map((request: any) => ({
     ...request,
-    fullName: request?.fullName || "N/A",
+    fullName: request?.assignedTo?.fullname || "N/A",
   }));
 
 
@@ -56,7 +56,6 @@ const SupportTable = ({
           >
             <option value="">All</option>
             <option value="resolved">Resolved</option>
-            <option value="closed">Closed</option>
             <option value="pending">Pending</option>
             <option value="in_progress">In Progress</option>
           </select>

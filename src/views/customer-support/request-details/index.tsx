@@ -6,6 +6,9 @@ import Details from "./details";
 
 interface DetailsProps {
   ticket: {
+    assignedTo: {
+      fullname: string;
+    },
     id: string;
     fullName: string;
     email: string;
