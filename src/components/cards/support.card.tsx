@@ -33,17 +33,17 @@ export const SupportCards = ({statistics}: AccountCardsProps) => {
         value={statistics?.all || 0}
       />
       <SupportCard
-        title="Completed requests"
+        title="Resolved requests"
         icon="personIcon"
         value={statistics?.resolved || 0}
       />
       <SupportCard
-        title="Active requests"
+        title="In Progress"
         icon="personIcon"
         value={statistics?.active || 0}
       />
       <SupportCard
-        title="Cancelled requests"
+        title="Pending requests"
         icon="personIcon"
         value={statistics?.closed || 0}
       />

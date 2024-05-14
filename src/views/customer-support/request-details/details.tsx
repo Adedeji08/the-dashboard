@@ -13,6 +13,9 @@ interface DetailsProps {
   request:
     | {
         ticket: {
+          assignedTo: {
+            fullname: string;
+          },
           id: string;
           fullName: string;
           email: string;
@@ -49,7 +52,7 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
     }
   );
 
-  const { makeRequest: closeTicket, } = useRequest(
+  const { makeRequest: closeTicket } = useRequest(
     `/customer-support/ticket/resolve`,
     "POST",
     {
@@ -168,17 +171,17 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
         </div>
 
         <Detail
-          title="Name"
+          title="Name:"
           value={capitalizeFirstLetter(request?.ticket?.fullName || "N/A")}
         />
 
-        <Detail title="Email address" value={request?.ticket?.email || "N/A"} />
+        <Detail title="Email address:" value={request?.ticket?.email || "N/A"} />
 
-        <Detail title="Ticket ID" value={request?.ticket?.ticketId || "N/A"} />
+        <Detail title="Ticket ID:" value={request?.ticket?.ticketId || "N/A"} />
 
         <Detail
           title="Assigned to:"
-          value={request?.ticket?.fullName || "N/A"}
+          value={request?.ticket?.assignedTo?.fullname || "N/A"}
         />
 
         <Detail
@@ -230,39 +233,39 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
           />
         </div>
 
-        <button
-          className={`h-[50px] mt-8 w-full rounded-md font-bold text-[12px] ${
-            request?.ticket?.status === "resolved"
-              ? "bg-gray-500 text-gray-300 cursor-not-allowed"
-              : "bg-[#0979A1] text-white"
-          }`}
-          onClick={handleSubmit(onSubmit)}
-          disabled={request?.ticket?.status === "resolved"} 
-        >
-          {loading ? (
-            <CircleLoader color="#ffffff" loading={loading} size={20} />
-          ) : (
-            "  Assign to agent"
-          )}
-        </button>
-        
-        <button
-          className={`h-[50px] mt-8 w-full rounded-md font-bold text-[12px] ${
-            request?.ticket?.status === "resolved"
-              ? "bg-gray-500 text-gray-300 cursor-not-allowed"
-              : "bg-[#0979A1] text-white"
-          }`}
-          onClick={handleResolved}
-          disabled={request?.ticket?.status === "resolved"} 
-        >
-          {loading ? (
-            <CircleLoader color="#ffffff" loading={loading} size={20} />
-          ) : (
-            "Close Ticket"
-          )}
-        </button>
+        <div className="h-52">
+          <button
+            className={`h-[50px] mt-8 w-full rounded-md font-bold text-[12px] ${
+              request?.ticket?.status === "resolved"
+                ? "bg-gray-500 text-gray-300 cursor-not-allowed"
+                : "bg-[#0979A1] text-white"
+            }`}
+            onClick={handleSubmit(onSubmit)}
+            disabled={request?.ticket?.status === "resolved"}
+          >
+            {loading ? (
+              <CircleLoader color="#ffffff" loading={loading} size={20} />
+            ) : (
+              "  Assign to agent"
+            )}
+          </button>
 
-        
+          <button
+            className={`h-[50px] mt-8 w-full rounded-md font-bold text-[12px] ${
+              request?.ticket?.status === "resolved"
+                ? "bg-gray-500 text-gray-300 cursor-not-allowed"
+                : "bg-[#0979A1] text-white"
+            }`}
+            onClick={handleResolved}
+            disabled={request?.ticket?.status === "resolved"}
+          >
+            {loading ? (
+              <CircleLoader color="#ffffff" loading={loading} size={20} />
+            ) : (
+              "Resolve ticket"
+            )}
+          </button>
+        </div>
       </section>
     </div>
   );

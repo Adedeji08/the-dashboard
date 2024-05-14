@@ -46,7 +46,7 @@ export default function SearchSelect({
               ? selected?.length > 25
                 ? selected?.substring(0, 25) + "..."
                 : selected
-              : "Assign a Mediator"}
+              : "Select"}
 
             {open ? (
               <IoIosClose
