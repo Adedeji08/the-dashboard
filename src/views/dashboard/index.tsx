@@ -6,6 +6,7 @@ import useRequest from "../../components/hooks/use-request";
 import Icon from "../../assets/icons";
 import Pagination from "../../components/pagination/pagination";
 import NotificationModal from "../notification/notification-modal";
+import AddAdmin from "./admin/add-admin";
 
 interface UserData {
   fullname: string;
@@ -13,6 +14,7 @@ interface UserData {
 
 const Dashboard = () => {
   const [data, setData] = useState<UserData[]>([]);
+  const [adminModal, setAdminModal] = useState(false);
   const [statistics, setStatistics] = useState([]);
   const [activeTab, setActiveTab] = useState<"merchant" | "buyer">(
     (localStorage.getItem("activeTab") as "merchant" | "buyer") || "merchant"
@@ -37,6 +39,10 @@ const Dashboard = () => {
 
   const openNotification = () => {
     setModalVisible(true);
+  };
+
+  const openAdmin = () => {
+    setAdminModal(true);
   };
 
   useEffect(() => {
@@ -138,11 +144,24 @@ const Dashboard = () => {
           </button>
         </section>
       </div>
-      <Tabs
-        activeTab={activeTab}
-        tabs={["merchant", "buyer"]}
-        setActiveTab={setActiveTab}
-      />
+      <div className="flex justify-between">
+        <Tabs
+          activeTab={activeTab}
+          tabs={["merchant", "buyer"]}
+          setActiveTab={setActiveTab}
+        />
+
+        <div className="rounded-md solid px-8 mx-14 mt-10 bg-[#0979A1] h-[45px] flex gap-3">
+          <Icon name="addition" className="mt-2 rounded" />
+          <button
+            className={` h-[43px] font-bold text-[#fff] rounded-md`}
+            type="submit"
+            onClick={openAdmin}
+          >
+            Add Admin
+          </button>
+        </div>
+      </div>
       <div>
         {activeTab === "merchant" && (
           <Merchant
@@ -176,6 +195,8 @@ const Dashboard = () => {
         visible={modalVisible}
         handleClose={() => setModalVisible(false)}
       />
+
+      <AddAdmin visible={adminModal} handleClose={() => setAdminModal(false)} />
     </>
   );
 };
