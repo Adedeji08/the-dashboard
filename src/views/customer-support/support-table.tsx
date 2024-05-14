@@ -39,7 +39,7 @@ const SupportTable = ({
 
   const mappedData = filteredData.map((request: any) => ({
     ...request,
-    fullName: request?.fullName || "N/A",
+    fullName: request?.assignedTo?.fullname || "N/A",
   }));
 
 
