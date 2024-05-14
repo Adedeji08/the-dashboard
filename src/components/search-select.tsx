@@ -59,7 +59,7 @@ export default function SearchSelect({
             )}
           </div>
           <ul
-            className={`bg-[#F8F8F8] mt-2 overflow-y-auto h-[485px] md:h-[400px] w-full absolute -top-[500px] md:-top-[415px] rounded-md ${
+            className={`bg-[#F8F8F8] mt-2 overflow-y-auto h-[485px] md:h-[400px] w-full absolute -top-[500px] md:-top-[115px] rounded-md ${
               open
                 ? "max-h-[500px] drop-shadow-lg border-2 border-solid"
                 : "max-h-0 border-0"

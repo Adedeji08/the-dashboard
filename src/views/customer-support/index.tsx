@@ -54,6 +54,7 @@ const CustomerSupport = () => {
       page: number;
       status?: string;
       name?: string;
+      search?: string;
     } = {
       limit,
       page,
@@ -65,6 +66,10 @@ const CustomerSupport = () => {
 
     if (searchQuery) {
       params.name = searchQuery;
+    }
+
+    if (searchQuery) {
+      params.search = searchQuery;
     }
 
     if (activeTab === "requests") {

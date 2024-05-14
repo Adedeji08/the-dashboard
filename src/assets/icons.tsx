@@ -26,7 +26,9 @@ type IconName =
   | "paymentchart"
   | "mediationchart"
   | "blacklistchart"
-  | "supportchart";
+  | "supportchart"
+  | "addition"
+  | "backicon";
 
 interface IconProps {
   name: IconName;
@@ -961,6 +963,60 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
             stroke="white"
             stroke-width="1.5"
             stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "addition":
+      return (
+        <svg
+          className={className}
+          width="28"
+          height="28"
+          viewBox="0 0 28 28"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9.33334 14H18.6667"
+            stroke="#FCFCFD"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M14 18.6667V9.33334"
+            stroke="#FCFCFD"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "backicon":
+      return (
+        <svg
+        className={className}
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            width="32"
+            height="32"
+            rx="6"
+            transform="matrix(-1 0 0 1 32 0)"
+            fill="#F2F4F7"
+          />
+          <path
+            d="M19 22L13 16L19 10"
+            stroke="#0979A1"
+            stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
