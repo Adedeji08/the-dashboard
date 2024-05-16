@@ -62,12 +62,12 @@ const TransactionChart = ({
                 }
               />
 
-              {transactionTotal?.percentageChange}
+              {transactionTotal?.percentageChange}%
             </p>
           </div>
           <div className="flex-1">
             {chartdata && Array.isArray(chartdata) && (
-              <AnalyticsChart chartdata={chartdata} />
+              <AnalyticsChart chartdata={chartdata} chartType="payment" />
             )}
           </div>
         </div>

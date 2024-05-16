@@ -57,7 +57,7 @@ const ReportChart = ({
                 }
               />
 
-              {accountTotal?.percentageChange}
+              {accountTotal?.percentageChange}%
             </p>
           </div>
           <div className="flex-1">
