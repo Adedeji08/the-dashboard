@@ -16,7 +16,6 @@ interface DataChart {
 const AnalyticsChart = ({ chartdata, chartType }: DataChart) => {
   const [loading, setLoading] = useState(true);
   const chartRef = useRef<any>(null);
-console.log('chartdata', chartdata)
   useEffect(() => {
     if (chartdata.length > 0) {
       setLoading(false);
