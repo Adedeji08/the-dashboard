@@ -22,7 +22,6 @@ const AnalyticsChart = ({ chartdata, chartType }: DataChart) => {
     }
   }, [chartdata]);
 
-
   const dataAxis = chartdata?.map((item) => item.name);
   const data = chartdata?.map((item) => item.value);
   const yMax = Math.max(...data) + 50;
@@ -59,7 +58,7 @@ const AnalyticsChart = ({ chartdata, chartType }: DataChart) => {
       axisLabel: {
         color: "#8A8A8A",
         formatter: (value: any) => {
-          if (chartType === 'payment' || chartType === 'transaction') {
+          if (chartType === "payment" || chartType === "transaction") {
             return `NGN ${value}`;
           } else {
             return value;
@@ -71,7 +70,11 @@ const AnalyticsChart = ({ chartdata, chartType }: DataChart) => {
       trigger: "axis",
       formatter: (params: any) => {
         const { name, value } = params[0].data;
-        return `${name}: NGN ${value.toLocaleString()}`;
+        if (chartType === "payment" || chartType === "transaction") {
+          return `${name}: NGN ${value.toLocaleString()}`;
+        } else {
+          return `${name}: ${value.toLocaleString()}`;
+        }
       },
     },
     dataZoom: [
@@ -117,7 +120,7 @@ const AnalyticsChart = ({ chartdata, chartType }: DataChart) => {
     <>
       {loading ? (
         <div className="py-28 px-44">
-        <CircleLoader color="#0979A1" /> 
+          <CircleLoader color="#0979A1" />
         </div>
       ) : (
         <ReactECharts
