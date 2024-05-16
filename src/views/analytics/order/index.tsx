@@ -58,7 +58,7 @@ const OrderChart = ({
                 }
               />
 
-              {orderTotal?.percentageChange}
+              {orderTotal?.percentageChange}%
             </p>
           </div>
           <div className="flex-1">

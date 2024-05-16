@@ -56,12 +56,12 @@ const MediationChart = ({
                 }
               />
 
-              {mediationTotal?.percentageChange}
+              {mediationTotal?.percentageChange}%
             </p>
           </div>
           <div className="flex-1">
             {chartdata && Array.isArray(chartdata) && (
-              <AnalyticsChart chartdata={chartdata} />
+              <AnalyticsChart chartdata={chartdata}/>
             )}
           </div>
         </div>

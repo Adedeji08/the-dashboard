@@ -10,12 +10,12 @@ interface ChartData {
 
 interface DataChart {
   chartdata: ChartData[];
+  chartType?: string;
 }
 
-const AnalyticsChart = ({ chartdata }: DataChart) => {
+const AnalyticsChart = ({ chartdata, chartType }: DataChart) => {
   const [loading, setLoading] = useState(true);
   const chartRef = useRef<any>(null);
-
   useEffect(() => {
     if (chartdata.length > 0) {
       setLoading(false);
@@ -58,13 +58,20 @@ const AnalyticsChart = ({ chartdata }: DataChart) => {
       },
       axisLabel: {
         color: "#8A8A8A",
+        formatter: (value: any) => {
+          if (chartType === 'payment' || chartType === 'transaction') {
+            return `NGN ${value}`;
+          } else {
+            return value;
+          }
+        },
       },
     },
     tooltip: {
       trigger: "axis",
       formatter: (params: any) => {
         const { name, value } = params[0].data;
-        return `${name}: ${value}`;
+        return `${name}: NGN ${value.toLocaleString()}`;
       },
     },
     dataZoom: [
@@ -97,6 +104,11 @@ const AnalyticsChart = ({ chartdata }: DataChart) => {
           name: dataAxis[index],
           value: value,
         })),
+        label: {
+          formatter: (params: any) => {
+            return `NGN ${params.value.toLocaleString()}`;
+          },
+        },
       },
     ],
   };
