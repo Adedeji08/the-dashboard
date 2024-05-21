@@ -130,7 +130,7 @@ const Transaction = () => {
             <input
               className="outline-none border-none w-[80%] bg-transparent"
               id="input-placeholder"
-              placeholder="Search for name"
+              placeholder="Search for email"
               value={searchQuery}
               onChange={handleSearchChange}
             />

@@ -18,6 +18,7 @@ const UserTable = ({
     },
     { header: "Email Address", accessor: "email" },
     { header: "Phone No", accessor: "phone" },
+    { header: "Status", accessor: "status" },
     { header: "Date Joined", accessor: "created_at" },
     { header: "", accessor: "id" },
   ];

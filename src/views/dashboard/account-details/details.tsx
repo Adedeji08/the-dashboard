@@ -140,7 +140,7 @@ const Details: React.FC<DetailsProps> = ({ account }) => {
           </p>
         </div>
 
-        <div className="flex flex-col gap-6 mt-10 px-6">
+        <div className="flex h-36 items-center flex-col gap-6 mt-10 px-6">
           <button
             className={`border-2 ${
               account?.status === "blocked"
