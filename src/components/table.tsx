@@ -41,6 +41,8 @@ const Table: React.FC<TableProps> = ({
           return "#FFA07A";
       case "failed":
         return "#D9D9D9";
+        case "suspended":
+          return "#FCCFCF";
         case "closed":
           return "#FCCFCF";
       case "blocked":
