@@ -46,25 +46,28 @@ const Transaction = () => {
   const fetchData = async () => {
     const page = currentPage;
     const limit = itemsPerPage;
-
     const params: {
+      email?: string;
       limit: number;
       page: number;
       status?: string;
-      userType?: string;
+      type?: string;
     } = {
       limit,
       page,
     };
 
     if (activeTab === "payment") {
-      params.userType = "payment";
+      params.type = "payment";
     } else if (activeTab === "withdrawal") {
-      params.userType = "withdrawal";
+      params.type = "withdrawal";
     }
 
     if (selectedStatus) {
       params.status = selectedStatus;
+    }
+    if (searchQuery) {
+      params.email = searchQuery;
     }
     const [response] = await makeRequest(undefined, params)
     setData(response.data?.transactions || []);

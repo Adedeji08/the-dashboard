@@ -56,6 +56,7 @@ const Dashboard = () => {
     const params: {
       limit: number;
       page: number;
+      search?: string;
       status?: string;
       userType?: string;
     } = {
@@ -71,6 +72,9 @@ const Dashboard = () => {
 
     if (selectedStatus) {
       params.status = selectedStatus;
+    }
+    if (searchQuery) {
+      params.search = searchQuery;
     }
 
     const [response] = await makeRequest(undefined, params);

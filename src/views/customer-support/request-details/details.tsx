@@ -15,7 +15,7 @@ interface DetailsProps {
         ticket: {
           assignedTo: {
             fullname: string;
-          },
+          };
           id: string;
           fullName: string;
           email: string;
@@ -54,7 +54,7 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
 
   const { makeRequest: closeTicket } = useRequest(
     `/customer-support/ticket/resolve`,
-    "POST",
+    "PUT",
     {
       userToken,
     }
@@ -127,6 +127,10 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
         return "#D1FFC9";
       case "resolved":
         return "#D1FFC9";
+      case "in_progress":
+        return "#FFA07A";
+      case "pending":
+        return "#FCCFCF";
       case "closed":
         return "#FCCFCF";
       case "cancelled":
@@ -151,7 +155,7 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
         <div className="flex justify-between">
           <h2 className="font-bold text-[18px]">Request Details</h2>
           <p
-            className="text-[10px] flex gap-3 w-20 h-4 text-center rounded-md"
+            className="text-[10px] flex gap-3 w-28 h-4 text-center rounded-md"
             style={{
               backgroundColor: getStatusColor(request?.ticket?.status || "N/A"),
             }}
@@ -159,7 +163,7 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
             <span
               style={{
                 backgroundColor:
-                  request?.ticket?.status === "resolved" || "active"
+                  request?.ticket?.status === "resolved"
                     ? "green"
                     : "red",
               }}
@@ -175,7 +179,10 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
           value={capitalizeFirstLetter(request?.ticket?.fullName || "N/A")}
         />
 
-        <Detail title="Email address:" value={request?.ticket?.email || "N/A"} />
+        <Detail
+          title="Email address:"
+          value={request?.ticket?.email || "N/A"}
+        />
 
         <Detail title="Ticket ID:" value={request?.ticket?.ticketId || "N/A"} />
 
