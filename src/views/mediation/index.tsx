@@ -47,12 +47,17 @@ const Mediation = () => {
       limit: number;
       page: number;
       status?: string;
+      title?: string;
     } = {
       limit,
       page,
     };
     if (selectedStatus) {
       params.status = selectedStatus;
+    }
+
+    if (searchQuery) {
+      params.title = searchQuery;
     }
     const [response] = await makeRequest(undefined, params);
     setData(response.data?.channels || []);
