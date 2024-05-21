@@ -122,7 +122,7 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
   };
 
   return (
-    <div className=" bg-white border border-[#fff] mt-10 pt-7 rounded-lg w-[95%] ">
+    <div className=" bg-white border border-[#fff] mt-10 pt-7 h-[680px] rounded-lg w-[95%] ">
       <section className="w-[36%] mx-auto">
         <div className="flex justify-between">
           <h2 className="font-bold text-[18px]">Request Details</h2>

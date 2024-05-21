@@ -113,7 +113,6 @@ const Dashboard = () => {
     localStorage.setItem("activeTab", activeTab);
   }, [activeTab]);
 
-  // Add this useEffect hook to set the active tab to "reports" when the component mounts
   useEffect(() => {
     setActiveTab("merchant");
   }, []);
@@ -155,12 +154,11 @@ const Dashboard = () => {
           setActiveTab={setActiveTab}
         />
 
-        <div className="rounded-md solid px-8 mx-14 mt-10 bg-[#0979A1] h-[45px] flex gap-3">
+        <div onClick={openAdmin} className="rounded-md solid px-8 mx-14 mt-10 bg-[#0979A1] h-[45px] flex gap-3 cursor-pointer">
           <Icon name="addition" className="mt-2 rounded" />
           <button
             className={` h-[43px] font-bold text-[#fff] rounded-md`}
             type="submit"
-            onClick={openAdmin}
           >
             Add Admin
           </button>
