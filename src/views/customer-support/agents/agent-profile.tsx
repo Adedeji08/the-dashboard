@@ -1,6 +1,5 @@
 import { Modal } from "antd";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import useRequest from "../../../components/hooks/use-request";
 import defaultPhoto from "../../../assets/default-avatar.svg";
 
@@ -11,14 +10,19 @@ interface DetailsProps {
     email: string;
     status: string;
     created_at: string;
-    ticketId: string;
     profilePhoto: string;
     phone: string;
   };
 }
 
-const AgentProfile = ({ visible, handleClose }: any) => {
-  const Details = ({ title, value, img }: any) => {
+interface AgentProfileProps {
+  visible: boolean;
+  handleClose: () => void;
+  id: string;
+}
+
+const AgentProfile: React.FC<AgentProfileProps> = ({ visible, handleClose, id }: any) => {
+  const Details = ({ title, value}: any) => {
     return (
       <div className="flex justify-between text-[16px]  px-6 mt-4 w-[90%]">
         <p>{title}</p>
@@ -28,7 +32,6 @@ const AgentProfile = ({ visible, handleClose }: any) => {
   };
 
   const [agent, setAgent] = useState<DetailsProps>();
-  const { id } = useParams<{ id: string }>();
   const { makeRequest: getRequestById } = useRequest(
     `/customer-support/agents/${id}`,
     "GET"
@@ -36,11 +39,15 @@ const AgentProfile = ({ visible, handleClose }: any) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const [response] = await getRequestById();
-      setAgent(response?.data || []);
+      const [response] = await getRequestById(undefined, {id});
+      setAgent(response?.data || null);
     };
-    fetchData();
-  }, []);
+
+    if (id) {
+      fetchData();
+    }
+  }, [id]);
+
   return (
     <Modal
       visible={visible}

@@ -37,7 +37,7 @@ export const MediationCards = ({statistics}: AccountCardsProps) => {
         value={statistics?.active || 0}
       />
       <MediationCard
-        title="Cancelled requests"
+        title="Closed requests"
         icon="mediate"
         value={statistics?.closed || 0}
       />

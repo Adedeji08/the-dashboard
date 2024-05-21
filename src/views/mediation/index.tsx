@@ -14,7 +14,10 @@ interface UserData {
 
 const Mediation = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const params = new URLSearchParams(new URL(window.location.href).search);
+  const [currentPage, setCurrentPage] = useState(
+    Number(params.get("page") || 1)
+  );
   const [totalPages, setTotalPages] = useState<number>(1);
   const itemsPerPage = 10;
   const [data, setData] = useState<UserData>();
@@ -64,10 +67,14 @@ const Mediation = () => {
     setTotalPages(Math.ceil(response.data?.totalPages));
   };
 
-  const handlePageChange = (page: number) => {
+  function handlePageChange(page: number) {
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    params.set("page", page.toString());
+    url.search = params.toString();
+    window.location.href = url.toString();
     setCurrentPage(page);
-    fetchData();
-  };
+  }
 
   const handleSearchChange = (event: any) => {
     setSearchQuery(event.target.value);
@@ -112,7 +119,7 @@ const Mediation = () => {
             <input
               className="outline-none border-none w-[80%] bg-transparent"
               id="input-placeholder"
-              placeholder="Search for title"
+              placeholder="Search"
               value={searchQuery}
               onChange={handleSearchChange}
             />
