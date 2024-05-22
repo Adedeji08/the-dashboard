@@ -94,7 +94,7 @@ const Table: React.FC<TableProps> = ({
                   "N/A"
                 ) : column.accessor === "status" ? (
                   <p
-                    className="-mt-1 text-[12px] text-center font-normal w-20 h-4 rounded-md"
+                    className="-mt-1 text-[12px] p-1 text-center font-normal w-20 rounded-md"
                     style={{
                       backgroundColor: getStatusColor(row[column.accessor]),
                     }}

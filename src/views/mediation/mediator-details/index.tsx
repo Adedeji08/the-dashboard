@@ -17,6 +17,9 @@ interface DetailsProps {
       fullName: string;
       isResponseAble: boolean;
     };
+    mediator: {
+      fullName: string;
+    };
   };
 }
 const MediatorDetails = () => {

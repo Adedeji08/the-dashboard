@@ -24,6 +24,9 @@ interface DetailsProps {
             fullName: string;
             isResponseAble: boolean;
           };
+          mediator: {
+            fullName: string;
+          };
         };
       }
     | undefined;
@@ -35,8 +38,8 @@ interface Mediators {
 }
 
 const Details: React.FC<DetailsProps> = ({ mediateById }) => {
-  const [email, setEmail] = useState("")
-  const [fullName, setFullName] = useState("")
+  const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState("");
   const userToken = localStorage.getItem("token");
   const id = mediateById?.channel?._id;
   const { makeRequest: getMediators } = useRequest(
@@ -158,6 +161,11 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
         <Detail
           title="Email address"
           value={mediateById?.channel?.claimant?.email || "N/A"}
+        />
+
+        <Detail
+          title="Assigned To"
+          value={mediateById?.channel?.mediator?.fullName || "N/A"}
         />
 
         <Detail title="Case ID" value={mediateById?.channel?.caseID || "N/A"} />

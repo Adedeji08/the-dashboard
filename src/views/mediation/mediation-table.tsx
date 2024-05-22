@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
     { header: "Case ID", accessor: "caseID" },
     { header: "Request Title", accessor: "title" },
     { header: "Name", accessor: "fullName" },
+    { header: "Assigned To", accessor: "fullname" },
     { header: "Status", accessor: "status" },
     { header: "Date", accessor: "createdAt" },
     { header: "", accessor: "_id" },
@@ -31,6 +32,7 @@ import { useNavigate } from "react-router-dom";
   const mappedData = filteredData?.map((mediate: any) => ({
     ...mediate,
     fullName: mediate?.claimant?.fullName || 'N/A',
+    fullname: mediate?.mediator?.fullName || 'N/A',
   }));
   return (
     <div className="rounded-md py-3 px-3 bg-white border border-[#fff] mt-10 w-[95%] pt-5 ">
