@@ -38,7 +38,29 @@ const Mediation = () => {
   );
   const [modalNotifyVisible, setModalNotifyVisible] = useState(false);
 
+  const updateUrlParams = (params: { [key: string]: string | number }) => {
+    const url = new URL(window.location.href);
+    Object.keys(params).forEach((key) => {
+      url.searchParams.set(key, params[key].toString());
+    });
+    window.history.pushState({}, "", url.toString());
+  };
+
   useEffect(() => {
+    const storedSearchQuery = params.get("title") || "";
+    const storedStatus = params.get("status") || "";
+    setSearchQuery(storedSearchQuery);
+    setSelectedStatus(storedStatus);
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage]);
+  
+  useEffect(() => {
+    updateUrlParams({
+      page: currentPage,
+      title: searchQuery,
+      status: selectedStatus,
+    });
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, selectedStatus, currentPage]);
@@ -68,11 +90,6 @@ const Mediation = () => {
   };
 
   function handlePageChange(page: number) {
-    const url = new URL(window.location.href);
-    const params = new URLSearchParams(url.search);
-    params.set("page", page.toString());
-    url.search = params.toString();
-    window.location.href = url.toString();
     setCurrentPage(page);
   }
 

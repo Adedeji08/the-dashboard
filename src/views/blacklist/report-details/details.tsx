@@ -3,9 +3,6 @@ import {
   capitalizeFirstLetter,
   formatDate,
 } from "../../../utilities/functions";
-import Button from "../../../components/button";
-import { useForm } from "react-hook-form";
-import { showToast } from "../../../components/toast";
 
 interface DetailsProps {
   report: {
@@ -38,10 +35,9 @@ const Details: React.FC<DetailsProps> = ({ report }) => {
     );
   };
 
-  const { handleSubmit, control, reset } = useForm();
-
  
-
+console.log('dlmdlmdld',report?.image)
+const imageCount = report?.image || 0;
   return (
     <section className="w-full border-r-2">
       <div className="flex justify-between px-10 w-full">
@@ -110,9 +106,11 @@ const Details: React.FC<DetailsProps> = ({ report }) => {
 
       <div className="flex justify-between px-10 w-full mt-6">
         <h1 className="text-[18px] font-semibold">Media</h1>
-        <p className="text-[12px] text-[#0979A1]">
-          View all ({report?.image?.length})
-        </p>
+       
+          <p className="text-[12px] text-[#0979A1]">
+            View all ({imageCount})
+          </p>
+      
       </div>
 
       <div className="images-container">

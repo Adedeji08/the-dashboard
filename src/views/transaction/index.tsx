@@ -38,7 +38,34 @@ const Transaction = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const itemsPerPage = 10;
 
+  const updateUrlParams = (params: { [key: string]: string | number }) => {
+    const url = new URL(window.location.href);
+    Object.keys(params).forEach((key) => {
+      url.searchParams.set(key, params[key].toString());
+    });
+    window.history.pushState({}, "", url.toString());
+  };
+
   useEffect(() => {
+    const storedSearchQuery = params.get("email") || "";
+    const storedStatus = params.get("status") || "";
+    const storedUserType = params.get("type") || activeTab;
+
+    setSearchQuery(storedSearchQuery);
+    setSelectedStatus(storedStatus);
+    setActiveTab(storedUserType as "payment" | "withdrawal");
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage]);
+
+
+  useEffect(() => {
+    updateUrlParams({
+      page: currentPage,
+      email: searchQuery,
+      status: selectedStatus,
+      type: activeTab,
+    });
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, searchQuery, selectedStatus, currentPage]);
@@ -75,11 +102,6 @@ const Transaction = () => {
   };
 
   function handlePageChange(page: number) {
-    const url = new URL(window.location.href);
-    const params = new URLSearchParams(url.search);
-    params.set("page", page.toString());
-    url.search = params.toString();
-    window.location.href = url.toString();
     setCurrentPage(page);
   }
 
