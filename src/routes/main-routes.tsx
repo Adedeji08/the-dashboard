@@ -16,6 +16,7 @@ import TransactionDetails from "../views/transaction/transaction-details";
 import PaymentRequest from "../views/transaction/transaction-details/payment-req";
 import RequestDetails from "../views/customer-support/request-details";
 import Analytics from "../views/analytics";
+import Admins from "../views/admins";
 
 
 const MainRoutes = {
@@ -83,6 +84,10 @@ const MainRoutes = {
     {
       path: "/support",
       element: <CustomerSupport />,
+    },
+    {
+      path:"/admins",
+      element: <Admins/>,
     },
     {
       path: "/request/:id",

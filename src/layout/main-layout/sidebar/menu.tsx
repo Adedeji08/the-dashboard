@@ -58,6 +58,7 @@ const Menu: React.FC = () => {
       label: "Customer Support",
     },
     { to: "/analytics", icon: "analytics", label: "Analytics" },
+    { to: "/admins", icon: "account", label: "Admins" },
     { to: "/settings", icon: "settings", label: "Settings" },
   ];
 
