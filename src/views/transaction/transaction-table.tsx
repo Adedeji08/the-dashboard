@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Table from "../../components/table";
 import { useNavigate } from "react-router-dom";
+import { TailSpin } from "react-loader-spinner";
 
 const TransactionTable = ({
   data,
@@ -73,9 +74,12 @@ const TransactionTable = ({
           onUserClick={handleUserClick}
         />
       ) : (
-        <h1 className="text-[30px] text-center text-gray-500 opacity-80 mt-10 font-bold">
-          No data available
-        </h1>
+        // <h1 className="text-[30px] text-center text-gray-500 opacity-80 mt-10 font-bold">
+        //   No data available
+        // </h1>
+        <div className="opacity-80 mt-10 font-bold w-[4%] mx-auto">
+        <TailSpin color="skyblue" />
+       </div>
       )}
     </div>
   );

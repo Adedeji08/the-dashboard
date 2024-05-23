@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "../../components/table";
 import AgentProfile from "./agents/agent-profile";
+import { TailSpin } from "react-loader-spinner";
 
 const AgentTable = ({ data }: any) => {
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null); // State to store the selected user's ID
@@ -36,9 +37,9 @@ const AgentTable = ({ data }: any) => {
           onUserClick={handleUserClick}
         />
       ) : (
-        <h1 className="text-[30px] text-center text-gray-500 opacity-80 mt-10 font-bold">
-          No data available
-        </h1>
+        <div className="opacity-80 mt-10 font-bold w-[4%] mx-auto">
+         <TailSpin color="skyblue" />
+        </div>
       )}
 
       {selectedUserId && (

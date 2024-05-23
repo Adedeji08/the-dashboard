@@ -14,6 +14,7 @@ const CustomerSupport = () => {
   const [activeTab, setActiveTab] = useState<"requests" | "agents">(
     (localStorage.getItem("activeTab") as "requests" | "agents") || "requests"
   );
+  const params = new URLSearchParams(new URL(window.location.href).search);
   const [data, setData] = useState<UserData[]>([]);
   const [agentData, setAgentData] = useState<UserData[]>([]);
   const [statistics, setStatistics] = useState([]);
@@ -41,7 +42,34 @@ const CustomerSupport = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const itemsPerPage = 10;
 
+  const updateUrlParams = (params: { [key: string]: string | number }) => {
+    const url = new URL(window.location.href);
+    Object.keys(params).forEach((key) => {
+      url.searchParams.set(key, params[key].toString());
+    });
+    window.history.pushState({}, "", url.toString());
+  };
+
   useEffect(() => {
+    const storedSearchQuery = params.get("search") || "";
+    const storedStatus = params.get("status") || "";
+    const storedUserType = params.get("type") || activeTab;
+
+    setSearchQuery(storedSearchQuery);
+    setSelectedStatus(storedStatus);
+    setActiveTab(storedUserType as "requests" | "agents");
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage]);
+
+
+  useEffect(() => {
+    updateUrlParams({
+      page: currentPage,
+      search: searchQuery,
+      status: selectedStatus,
+      type: activeTab,
+    });
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, searchQuery, selectedStatus, currentPage]);
@@ -91,10 +119,9 @@ const CustomerSupport = () => {
     setSelectedStatus(event.target.value);
   };
 
-  const handlePageChange = async (page: number) => {
+  function handlePageChange(page: number) {
     setCurrentPage(page);
-    fetchData();
-  };
+  }
 
   useEffect(() => {
     const fetchData = async () => {

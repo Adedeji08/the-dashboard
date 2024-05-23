@@ -45,7 +45,43 @@ const Dashboard = () => {
     setAdminModal(true);
   };
 
+  const updateUrlParams = (params: { [key: string]: string | number }) => {
+    const url = new URL(window.location.href);
+    Object.keys(params).forEach((key) => {
+      url.searchParams.set(key, params[key].toString());
+    });
+    window.history.pushState({}, "", url.toString());
+  };
+
   useEffect(() => {
+    const storedSearchQuery = params.get("search") || "";
+    const storedStatus = params.get("status") || "";
+    const storedUserType = params.get("userType") || activeTab;
+
+    setSearchQuery(storedSearchQuery);
+    setSelectedStatus(storedStatus);
+    setActiveTab(storedUserType as "merchant" | "buyer");
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const [response] = await getStat();
+      setStatistics(response.data);
+    };
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    updateUrlParams({
+      page: currentPage,
+      search: searchQuery,
+      status: selectedStatus,
+      userType: activeTab,
+    });
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, searchQuery, selectedStatus, currentPage]);
@@ -83,23 +119,8 @@ const Dashboard = () => {
   };
 
   function handlePageChange(page: number) {
-    const url = new URL(window.location.href);
-    const params = new URLSearchParams(url.search);
-    params.set("page", page.toString());
-    url.search = params.toString();
-    window.location.href = url.toString();
     setCurrentPage(page);
   }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const [response] = await getStat();
-      setStatistics(response.data);
-    };
-
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleSearchChange = (event: any) => {
     setSearchQuery(event.target.value);
