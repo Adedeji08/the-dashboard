@@ -151,7 +151,7 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
           </div>
 
           <Details
-            title={userType === "buyer" ? "Name" : "Business Name"}
+            title={userType === "buyer" ? "Name" : "Name"}
             value={admin?.fullname || "N/A"}
           />
           <Details title="Email address:" value={admin?.email || "N/A"} />
