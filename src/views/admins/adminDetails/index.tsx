@@ -51,7 +51,7 @@ const AdminDetails = () => {
       <div className="flex justify-between items-end w-[95%]">
         <div className="flex gap-5 mt-5">
           <Back />
-          <h2 className="text-[24px] font-bold">Accounts Details</h2>
+          <h2 className="text-[24px] font-bold">Admin Details</h2>
         </div>
       </div>
       <Details admin={admin} />

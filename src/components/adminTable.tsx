@@ -69,7 +69,7 @@ const TableAdmin: React.FC<TableProps> = ({
       </thead>
       <tbody className="text-[12px]">
         {data.map((row, rowIndex) => (
-          <tr key={rowIndex}>
+          <tr key={rowIndex} onClick={() => onUserClick(row.id)} className="cursor-pointer">
             {columns.map((column, colIndex) => (
               <td key={colIndex} className="pt-5">
                 {column.accessor === "created_at" || column.accessor === "createdAt" ? (

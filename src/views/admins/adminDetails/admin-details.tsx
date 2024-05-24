@@ -115,7 +115,7 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
       <div className="flex justify-between px-6 mt-4">
         <p>{title}</p>
         <button
-          className={`border-2 ${"border-[#0979A1]"} text-right rounded-md`}
+          className={`border-none border-0 text-right rounded-md`}
           type="submit"
           onClick={() => {
             navigator.clipboard.writeText(value);
@@ -183,13 +183,13 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
                 <th className="py-2 px-4 border-r border-gray-200 text-left">
                   Month
                 </th>
-                <th className="py-2 px-4 text-center">Count</th>
+                <th className="py-2 px-4 text-center">No. of Referrals</th>
               </tr>
             </thead>
             <tbody>
               {data.map((referral: any, index: number) => (
                 <tr key={index} className="">
-                  <td className="py-2 px-4 border-r border-gray-200">
+                  <td className="py-2 px-4 border-r border-gray-200 ">
                     {referral.month}
                   </td>
                   <td className="py-2 px-4 text-center">{referral.count}</td>
