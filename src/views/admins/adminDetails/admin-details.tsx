@@ -43,18 +43,21 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
     "PUT"
   );
   const [data, setData] = useState<ReferralsProps[]>([]);
+  const [year, setYear] = useState<number>(2024);
 
   useEffect(
     () => {
       const fetchData = async () => {
-        const [response] = await getReferrals();
+        const [response] = await getReferrals(undefined, {
+          year: year,
+        });
         setData(response?.data || []);
-        console.log(response?.data);
+        console.log("year", response);
       };
       fetchData();
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+    [year]
   );
 
   const generateReferralLink = async () => {
@@ -70,6 +73,10 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setYear(Number(event.target.value));
   };
 
   /*const getStatusColor = (status: string) => {
@@ -182,6 +189,15 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
               <tr>
                 <th className="py-2 px-4 border-r border-gray-200 text-left">
                   Month
+                  <input
+                    className="bg-transparent outline-none border-2 rounded-lg px-1 ml-2 "
+                    type="number"
+                    min="1900"
+                    max="2099"
+                    step="1"
+                    value={year}
+                    onChange={handleChange}
+                  />
                 </th>
                 <th className="py-2 px-4 text-center">No. of Referrals</th>
               </tr>
