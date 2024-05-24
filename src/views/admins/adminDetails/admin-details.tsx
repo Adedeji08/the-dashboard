@@ -7,6 +7,7 @@ import PlaceholderImage from "../../../assets/Ellipse 5.svg";
 import { CircleLoader } from "react-spinners";
 import { useParams } from "react-router-dom";
 import useRequest from "../../../components/hooks/use-request";
+import { showToast } from "../../../components/toast";
 import { use } from "echarts";
 
 interface DetailsProps {
@@ -38,7 +39,7 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
     "GET"
   );
 
-  const { makeRequest: getReferralLink } = useRequest(
+  const { makeRequest: getReferralLink,loading } = useRequest(
     `/users/${id}/referral`,
     "PUT"
   );
@@ -65,9 +66,14 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
   
       if (response.status === true) {
         //alert("Referral link generated successfully");
-        const [response] = await getReferrals();
-        setData(response?.data || []);
-      
+        showToast(response.message, true, {
+          position: "top-center",
+        });
+        window.location.reload();
+      }else{
+        showToast(response.message, false, {
+          position: "top-center",
+        });
       }
     } catch (err) {
       console.log(err);
@@ -107,11 +113,15 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
       <div className="flex justify-between gap-10 px-6 mt-4">
         <p>{title}</p>
         <button
-          className={`border-2 ${"border-[#0979A1] bg-[#0979A1]"} w-[289px] h-[43px] font-bold text-[#fff] rounded-md`}
+          className={`border-2 ${"border-[#0979A1] bg-[#0979A1]"} w-[289px] flex items-center justify-center h-[43px] font-bold text-[#fff] rounded-md`}
           type="submit"
           onClick={generateReferralLink}
         >
-          Generate Referral Link
+          {loading ? (
+              <CircleLoader color="#ffffff" loading={loading} size={20} />
+            ) : (
+              "Generate Referral Link"
+            )}
         </button>
       </div>
     );
