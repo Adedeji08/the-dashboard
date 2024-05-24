@@ -11,7 +11,6 @@ const Admins = () => {
   const [adminModal, setAdminModal] = useState(false);
 
   const params = new URLSearchParams(new URL(window.location.href).search);
-
   const [currentPage, setCurrentPage] = useState(
     Number(params.get("page") || 1)
   );
@@ -31,6 +30,7 @@ const Admins = () => {
     setCurrentPage(page);
   }
 
+
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,10 +47,9 @@ const Admins = () => {
       page,
     };
 
-    const [response] = await makeRequest(params);
+    const [response] = await makeRequest(undefined,params);
     setData(response.data?.admins || []);
     setTotalPages(Math.ceil(response.data?.totalPages));
-    console.log(response.data);
   };
 
   const openAdmin = () => {

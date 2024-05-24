@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Table from "../../components/adminTable";
 import { useNavigate } from "react-router-dom";
 import Icon from "../../assets/icons";
 import TableAdmin from "../../components/adminTable";
@@ -7,7 +6,6 @@ import TableAdmin from "../../components/adminTable";
 const AdminTable = ({
   data,
   selectedStatus,
-  handleStatusChange,
   activeTab,
 }: any) => {
   const navigate = useNavigate();

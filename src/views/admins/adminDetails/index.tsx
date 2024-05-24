@@ -41,7 +41,7 @@ const AdminDetails = () => {
     const fetchData = async () => {
       const [response] = await getAdminById();
       setAdmin(response?.data || []);
-      console.log(response?.data);
+  
     };
     fetchData();
   }, []);

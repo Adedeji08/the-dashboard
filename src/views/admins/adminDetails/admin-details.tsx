@@ -31,7 +31,7 @@ interface ReferralsProps {
 }
 
 const Details: React.FC<DetailsProps> = ({ admin }) => {
-  const { loading } = useRequest("/", "GET");
+  //const { loading } = useRequest("/", "GET");
   const { id } = useParams<{ id: string }>();
   const { makeRequest: getReferrals } = useRequest(
     `/users/${id}/referrals`,
@@ -52,7 +52,6 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
           year: year,
         });
         setData(response?.data || []);
-        console.log("year", response);
       };
       fetchData();
     },
@@ -63,12 +62,12 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
   const generateReferralLink = async () => {
     try {
       const [response] = await getReferralLink();
-      console.log(response);
+  
       if (response.status === true) {
         //alert("Referral link generated successfully");
         const [response] = await getReferrals();
         setData(response?.data || []);
-        console.log(response?.data);
+      
       }
     } catch (err) {
       console.log(err);
