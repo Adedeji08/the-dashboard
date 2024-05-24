@@ -183,7 +183,7 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
             </p>
             </div>*/}
         </div>
-        <div className="overflow-x-auto w-[368px] border rounded-lg mr-20">
+        <div className="overflow-x-auto w-[368px] border rounded-lg mr-20 shadow-xl">
           <table className="min-w-full bg-white">
             <thead className="bg-[#0979A1] text-white">
               <tr>
