@@ -8,6 +8,7 @@ import { CircleLoader } from "react-spinners";
 import { useParams } from "react-router-dom";
 import useRequest from "../../../components/hooks/use-request";
 import { showToast } from "../../../components/toast";
+import Icon from "../../../assets/icons";
 import { use } from "echarts";
 
 interface DetailsProps {
@@ -131,7 +132,7 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
       <div className="flex justify-between px-6 mt-4">
         <p>{title}</p>
         <button
-          className={`border-none border-0 text-right rounded-md`}
+          className={`border-none border-0 text-right rounded-md flex gap-1 items-center`}
           type="submit"
           onClick={() => {
             navigator.clipboard.writeText(value);
@@ -139,6 +140,7 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
           }}
         >
           {value}
+          <Icon name="clipBoard"/>
         </button>
       </div>
     );
