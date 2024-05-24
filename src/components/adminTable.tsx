@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import PlaceholderImage from "../assets/Ellipse 5.svg";
 import Icon from "../assets/icons";
 import { formatDate } from "../utilities/functions";
@@ -21,7 +21,7 @@ interface TableProps {
   onUserClick: (id: string) => void;
 }
 
-const AdminTable: React.FC<TableProps> = ({
+const TableAdmin: React.FC<TableProps> = ({
   columns,
   data,
   onUserClick,
@@ -116,4 +116,4 @@ const AdminTable: React.FC<TableProps> = ({
   );
 };
 
-export default AdminTable;
+export default TableAdmin;

@@ -17,6 +17,7 @@ import PaymentRequest from "../views/transaction/transaction-details/payment-req
 import RequestDetails from "../views/customer-support/request-details";
 import Analytics from "../views/analytics";
 import Admins from "../views/admins";
+import AdminDetails from "../views/admins/adminDetails";
 
 
 const MainRoutes = {
@@ -88,6 +89,10 @@ const MainRoutes = {
     {
       path:"/admins",
       element: <Admins/>,
+    },
+    {
+      path: "/admins/detail/:id",
+      element: <AdminDetails />,
     },
     {
       path: "/request/:id",

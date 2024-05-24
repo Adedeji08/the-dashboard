@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Table from "../../components/adminTable";
 import { useNavigate } from "react-router-dom";
 import Icon from "../../assets/icons";
+import TableAdmin from "../../components/adminTable";
 
 const AdminTable = ({
   data,
@@ -36,7 +37,7 @@ const AdminTable = ({
   }, [data, selectedStatus]);
 
   const handleUserClick = (id: string) => {
-    navigate(`/account/details/${id}`);
+    navigate(`/admins/detail/${id}`);
   };
 
   return (
@@ -52,24 +53,10 @@ const AdminTable = ({
           />
         </div>
 
-        {/*<div className="flex gap-2">
-          <span className="text-[14px] font-medium">Filter by:</span>
-          <select
-            className="border text-[12px] px-3 py-1 rounded bg-[#0979A1] text-white"
-            value={selectedStatus}
-            onChange={handleStatusChange}
-          >
-            <option value="">All</option>
-            <option value="active">Active</option>
-            <option value="suspended">Suspended</option>
-            <option value="inactive">Inactive</option>
-            <option value="blocked">Blocked</option>
-          </select>
-  </div>*/}
       </div>
 
       {filteredData.length > 0 ? (
-        <Table
+        <TableAdmin
           columns={columns}
           data={filteredData}
           selectedUserId={null}
