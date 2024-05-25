@@ -33,24 +33,33 @@ const Table: React.FC<TableProps> = ({
         return "#D1FFC9";
       case "active":
         return "#D1FFC9";
-        case "resolved":
-          return "#D1FFC9";
+      case "resolved":
+        return "#D1FFC9";
       case "pending":
         return "#FCCFCF";
-        case "in_progress":
-          return "#FFA07A";
+      case "in_progress":
+        return "#87CEEB";
       case "failed":
         return "#D9D9D9";
-        case "suspended":
-          return "#FCCFCF";
-        case "closed":
-          return "#FCCFCF";
+      case "suspended":
+        return "#FCCFCF";
+      case "closed":
+        return "#FCCFCF";
       case "blocked":
         return "#FCCFCF";
       case "inactive":
         return "#D9D9D9";
       default:
         return "transparent";
+    }
+  };
+
+  const formatStatusText = (status: string) => {
+    switch (status) {
+      case "in_progress":
+        return "In Progress";
+      default:
+        return status.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
     }
   };
 
@@ -86,7 +95,7 @@ const Table: React.FC<TableProps> = ({
                   <button onClick={() => onUserClick(row["id"])}>
                     <Icon name="dotIcon" />
                   </button>
-                ): column.accessor === "_id" ? (
+                ) : column.accessor === "_id" ? (
                   <button onClick={() => onUserClick(row["_id"])}>
                     <Icon name="dotIcon" />
                   </button>
@@ -99,7 +108,7 @@ const Table: React.FC<TableProps> = ({
                       backgroundColor: getStatusColor(row[column.accessor]),
                     }}
                   >
-                    {row[column.accessor]}
+                    {formatStatusText(row[column.accessor])}
                   </p>
                 ) : (
                   row[column.accessor]
