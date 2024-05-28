@@ -5,7 +5,7 @@ interface Statistics {
   all: number;
   active: number;
   resolved: number;
-  closed: number;
+  pending: number;
 }
 
 interface AccountCardsProps {
@@ -45,7 +45,7 @@ export const SupportCards = ({statistics}: AccountCardsProps) => {
       <SupportCard
         title="Pending requests"
         icon="personIcon"
-        value={statistics?.closed || 0}
+        value={statistics?.pending || 0}
       />
     </div>
   )
