@@ -28,7 +28,8 @@ type IconName =
   | "blacklistchart"
   | "supportchart"
   | "addition"
-  | "backicon";
+  | "backicon"
+  | "clipBoard";
 
 interface IconProps {
   name: IconName;
@@ -999,7 +1000,7 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
     case "backicon":
       return (
         <svg
-        className={className}
+          className={className}
           width="32"
           height="32"
           viewBox="0 0 32 32"
@@ -1019,6 +1020,38 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
+          />
+        </svg>
+      );
+    case "clipBoard":
+      return (
+        <svg
+          className={className}
+          width="28"
+          height="26"
+          viewBox="0 0 28 26"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="20" height="20" rx="5" fill="#F8F8F8" />
+          <rect
+            x="0.5"
+            y="0.5"
+            width="19"
+            height="19"
+            rx="4.5"
+            stroke="black"
+            stroke-opacity="0.2"
+          />
+          <rect x="8" y="6" width="20" height="20" rx="5" fill="#F8F8F8" />
+          <rect
+            x="8.5"
+            y="6.5"
+            width="19"
+            height="19"
+            rx="4.5"
+            stroke="black"
+            stroke-opacity="0.2"
           />
         </svg>
       );
