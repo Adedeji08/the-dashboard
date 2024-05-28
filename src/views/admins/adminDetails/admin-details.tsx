@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-  capitalizeFirstLetter,
-  formatDate,
-} from "../../../utilities/functions";
-import PlaceholderImage from "../../../assets/Ellipse 5.svg";
 import { CircleLoader } from "react-spinners";
 import { useParams } from "react-router-dom";
 import useRequest from "../../../components/hooks/use-request";
 import { showToast } from "../../../components/toast";
 import Icon from "../../../assets/icons";
-import { use } from "echarts";
 
 interface DetailsProps {
   admin: {
@@ -33,7 +27,7 @@ interface ReferralsProps {
 }
 
 const Details: React.FC<DetailsProps> = ({ admin }) => {
-  //const { loading } = useRequest("/", "GET");
+ 
   const { id } = useParams<{ id: string }>();
   const { makeRequest: getReferrals } = useRequest(
     `/users/${id}/referrals`,
@@ -56,7 +50,6 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
         });
         // Calculate the total count
         const total = response?.data.reduce((sum:number, item:any) => sum + (item.count || 0), 0);
-        console.log("total", total);
 
         // Update the state with the total count
         setTotalCount(total);
@@ -92,20 +85,6 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
     setYear(Number(event.target.value));
   };
 
-  /*const getStatusColor = (status: string) => {
-    switch (status) {
-      case "active":
-        return "#D1FFC9";
-      case "blocked":
-        return "#FCCFCF";
-      case "inactive":
-        return "#D9D9D9";
-      case "suspended":
-        return "#FBFCCF";
-      default:
-        return "transparent";
-    }
-  };*/
 
   const userType = admin.userType;
   const Details = ({ title, value, img }: any) => {

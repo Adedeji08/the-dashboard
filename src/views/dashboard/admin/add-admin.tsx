@@ -45,7 +45,9 @@ const AddAdmin = ({ visible, handleClose }: any) => {
       setRoles(sortedRoles);
     };
     fetchData();
-  }, []);
+  }, 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  []);
 
   const addAdmin = handleSubmit(async (formData) => {
     const selectedRole = roles.find((role) => role.name === formData.role);

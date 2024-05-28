@@ -26,37 +26,9 @@ const TableAdmin: React.FC<TableProps> = ({
   onUserClick,
   selectedUserId,
 }) => {
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "successful":
-        return "#D1FFC9";
-      case "active":
-        return "#D1FFC9";
-        case "resolved":
-          return "#D1FFC9";
-      case "pending":
-        return "#FCCFCF";
-        case "in_progress":
-          return "#FFA07A";
-      case "failed":
-        return "#D9D9D9";
-        case "suspended":
-          return "#FCCFCF";
-        case "closed":
-          return "#FCCFCF";
-      case "blocked":
-        return "#FCCFCF";
-      case "inactive":
-        return "#D9D9D9";
-      default:
-        return "transparent";
-    }
-  };
-
-  //const [show, setShow] = useState(false)
 
   return (
-    <table className="table mt-6 w-full">
+    <table className=" mt-6 w-full">
       <thead className=" h-10">
         <tr className="text-[16px] text-left">
           {columns.map((column, index) => (
@@ -92,16 +64,9 @@ const TableAdmin: React.FC<TableProps> = ({
                   </button>
                 ) : column.accessor === "phone" && !row[column.accessor] ? (
                   "N/A"
-                ) : column.accessor === "status" ? (
-                  <p
-                    className="-mt-1 text-[12px] p-1 text-center font-normal w-20 rounded-md"
-                    style={{
-                      backgroundColor: getStatusColor(row[column.accessor]),
-                    }}
-                  >
-                    {row[column.accessor]}
-                  </p>
-                ) : (
+                )
+                
+                :(
                   row[column.accessor]
                 )}
               </td>
