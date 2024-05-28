@@ -40,12 +40,13 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
     "GET"
   );
 
-  const { makeRequest: getReferralLink,loading } = useRequest(
+  const { makeRequest: getReferralLink, loading } = useRequest(
     `/users/${id}/referral`,
     "PUT"
   );
   const [data, setData] = useState<ReferralsProps[]>([]);
   const [year, setYear] = useState<number>(2024);
+  const [totalCount, setTotalCount] = useState(0);
 
   useEffect(
     () => {
@@ -53,25 +54,31 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
         const [response] = await getReferrals(undefined, {
           year: year,
         });
+        // Calculate the total count
+        const total = response?.data.reduce((sum:number, item:any) => sum + (item.count || 0), 0);
+        console.log("total", total);
+
+        // Update the state with the total count
+        setTotalCount(total);
         setData(response?.data || []);
       };
       fetchData();
     },
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [year]
   );
 
   const generateReferralLink = async () => {
     try {
       const [response] = await getReferralLink();
-  
+
       if (response.status === true) {
         //alert("Referral link generated successfully");
         showToast(response.message, true, {
           position: "top-center",
         });
         window.location.reload();
-      }else{
+      } else {
         showToast(response.message, false, {
           position: "top-center",
         });
@@ -103,7 +110,7 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
   const userType = admin.userType;
   const Details = ({ title, value, img }: any) => {
     return (
-      <div className="flex justify-between px-6 mt-4">
+      <div className="flex justify-between px-6 mt-4 font-normal text-base">
         <p>{title}</p>
         <p className="text-left">{value}</p>
       </div>
@@ -119,10 +126,10 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
           onClick={generateReferralLink}
         >
           {loading ? (
-              <CircleLoader color="#ffffff" loading={loading} size={20} />
-            ) : (
-              "Generate Referral Link"
-            )}
+            <CircleLoader color="#ffffff" loading={loading} size={20} />
+          ) : (
+            "Generate Referral Link"
+          )}
         </button>
       </div>
     );
@@ -140,7 +147,7 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
           }}
         >
           {value}
-          <Icon name="clipBoard"/>
+          <Icon name="clipBoard" />
         </button>
       </div>
     );
@@ -148,16 +155,19 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
 
   return (
     <div className="">
-      <div className=" bg-white border border-[#fff] mt-10 pt-14 pb-10 rounded-lg w-full flex justify-between gap-10">
-        <div className="ml-28">
-          <div className="flex justify-between items-center px-6">
+      <div className=" bg-white border border-[#fff] mt-10 pt-14 pb-10 rounded-lg w-full flex justify-between gap-16">
+        <div className="ml-24">
+          <div className="flex gap-6 items-center px-6 mb-10">
             <img
               className="w-[117px] h-[117px] rounded-full"
-              src={admin?.profilePhoto || PlaceholderImage}
+              src={
+                admin?.profilePhoto ||
+                `https://ui-avatars.com/api/?name=${admin.fullname}&background=0979A1&color=fff`
+              }
               alt="profile"
             />
             <div>
-              <p>Admin</p>
+              <p className="font-bold text-base">Admin</p>
               <p className="text-sm"> {admin?.email || "N/A"}</p>
             </div>
           </div>
@@ -194,7 +204,7 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
             </p>
             </div>*/}
         </div>
-        <div className="overflow-x-auto w-[368px] border rounded-lg mr-20 shadow-xl">
+        <div className="overflow-x-auto w-[368px]  border rounded-lg  mr-20 shadow-xl">
           <table className="min-w-full bg-white">
             <thead className="bg-[#0979A1] text-white">
               <tr>
@@ -223,6 +233,12 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
                 </tr>
               ))}
             </tbody>
+            <tfoot className="bg-[#0979A1] text-white mt-auto">
+              <tr >
+                <td className="py-2 px-4 border-r border-gray-200 ">Total</td>
+              <td className="py-2 px-4 text-center">{totalCount}</td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
