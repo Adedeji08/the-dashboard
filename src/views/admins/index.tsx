@@ -9,6 +9,8 @@ const Admins = () => {
   const userToken = localStorage.getItem("token");
   const [data, setData] = useState([]);
   const [adminModal, setAdminModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState<string>("");
 
   const params = new URLSearchParams(new URL(window.location.href).search);
   const [currentPage, setCurrentPage] = useState(
@@ -21,6 +23,17 @@ const Admins = () => {
     Authorization: `Bearer ${userToken}`,
   });
 
+
+  const handleSearchChange = (event: any) => {
+    setSearchQuery(event.target.value);
+    console.log(searchQuery);
+  };
+
+  const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedStatus(event.target.value);
+  };
+
+
   function handlePageChange(page: number) {
     const url = new URL(window.location.href);
     const params = new URLSearchParams(url.search);
@@ -29,7 +42,6 @@ const Admins = () => {
     window.location.href = url.toString();
     setCurrentPage(page);
   }
-
 
   useEffect(() => {
     fetchData();
@@ -42,12 +54,17 @@ const Admins = () => {
     const params: {
       limit: number;
       page: number;
+      status?: string;
     } = {
       limit,
       page,
     };
 
-    const [response] = await makeRequest(undefined,params);
+    if (selectedStatus) {
+      params.status = selectedStatus;
+    }
+
+    const [response] = await makeRequest(undefined, params);
     setData(response.data?.admins || []);
     setTotalPages(Math.ceil(response.data?.totalPages));
   };
@@ -81,7 +98,7 @@ const Admins = () => {
         </section>
       </div>
 
-      <AdminTable data={data} />
+      <AdminTable data={data} handleSearchChange={handleSearchChange} searchQuery= {searchQuery}  handleStatusChange={handleStatusChange} />
 
       {totalPages > 1 && (
         <Pagination

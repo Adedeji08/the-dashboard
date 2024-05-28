@@ -1,5 +1,4 @@
-import React, {useState} from "react";
-import PlaceholderImage from "../assets/Ellipse 5.svg";
+import React from "react";
 import Icon from "../assets/icons";
 import { formatDate } from "../utilities/functions";
 
@@ -74,12 +73,10 @@ const TableAdmin: React.FC<TableProps> = ({
               <td key={colIndex} className="pt-5">
                 {column.accessor === "created_at" || column.accessor === "createdAt" ? (
                   formatDate(row[column.accessor])
-                ) : column.accessor === "profilePhoto" ? (
+                ) : column.header === "" ? (
                   <img
                     src={
-                      row[column.accessor]
-                        ? row[column.accessor]
-                        : PlaceholderImage
+                       `https://ui-avatars.com/api/?name=${row[column.accessor]}&background=0979A1&color=fff`
                     }
                     className="rounded-full w-[40px] h-[40px]"
                     alt="profile"

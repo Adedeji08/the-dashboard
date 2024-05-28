@@ -1026,6 +1026,7 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
     case "clipBoard":
       return (
         <svg
+          className={className}
           width="28"
           height="26"
           viewBox="0 0 28 26"
