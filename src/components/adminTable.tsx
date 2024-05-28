@@ -56,7 +56,7 @@ const TableAdmin: React.FC<TableProps> = ({
   //const [show, setShow] = useState(false)
 
   return (
-    <table className="table mt-6 w-full">
+    <table className=" mt-6 w-full">
       <thead className=" h-10">
         <tr className="text-[16px] text-left">
           {columns.map((column, index) => (

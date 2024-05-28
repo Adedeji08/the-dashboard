@@ -5,12 +5,15 @@ import AdminTable from "./admin-table";
 import useRequest from "../../components/hooks/use-request";
 import Pagination from "../../components/pagination/pagination";
 
+interface Roles {
+  name: string;
+  id: string;
+}
+
 const Admins = () => {
   const userToken = localStorage.getItem("token");
   const [data, setData] = useState([]);
   const [adminModal, setAdminModal] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState<string>("");
 
   const params = new URLSearchParams(new URL(window.location.href).search);
   const [currentPage, setCurrentPage] = useState(
@@ -23,17 +26,35 @@ const Admins = () => {
     Authorization: `Bearer ${userToken}`,
   });
 
+  const { makeRequest: getRoles } = useRequest(`/roles`, "GET");
+
+  const [roles, setRoles] = useState<Roles[]>([]);
+  const [selectedRole, setSelectedRole] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const [response] = await getRoles(undefined);
+      const sortedRoles =
+        response?.data?.roles?.sort((a: any, b: any) =>
+          a.name.localeCompare(b.name)
+        ) || [];
+
+      setRoles(sortedRoles);
+      console.log("sorted role", roles);
+    };
+    fetchData();
+  },
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  []);
 
   const handleSearchChange = (event: any) => {
     setSearchQuery(event.target.value);
-    console.log(searchQuery);
   };
-
   const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedStatus(event.target.value);
+    setSelectedRole(event.target.value);
+    console.log("selected role id", selectedRole);
   };
-
-
   function handlePageChange(page: number) {
     const url = new URL(window.location.href);
     const params = new URLSearchParams(url.search);
@@ -43,31 +64,39 @@ const Admins = () => {
     setCurrentPage(page);
   }
 
+const fetchData = async () => {
+  console.log("search query", searchQuery);
+  console.log("selected role", selectedRole);
+  const page = currentPage;
+  const limit = itemsPerPage;
+  const params: {
+    limit: number;
+    page: number;
+    role?: string;
+    search?: string;
+  } = {
+    limit,
+    page,
+  };
+  if (selectedRole) {
+    params.role = selectedRole;
+  }
+  if (searchQuery) {
+    params.search = searchQuery;
+  }
+  const [response] = await makeRequest(undefined, params);
+  setData(response.data?.admins || []);
+  setTotalPages(Math.ceil(response.data?.totalPages));
+};
+
   useEffect(() => {
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    
+  }, 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  [searchQuery,selectedRole ]);
 
-  const fetchData = async () => {
-    const page = currentPage;
-    const limit = itemsPerPage;
-    const params: {
-      limit: number;
-      page: number;
-      status?: string;
-    } = {
-      limit,
-      page,
-    };
-
-    if (selectedStatus) {
-      params.status = selectedStatus;
-    }
-
-    const [response] = await makeRequest(undefined, params);
-    setData(response.data?.admins || []);
-    setTotalPages(Math.ceil(response.data?.totalPages));
-  };
+  
 
   const openAdmin = () => {
     setAdminModal(true);
@@ -97,8 +126,40 @@ const Admins = () => {
           </div>
         </section>
       </div>
+      <div className="rounded-md py-3 px-3 bg-white border border-[#fff] mt-10 w-[95%] pt-5">
+        <div className="flex  justify-between">
+          <p className="text-[18px] font-semibold"> Select All</p>
+          <div>
+            <div className="flex gap-5 items-center">
+              <div className="border-2 rounded-md solid pl-5 bg-transparent  h-[45px] flex gap-3">
+                <Icon name="searchIcon" className="mt-3 rounded" />
+                <input
+                  className="outline-none border-none w-[80%] bg-transparent"
+                  id="input-placeholder"
+                  placeholder="Search"
+                  value={searchQuery}
+              onChange={handleSearchChange}
+                />
+              </div>
+              <div className="flex gap-2">
+                <span className="text-[14px] font-medium">Filter by:</span>
+                <select
+                  className="border text-[12px] px-3 py-1 rounded bg-[#0979A1] text-white"
+                  value={selectedRole}
+                  onChange={handleStatusChange}
+                >
+                  <option value="">all</option>
+                  {roles.map((role) => (
+                    <option value={role.id}>{role.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
 
-      <AdminTable data={data} handleSearchChange={handleSearchChange} searchQuery= {searchQuery}  handleStatusChange={handleStatusChange} />
+        <AdminTable data={data} selectedRole={selectedRole} />
+      </div>
 
       {totalPages > 1 && (
         <Pagination

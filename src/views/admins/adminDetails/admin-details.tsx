@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-  capitalizeFirstLetter,
-  formatDate,
-} from "../../../utilities/functions";
-import PlaceholderImage from "../../../assets/Ellipse 5.svg";
 import { CircleLoader } from "react-spinners";
 import { useParams } from "react-router-dom";
 import useRequest from "../../../components/hooks/use-request";
 import { showToast } from "../../../components/toast";
 import Icon from "../../../assets/icons";
-import { use } from "echarts";
 
 interface DetailsProps {
   admin: {
@@ -33,7 +27,7 @@ interface ReferralsProps {
 }
 
 const Details: React.FC<DetailsProps> = ({ admin }) => {
-  //const { loading } = useRequest("/", "GET");
+ 
   const { id } = useParams<{ id: string }>();
   const { makeRequest: getReferrals } = useRequest(
     `/users/${id}/referrals`,
