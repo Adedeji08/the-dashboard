@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { CircleLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import Icon from "../../assets/icons";
 import TableAdmin from "../../components/adminTable";
@@ -80,9 +81,13 @@ const AdminTable = ({
           onUserClick={handleUserClick}
         />
       ) : (
-        <h1 className="text-[30px] text-center text-gray-500 opacity-80 mt-10 font-bold">
-          No data available
-        </h1>
+      
+          <div className="flex justify-center items-center h-screen">
+            <div className="py-28 px-44">
+              <CircleLoader color="#0979A1" />
+            </div>
+          </div>
+    
       )}
     </div>
   );
