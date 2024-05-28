@@ -34,7 +34,7 @@ const Admins = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const [response] = await getRoles(undefined);
+      const [response] = await getRoles();
       const sortedRoles =
         response?.data?.roles?.sort((a: any, b: any) =>
           a.name.localeCompare(b.name)
