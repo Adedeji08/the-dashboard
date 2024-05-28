@@ -5,6 +5,7 @@ interface Statistics {
   all: number;
   active: number;
   closed: number;
+  pending: number
 }
 
 interface AccountCardsProps {

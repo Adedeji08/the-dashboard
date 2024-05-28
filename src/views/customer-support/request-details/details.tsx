@@ -44,7 +44,7 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
       userToken,
     }
   );
-  const { makeRequest: assignAgent, loading } = useRequest(
+  const { makeRequest: assignAgent, loading: loading1 } = useRequest(
     `/customer-support/ticket/assign`,
     "POST",
     {
@@ -52,7 +52,7 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
     }
   );
 
-  const { makeRequest: closeTicket } = useRequest(
+  const { makeRequest: closeTicket, loading } = useRequest(
     `/customer-support/ticket/resolve`,
     "PUT",
     {
@@ -250,7 +250,7 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
             onClick={handleSubmit(onSubmit)}
             disabled={request?.ticket?.status === "resolved"}
           >
-            {loading ? (
+            {loading1 ? (
               <CircleLoader color="#ffffff" loading={loading} size={20} />
             ) : (
               "  Assign to agent"

@@ -48,7 +48,7 @@ import { TailSpin } from "react-loader-spinner";
           >
              <option value="">All</option>
             <option value="active">Active</option>
-            <option value="cancelled">Cancelled</option>
+            <option value="pending">Pending</option>
             <option value="closed">Closed</option>
           </select>
         </div>

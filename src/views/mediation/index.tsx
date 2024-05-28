@@ -47,18 +47,18 @@ const Mediation = () => {
   };
 
   useEffect(() => {
-    const storedSearchQuery = params.get("title") || "";
+    const storedSearchQuery = params.get("search") || "";
     const storedStatus = params.get("status") || "";
     setSearchQuery(storedSearchQuery);
     setSelectedStatus(storedStatus);
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
-  
+
   useEffect(() => {
     updateUrlParams({
       page: currentPage,
-      title: searchQuery,
+      search: searchQuery,
       status: selectedStatus,
     });
     fetchData();
@@ -73,6 +73,7 @@ const Mediation = () => {
       page: number;
       status?: string;
       title?: string;
+      caseID?: string;
     } = {
       limit,
       page,
@@ -82,8 +83,13 @@ const Mediation = () => {
     }
 
     if (searchQuery) {
-      params.title = searchQuery;
+      if (searchQuery.startsWith("#") && !isNaN(Number(searchQuery.substring(1)))) {
+        params.caseID = searchQuery;
+      } else {
+        params.title = searchQuery;
+      }
     }
+
     const [response] = await makeRequest(undefined, params);
     setData(response.data?.channels || []);
     setTotalPages(Math.ceil(response.data?.totalPages));
