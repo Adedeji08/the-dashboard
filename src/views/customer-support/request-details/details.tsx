@@ -8,6 +8,7 @@ import { Controller, useForm } from "react-hook-form";
 import { showToast } from "../../../components/toast";
 import SearchSelect from "../../../components/search-select";
 import { CircleLoader } from "react-spinners";
+import { Modal } from "antd";
 
 interface DetailsProps {
   request:
@@ -60,6 +61,8 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
     }
   );
   const [support, setSupport] = useState<Support[]>([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedAgentId, setSelectedAgentId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -88,6 +91,7 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
       showToast(response.message, true, {
         position: "top-center",
       });
+      window.location.reload();
     } else {
       showToast(response.message, false, {
         position: "top-center",
@@ -100,9 +104,24 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
       (supports) => supports.fullname === formData.fullname
     );
     if (selectedAgent) {
-      handleAssignAgent(selectedAgent.id);
-    } else {
+      if (request?.ticket?.status === "in_progress") {
+        setSelectedAgentId(selectedAgent.id);
+        setIsModalVisible(true);
+      } else {
+        handleAssignAgent(selectedAgent.id);
+      }
     }
+  };
+
+  const handleModalOk = () => {
+    if (selectedAgentId) {
+      handleAssignAgent(selectedAgentId);
+    }
+    setIsModalVisible(false);
+  };
+
+  const handleModalCancel = () => {
+    setIsModalVisible(false);
   };
 
   const handleResolved = async () => {
@@ -163,9 +182,7 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
             <span
               style={{
                 backgroundColor:
-                  request?.ticket?.status === "resolved"
-                    ? "green"
-                    : "red",
+                  request?.ticket?.status === "resolved" ? "green" : "red",
               }}
               className="h-[6px] w-[6px] rounded-full mt-1 ml-3"
             ></span>
@@ -251,9 +268,9 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
             disabled={request?.ticket?.status === "resolved"}
           >
             {loading1 ? (
-              <CircleLoader color="#ffffff" loading={loading} size={20} />
+              <CircleLoader color="#ffffff" loading={loading1} size={20} />
             ) : (
-              "  Assign to agent"
+              "Assign to agent"
             )}
           </button>
 
@@ -274,6 +291,21 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
           </button>
         </div>
       </section>
+
+      <Modal
+        visible={isModalVisible}
+        onOk={handleModalOk}
+        onCancel={handleModalCancel}
+        okText="Yes"
+        cancelText="No"
+      >
+        <h1 className="text-center font-bold text-xl mt-6">
+          Confirm Re-assignment
+        </h1>
+        <p className="text-center">
+          Are you sure you want to re-assign this ticket?
+        </p>
+      </Modal>
     </div>
   );
 };

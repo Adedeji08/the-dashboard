@@ -168,5 +168,32 @@
   .pagination ul li.active {
     font-weight: bold;
   }
-  
-  
+  .ant-modal-footer{
+    width: 50%;
+    gap: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    /* background:#000  !important; */
+    border: 2px !important;
+    border-color: #0979A1 !important;
+  }
+  .ant-btn-primary{
+    background-color: #0979A1 !important;
+    width: 45%;
+  }
+  .ant-btn-primary:hover{
+    background-color: #0cb3f0 !important;
+    width: 45%;
+  }
+
+ .ant-btn-default{
+  background-color: #A10909 !important;
+  color: white;
+  width: 45%;
+ }
+
+ .ant-btn-default:hover{
+  background-color: #c00606 !important;
+  width: 45%;
+  color: #fff !important;
+ }
