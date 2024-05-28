@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Routes from "./routes";
 import Toast from "./components/toast";
 import "./App.css"
