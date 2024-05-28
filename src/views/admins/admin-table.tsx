@@ -15,7 +15,6 @@ const AdminTable = ({
   const navigate = useNavigate();
   const [filteredData, setFilteredData] = useState([]);
   const columns = [
-    //{header: "", accessor: <input/>},
     { header: "", accessor: "fullname" },
     {
       header: activeTab === "merchant" ? "Business Name" : "Name",

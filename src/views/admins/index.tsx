@@ -41,7 +41,6 @@ const Admins = () => {
         ) || [];
 
       setRoles(sortedRoles);
-      console.log("sorted role", roles);
     };
     fetchData();
   },
@@ -53,7 +52,6 @@ const Admins = () => {
   };
   const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedRole(event.target.value);
-    console.log("selected role id", selectedRole);
   };
   function handlePageChange(page: number) {
     const url = new URL(window.location.href);
@@ -65,8 +63,6 @@ const Admins = () => {
   }
 
 const fetchData = async () => {
-  console.log("search query", searchQuery);
-  console.log("selected role", selectedRole);
   const page = currentPage;
   const limit = itemsPerPage;
   const params: {
@@ -86,6 +82,7 @@ const fetchData = async () => {
   }
   const [response] = await makeRequest(undefined, params);
   setData(response.data?.admins || []);
+
   setTotalPages(Math.ceil(response.data?.totalPages));
 };
 

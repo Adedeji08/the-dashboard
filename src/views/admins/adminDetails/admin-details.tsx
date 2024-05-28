@@ -50,7 +50,6 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
         });
         // Calculate the total count
         const total = response?.data.reduce((sum:number, item:any) => sum + (item.count || 0), 0);
-        console.log("total", total);
 
         // Update the state with the total count
         setTotalCount(total);
@@ -86,20 +85,6 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
     setYear(Number(event.target.value));
   };
 
-  /*const getStatusColor = (status: string) => {
-    switch (status) {
-      case "active":
-        return "#D1FFC9";
-      case "blocked":
-        return "#FCCFCF";
-      case "inactive":
-        return "#D9D9D9";
-      case "suspended":
-        return "#FBFCCF";
-      default:
-        return "transparent";
-    }
-  };*/
 
   const userType = admin.userType;
   const Details = ({ title, value, img }: any) => {
