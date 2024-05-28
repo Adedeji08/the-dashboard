@@ -205,7 +205,7 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
             </div>*/}
         </div>
         <div className="overflow-x-auto w-[368px]  border rounded-lg  mr-20 shadow-xl">
-          <table className="min-w-full bg-white">
+          <table className="min-w-full min-h-full bg-white">
             <thead className="bg-[#0979A1] text-white">
               <tr>
                 <th className="py-2 px-4 border-r border-gray-200 text-left">
@@ -238,6 +238,8 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
                 <td className="py-2 px-4 border-r border-gray-200 ">Total</td>
               <td className="py-2 px-4 text-center">{totalCount}</td>
               </tr>
+              
+
             </tfoot>
           </table>
         </div>
