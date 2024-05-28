@@ -22,7 +22,7 @@ const AdminTable = ({
     },
     { header: "Email Address", accessor: "email" },
     { header: "Phone No", accessor: "phone" },
-    { header: "Roles", accessor: "userType" },
+    { header: "Roles", accessor: "role" },
     { header: " ", accessor: "id" },
   ];
 

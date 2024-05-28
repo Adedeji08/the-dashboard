@@ -4,7 +4,7 @@ import { formatDate } from "../utilities/functions";
 
 interface TableColumn {
   header: string;
-  accessor: string;
+  accessor: string ;
 }
 
 interface TableRow {
@@ -64,8 +64,10 @@ const TableAdmin: React.FC<TableProps> = ({
                   </button>
                 ) : column.accessor === "phone" && !row[column.accessor] ? (
                   "N/A"
+                ): column.accessor === "role"? (
+                   row[column.accessor].name
                 )
-                
+
                 :(
                   row[column.accessor]
                 )}
