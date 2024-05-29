@@ -215,7 +215,7 @@ const AddAdmin = ({ visible, handleClose }: any) => {
               Go Back
             </button>
             <button
-              className="w-[244px] h-[55px] rounded-2xl text-white text-[16px] bg-[#0979A1]"
+              className="w-[244px] h-[55px] flex items-center justify-center rounded-2xl text-white text-[16px] bg-[#0979A1]"
               type="submit"
             >
               {loading ? (
