@@ -30,7 +30,7 @@ const TableAdmin: React.FC<TableProps> = ({
 
   return (
     <table className=" mt-6 w-full">
-      <thead className=" h-10">
+      <thead className="bg-[#CFF0FC] h-10">
         <tr className="text-[16px] text-left">
           {columns.map((column, index) => (
             <th className="font-medium" key={index}>
