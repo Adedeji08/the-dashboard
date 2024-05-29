@@ -4,6 +4,7 @@ import Icon from "../../assets/icons";
 import AdminTable from "./admin-table";
 import useRequest from "../../components/hooks/use-request";
 import Pagination from "../../components/pagination/pagination";
+import { capitalizeFirstLetter } from "../../utilities/functions";
 
 interface Roles {
   name: string;
@@ -125,7 +126,7 @@ const fetchData = async () => {
       </div>
       <div className="rounded-md py-3 px-3 bg-white border border-[#fff] mt-10 w-[95%] pt-5">
         <div className="flex  justify-between">
-          <p className="text-[18px] font-semibold"> Select All</p>
+          <p className="text-[18px] font-semibold"> </p>
           <div>
             <div className="flex gap-5 items-center">
               <div className="border-2 rounded-md solid pl-5 bg-transparent  h-[45px] flex gap-3">
@@ -145,9 +146,9 @@ const fetchData = async () => {
                   value={selectedRole}
                   onChange={handleStatusChange}
                 >
-                  <option value="">all</option>
+                  <option value="">All</option>
                   {roles.map((role) => (
-                    <option value={role.id}>{role.name}</option>
+                    <option value={role.id}>{capitalizeFirstLetter(role.name)}</option>
                   ))}
                 </select>
               </div>

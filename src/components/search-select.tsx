@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { IoIosClose } from "react-icons/io";
+import { capitalizeFirstLetter } from "../utilities/functions";
 
 interface SelectProps {
   label: string;
@@ -111,7 +112,7 @@ export default function SearchSelect({
                   }
                 }}
               >
-                {option?.label}
+                {capitalizeFirstLetter(option?.label)}
               </li>
             ))}
           </ul>
