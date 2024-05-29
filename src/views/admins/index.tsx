@@ -4,6 +4,7 @@ import Icon from "../../assets/icons";
 import AdminTable from "./admin-table";
 import useRequest from "../../components/hooks/use-request";
 import Pagination from "../../components/pagination/pagination";
+import { capitalizeFirstLetter } from "../../utilities/functions";
 
 interface Roles {
   name: string;
@@ -145,9 +146,9 @@ const fetchData = async () => {
                   value={selectedRole}
                   onChange={handleStatusChange}
                 >
-                  <option value="">all</option>
+                  <option value="">All</option>
                   {roles.map((role) => (
-                    <option value={role.id}>{role.name}</option>
+                    <option value={role.id}>{capitalizeFirstLetter(role.name)}</option>
                   ))}
                 </select>
               </div>

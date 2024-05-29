@@ -1,6 +1,7 @@
 import React from "react";
 import Icon from "../assets/icons";
 import { formatDate } from "../utilities/functions";
+import { capitalizeFirstLetter } from "../utilities/functions";
 
 interface TableColumn {
   header: string;
@@ -58,14 +59,19 @@ const TableAdmin: React.FC<TableProps> = ({
                     <Icon name="dotIcon" />
                     
                   </button>
-                ): column.accessor === "_id" ? (
+                ):
+                column.header === "Name"? (
+                  capitalizeFirstLetter(row[column.accessor])
+                ) 
+                
+                :column.accessor === "_id" ? (
                   <button onClick={() => onUserClick(row["_id"])}>
                     <Icon name="dotIcon" />
                   </button>
                 ) : column.accessor === "phone" && !row[column.accessor] ? (
                   "N/A"
                 ): column.accessor === "role"? (
-                   row[column.accessor].name
+                  capitalizeFirstLetter( row[column.accessor].name)
                 )
 
                 :(
