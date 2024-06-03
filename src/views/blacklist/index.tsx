@@ -117,9 +117,6 @@ const BlackList = () => {
         <section>
           <h2 className="text-[24px] font-bold">
             Blacklist{" "}
-            <p className="text-[14px] font-normal">
-              Review content uploaded by verified users
-            </p>
           </h2>
         </section>
 

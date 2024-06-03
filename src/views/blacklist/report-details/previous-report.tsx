@@ -148,17 +148,6 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
         Send an email to the Reported Merchant
       </p>
 
-      <div className="flex gap-8 justify-center items-center mt-5">
-        <Button
-          size="lg"
-          variant="primary"
-          type="button"
-          className="text-[14px]"
-        >
-          Send Email
-        </Button>
-      </div>
-
       <div className="flex justify-between mt-10">
         <h2 className="text-[14px] font-medium">Previous Reports</h2>
         <p className="text-[12px]">
