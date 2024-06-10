@@ -31,8 +31,7 @@ const Details: React.FC<DetailsProps> = ({ report }) => {
   };
 
   const images = report?.image ? JSON.parse(report.image) : [];
-  const flattenedImages = images.flat(); // Flatten any nested arrays
-  console.log("report?.image?.length", flattenedImages);
+  const flattenedImages = images.flat(); 
 
   return (
     <section className="w-full border-r-2">

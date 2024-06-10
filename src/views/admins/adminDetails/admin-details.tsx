@@ -48,10 +48,8 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
         const [response] = await getReferrals(undefined, {
           year: year,
         });
-        // Calculate the total count
         const total = response?.data.reduce((sum:number, item:any) => sum + (item.count || 0), 0);
 
-        // Update the state with the total count
         setTotalCount(total);
         setData(response?.data || []);
       };
@@ -77,7 +75,7 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
         });
       }
     } catch (err) {
-      console.log(err);
+     
     }
   };
 
