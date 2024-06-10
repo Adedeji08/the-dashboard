@@ -59,7 +59,7 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
     { userToken }
   );
 
-  const { makeRequest: getDeleted } = useRequest(
+  const { makeRequest: getDeleted, loading:loading1 } = useRequest(
     `/reports/delete/${reportId}`,
     "DELETE",
     { userToken }
@@ -230,7 +230,7 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
           onClick={handleDelete}
           variant="secondary"
         >
-          {loading ? (
+          {loading1 ? (
             <CircleLoader color="#0979A1" loading={loading} size={20} />
           ) : (
             "Delete report"
