@@ -26,7 +26,6 @@ const Admins = () => {
 
   const handleSearchChange = (event: any) => {
     setSearchQuery(event.target.value);
-    console.log(searchQuery);
   };
 
   const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
