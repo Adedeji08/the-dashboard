@@ -5,8 +5,6 @@ import { TailSpin } from "react-loader-spinner";
 
 const ReportTable = ({
   data,
-  selectedStatus,
-  handleStatusChange,
   currentPage,
   onPageChange,
 }: any) => {
@@ -26,6 +24,7 @@ const ReportTable = ({
     fullname: report.reportedMerchant.fullname,
     status: report.reportedMerchant.status,
     created_at: report.reportedMerchant.created_at,
+    id: report.reportedMerchant.id,
   }));
 
   const handleUserClick = (id: string) => {

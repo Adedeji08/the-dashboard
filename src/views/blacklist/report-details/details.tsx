@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   capitalizeFirstLetter,
   formatDate,
@@ -8,23 +8,18 @@ interface DetailsProps {
   report: {
     id: string;
     note: string;
-    image: string[];
+    image: string;
     status: string;
-    reportedBy: {
-      id: string;
-      fullname: string;
-      created_at: string;
-    };
     reportedMerchant: {
       id: string;
       fullname: string;
       phone: string;
       socialMediaPlatform: string;
       socialMediaHandle: string;
+      created_at: string;
     };
   };
 }
-
 const Details: React.FC<DetailsProps> = ({ report }) => {
   const Detail = ({ title, value }: any) => {
     return (
@@ -35,9 +30,10 @@ const Details: React.FC<DetailsProps> = ({ report }) => {
     );
   };
 
- 
-console.log('dlmdlmdld',report?.image)
-const imageCount = report?.image || 0;
+  const images = report?.image ? JSON.parse(report.image) : [];
+  const flattenedImages = images.flat(); // Flatten any nested arrays
+  console.log("report?.image?.length", flattenedImages);
+
   return (
     <section className="w-full border-r-2">
       <div className="flex justify-between px-10 w-full">
@@ -91,39 +87,40 @@ const imageCount = report?.image || 0;
       <Detail
         title="Reported by:"
         value={capitalizeFirstLetter(
-          report?.reportedBy?.fullname ? report?.reportedBy?.fullname : "N/A"
+          report?.reportedMerchant?.fullname
+            ? report?.reportedMerchant?.fullname
+            : "N/A"
         )}
       />
 
       <Detail
         title="Date of report:"
         value={formatDate(
-          report?.reportedBy?.created_at
-            ? report?.reportedBy?.created_at
+          report?.reportedMerchant?.created_at
+            ? report?.reportedMerchant?.created_at
             : "N/A"
         )}
       />
 
       <div className="flex justify-between px-10 w-full mt-6">
         <h1 className="text-[18px] font-semibold">Media</h1>
-       
-          <p className="text-[12px] text-[#0979A1]">
-            View all ({imageCount})
-          </p>
-      
+        <p className="text-[12px] text-[#0979A1]">View all ({images.length})</p>
       </div>
 
-      <div className="images-container">
-        {Array.isArray(report?.image) &&
-          report?.image.map((img, index) => (
+      {flattenedImages.length > 0 ? (
+        <div className="images-container grid grid-cols-2 items-center justify-between h-[400px] px-24">
+          {flattenedImages.map((img: string, index: number) => (
             <img
               key={index}
-              src={`data:image/jpeg;base64,${img}`}
-              alt={`Image ${index}`}
+              src={img} // Use the image URL directly
+              alt={`Image ${index + 1}`}
+              className="w-[180px] h-[120px] rounded-md"
             />
           ))}
-      </div>
-
+        </div>
+      ) : (
+        <p className="px-10 mt-4">No images available</p>
+      )}
     </section>
   );
 };

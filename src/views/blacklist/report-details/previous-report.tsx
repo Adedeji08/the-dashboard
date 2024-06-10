@@ -12,20 +12,15 @@ interface DetailsProps {
   report: {
     id: string;
     note: string;
-    image: string[];
+    image: string;
     status: string;
-    reportedBy: {
-      id: string;
-      fullname: string;
-      created_at: string;
-    };
     reportedMerchant: {
       id: string;
       fullname: string;
-      email: string;
       phone: string;
       socialMediaPlatform: string;
       socialMediaHandle: string;
+      created_at: string;
     };
   };
 }
@@ -57,7 +52,7 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
     []
   );
   const [showAll, setShowAll] = useState(false);
-  const merchantEmail = report?.reportedMerchant?.email;
+  const merchantEmail = report?.reportedMerchant?.fullname;
   const { makeRequest: getApproved, loading } = useRequest(
     `/reports/blacklist/${reportId}`,
     "POST",
@@ -144,10 +139,6 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
 
   return (
     <section className="w-full px-10">
-      <p className="text-[14px] font-medium mt-3">
-        Send an email to the Reported Merchant
-      </p>
-
       <div className="flex justify-between mt-10">
         <h2 className="text-[14px] font-medium">Previous Reports</h2>
         <p className="text-[12px]">

@@ -71,6 +71,7 @@ const Profile = () => {
               src={adminUser?.admin?.profilePhoto || Placeholder}
               alt="photo"
               width={100}
+              className="w-[100px] h-[100px]"
             />
             <p className="mt-5 text-[14px] font-semibold">
               {adminUser?.admin?.fullname} <br />{" "}
