@@ -4,7 +4,7 @@ import {
   formatDate,
 } from "../../../utilities/functions";
 
-interface DetailsProps {
+interface Report {
   report: {
     id: string;
     note: string;
@@ -18,9 +18,18 @@ interface DetailsProps {
       socialMediaHandle: string;
       created_at: string;
     };
+    reportedBy: {
+      id: string;
+      fullname: string;
+      phone: string;
+      socialMediaPlatform: string;
+      socialMediaHandle: string;
+      created_at: string;
+    };
   };
 }
-const Details: React.FC<DetailsProps> = ({ report }) => {
+
+const Details: React.FC<Report> = ({ report }) => {
   const Detail = ({ title, value }: any) => {
     return (
       <div className="flex justify-between px-10 mt-4 text-[16px]">
@@ -31,7 +40,7 @@ const Details: React.FC<DetailsProps> = ({ report }) => {
   };
 
   const images = report?.image ? JSON.parse(report.image) : [];
-  const flattenedImages = images.flat(); 
+  const flattenedImages = images.flat();
 
   return (
     <section className="w-full border-r-2">
@@ -86,18 +95,18 @@ const Details: React.FC<DetailsProps> = ({ report }) => {
       <Detail
         title="Reported by:"
         value={capitalizeFirstLetter(
-          report?.reportedMerchant?.fullname
-            ? report?.reportedMerchant?.fullname
-            : "N/A"
+          report?.reportedBy?.fullname
+            ||
+          "N/A"
         )}
       />
 
       <Detail
         title="Date of report:"
         value={formatDate(
-          report?.reportedMerchant?.created_at
-            ? report?.reportedMerchant?.created_at
-            : "N/A"
+          report?.reportedBy?.created_at
+            ||
+             "N/A"
         )}
       />
 

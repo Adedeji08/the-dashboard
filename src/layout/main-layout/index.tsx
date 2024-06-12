@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./sidebar";
 import logo from "../../assets/logo.png";
 import classNames from "classnames";
@@ -48,7 +48,9 @@ const DashboardLayout = () => {
           )}
         >
           <div className="p-4">
+            <Link to='/'>
             <img src={logo} alt="logo" />
+            </Link>
             <hr className="mt-8"/>
           </div>
 
