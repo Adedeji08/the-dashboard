@@ -19,31 +19,35 @@ interface Report {
     created_at: string;
     email: string;
   };
+  reportedBy: {
+    id: string;
+    fullname: string;
+    phone: string;
+    socialMediaPlatform: string;
+    socialMediaHandle: string;
+    created_at: string;
+  };
 }
 
-
 const ReportDetails = () => {
-  const [reports, setReports] = useState<Report[]>([]);
+  const [report, setReport] = useState<Report | null>(null);
   const { id } = useParams<{ id: string }>();
   const { makeRequest } = useRequest(`/reports/${id}`, "GET");
 
   useEffect(() => {
     const fetchData = async () => {
       const [response] = await makeRequest();
-      setReports(response?.data?.report || []);
+      setReport(response?.data || null);
     };
     fetchData();
-  }, []);
-
-  const report = reports[0]; 
-
+  }, []); // Ensure id and makeRequest are in the dependency array
 
   return (
     <>
       <Back />
-      <div className=" bg-white border border-[#fff] mt-10 pt-7 rounded-lg w-full flex">
-        <Details report={report} />
-       <PreviousReport report={report}/>
+      <div className="bg-white border border-[#fff] mt-10 pt-7 rounded-lg w-full flex">
+        {report && <Details report={report} />}
+        {report && <PreviousReport report={report} />}
       </div>
     </>
   );
