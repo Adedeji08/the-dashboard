@@ -25,6 +25,8 @@ interface DetailsProps {
           ticketId: string;
           message: string;
           subject: string;
+          attachment: string;
+          phone: string;
         };
       }
     | undefined;
@@ -168,6 +170,11 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
     );
   };
 
+  const images = request?.ticket?.attachment
+    ? JSON.parse(request?.ticket?.attachment)
+    : [];
+  const flattenedImages = images.flat();
+
   return (
     <div className=" bg-white border border-[#fff] mt-10 pt-7 rounded-lg w-[95%] ">
       <section className="w-[45%] mx-auto">
@@ -199,6 +206,11 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
         <Detail
           title="Email address:"
           value={request?.ticket?.email || "N/A"}
+        />
+
+        <Detail
+          title="Phone Number:"
+          value={request?.ticket?.phone || "N/A"}
         />
 
         <Detail title="Ticket ID:" value={request?.ticket?.ticketId || "N/A"} />
@@ -256,6 +268,21 @@ const Details: React.FC<DetailsProps> = ({ request }) => {
             )}
           />
         </div>
+
+        {flattenedImages.length > 0 ? (
+          <div className="images-container grid grid-cols-2 gap-4 items-center justify-between mt-10">
+            {flattenedImages.map((img: string, index: number) => (
+              <img
+                key={index}
+                src={img}
+                alt={`Images ${index + 1}`}
+                className="w-[180px] h-[120px] rounded-md"
+              />
+            ))}
+          </div>
+        ) : (
+          <p className="px-10 mt-4">No images available</p>
+        )}
 
         <div className="h-52">
           <button

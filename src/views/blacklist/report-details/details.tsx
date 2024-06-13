@@ -116,12 +116,12 @@ const Details: React.FC<Report> = ({ report }) => {
       </div>
 
       {flattenedImages.length > 0 ? (
-        <div className="images-container grid grid-cols-2 items-center justify-between h-[400px] px-24">
+        <div className="images-container grid grid-cols-2 items-center justify-between mt-10 px-24">
           {flattenedImages.map((img: string, index: number) => (
             <img
               key={index}
-              src={img} // Use the image URL directly
-              alt={`Image ${index + 1}`}
+              src={img}
+              alt={`Images ${index + 1}`}
               className="w-[180px] h-[120px] rounded-md"
             />
           ))}

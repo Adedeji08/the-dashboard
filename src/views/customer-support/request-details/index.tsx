@@ -17,6 +17,8 @@ interface DetailsProps {
     ticketId: string;
     message: string;
     subject: string;
+    attachment:string;
+    phone:string;
   };
 }
 
