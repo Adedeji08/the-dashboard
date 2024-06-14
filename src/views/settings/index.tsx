@@ -33,7 +33,7 @@ const Settings = () => {
           <h2 className="text-[24px] font-bold">Settings </h2>
         </section>
         <section className="flex gap-4">
-          <Icon name="msgIcon" />
+          <Icon name="downloadIcon" />
           <Icon name="notificationIcon" />
         </section>
       </div>

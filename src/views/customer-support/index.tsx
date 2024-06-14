@@ -165,7 +165,7 @@ const CustomerSupport = () => {
               onChange={handleSearchChange}
             />
           </div>
-          <Icon name="msgIcon" />
+          <Icon name="downloadIcon" />
           <Icon name="notificationIcon" />
         </section>
       </div>

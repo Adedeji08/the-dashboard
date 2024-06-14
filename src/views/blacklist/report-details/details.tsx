@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   capitalizeFirstLetter,
   formatDate,
 } from "../../../utilities/functions";
+import ImageReport from "./image-report";
 
 interface Report {
   report: {
@@ -30,6 +31,7 @@ interface Report {
 }
 
 const Details: React.FC<Report> = ({ report }) => {
+  const [modalVisible, setModalVisible] = useState(false);
   const Detail = ({ title, value }: any) => {
     return (
       <div className="flex justify-between px-10 mt-4 text-[16px]">
@@ -39,8 +41,12 @@ const Details: React.FC<Report> = ({ report }) => {
     );
   };
 
+  const viewImage = () => {
+    setModalVisible(true);
+  };
   const images = report?.image ? JSON.parse(report.image) : [];
   const flattenedImages = images.flat();
+  const displayedImages = flattenedImages.slice(0, 2);
 
   return (
     <section className="w-full border-r-2">
@@ -112,12 +118,12 @@ const Details: React.FC<Report> = ({ report }) => {
 
       <div className="flex justify-between px-10 w-full mt-6">
         <h1 className="text-[18px] font-semibold">Media</h1>
-        <p className="text-[12px] text-[#0979A1]">View all ({images.length})</p>
+        <button className="text-[12px] text-[#0979A1]"  onClick={viewImage}>View all ({images.length})</button>
       </div>
 
-      {flattenedImages.length > 0 ? (
-        <div className="images-container grid grid-cols-2 items-center justify-between mt-10 px-24">
-          {flattenedImages.map((img: string, index: number) => (
+      {displayedImages.length > 0 ? (
+        <div className="images-container grid grid-cols-2 gap-4 items-center justify-between mt-10 px-24">
+          {displayedImages.map((img: string, index: number) => (
             <img
               key={index}
               src={img}
@@ -127,8 +133,14 @@ const Details: React.FC<Report> = ({ report }) => {
           ))}
         </div>
       ) : (
-        <p className="px-10 mt-4">No images available</p>
+        <p className="px-10 mt-4 text-center">No images available</p>
       )}
+
+      <ImageReport
+       visible={modalVisible}
+       handleClose={() => setModalVisible(false)}
+       images={flattenedImages}
+       />
     </section>
   );
 };

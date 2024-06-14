@@ -53,7 +53,7 @@ const MainRoutes = {
       element: <BlackList />,
     },
     {
-      path: "/report/details/:id",
+      path: "/report/:id",
       element: <ReportDetails />,
     },
     {

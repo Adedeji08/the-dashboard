@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "../../components/table";
 import { TailSpin } from "react-loader-spinner";
@@ -28,7 +28,7 @@ const ReportTable = ({
   }));
 
   const handleUserClick = (id: string) => {
-    navigate(`/report/details/${id}`);
+    navigate(`/report/${id}`);
   };
   return (
     <div className="rounded-md py-3 px-3 bg-white border border-[#fff] mt-10 w-[95%] pt-5 ">

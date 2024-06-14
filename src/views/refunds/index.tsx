@@ -22,7 +22,7 @@ const Refund = () => {
               placeholder="Search for name"
             />
           </div>
-          <Icon name="msgIcon" />
+          <Icon name="downloadIcon" />
           <Icon name="notificationIcon" />
         </section>
       </div>

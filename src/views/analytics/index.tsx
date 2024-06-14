@@ -232,7 +232,7 @@ const Analytics = () => {
 
         <section className="flex gap-4">
           <div className="rounded-md solid px-8 bg-[#0979A1] h-[45px] flex gap-3">
-            <Icon name="msgIcon" className="mt-3 rounded" />
+            <Icon name="downloadIcon" className="mt-3 rounded" />
             <button
               className={` h-[43px] font-bold text-[#fff] rounded-md`}
               type="submit"

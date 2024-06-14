@@ -131,7 +131,7 @@ const BlackList = () => {
               onChange={handleSearchChange}
             />
           </div>
-          <Icon name="msgIcon" />
+          <Icon name="downloadIcon" />
           <button className="-mt-3" onClick={openNotification}>
             <Icon name="notificationIcon" />
           </button>

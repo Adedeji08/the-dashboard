@@ -5,7 +5,7 @@ type IconName =
   | "arrowForward"
   | "dotIcon"
   | "searchIcon"
-  | "msgIcon"
+  | "downloadIcon"
   | "notificationIcon"
   | "arrowLeft"
   | "cancel"
@@ -29,7 +29,9 @@ type IconName =
   | "supportchart"
   | "addition"
   | "backicon"
-  | "clipBoard";
+  | "clipBoard"
+  | "slideForwardIcon"
+  | "slideBackwardIcon";
 
 interface IconProps {
   name: IconName;
@@ -169,7 +171,7 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
         </svg>
       );
 
-    case "msgIcon":
+    case "downloadIcon":
       return (
         <svg
           className={className}
@@ -1052,6 +1054,50 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
             rx="4.5"
             stroke="black"
             stroke-opacity="0.2"
+          />
+        </svg>
+      );
+
+    case "slideForwardIcon":
+      return (
+        <svg
+          className={className}
+          width="40"
+          height="40"
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M10 19.9998V15.5498C10 10.0331 13.9167 7.76646 18.7 10.5331L22.55 12.7665L26.4 14.9998C31.1833 17.7665 31.1833 22.2831 26.4 25.0498L22.55 27.2831L18.7 29.5165C13.9167 32.2331 10 29.9831 10 24.4498V19.9998Z"
+            fill="black"
+            stroke="black"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "slideBackwardIcon":
+      return (
+        <svg
+          className={className}
+          width="40"
+          height="40"
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M30.0002 19.9998V24.4498C30.0002 29.9664 26.0835 32.2331 21.3002 29.4664L17.4502 27.2331L13.6002 24.9998C8.81686 22.2331 8.81686 17.7164 13.6002 14.9498L17.4502 12.7164L21.3002 10.4831C26.0835 7.76643 30.0002 10.0164 30.0002 15.5498V19.9998Z"
+            fill="black"
+            stroke="black"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
           />
         </svg>
       );

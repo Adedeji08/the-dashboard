@@ -74,9 +74,12 @@ const Table: React.FC<TableProps> = ({
           ))}
         </tr>
       </thead>
-      <tbody className="text-[12px]">
+      <tbody className="text-[12px]" >
         {data.map((row, rowIndex) => (
-          <tr key={rowIndex}>
+          <tr key={rowIndex} 
+          onClick={() => onUserClick(row["id"] || row["_id"])}
+          className={`cursor-pointer ${selectedUserId === (row["id"] || row["_id"]) ? 'bg-gray-200' : ''}`}
+          >
             {columns.map((column, colIndex) => (
               <td key={colIndex} className="pt-5">
                 {column.accessor === "created_at" || column.accessor === "createdAt" ? (

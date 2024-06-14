@@ -8,13 +8,21 @@ import { Link, useNavigate } from "react-router-dom";
 import Placeholder from "../../../assets/Ellipse 5.svg";
 import { CircleLoader } from "react-spinners";
 
-interface DetailsProps {
+interface Report {
   report: {
     id: string;
     note: string;
     image: string;
     status: string;
     reportedMerchant: {
+      id: string;
+      fullname: string;
+      phone: string;
+      socialMediaPlatform: string;
+      socialMediaHandle: string;
+      created_at: string;
+    };
+    reportedBy: {
       id: string;
       fullname: string;
       phone: string;
@@ -42,7 +50,7 @@ interface MerchantDetailsProps {
   };
 }
 
-const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
+const PreviousReport: React.FC<Report> = ({ report }) => {
   const navigate = useNavigate();
   const { handleSubmit, control, reset } = useForm();
   const userToken = localStorage.getItem("token");
@@ -66,7 +74,7 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
   );
 
   const { makeRequest: getReportId } = useRequest(
-    `/reports/${report?.reportedMerchant?.id}`,
+    `/reports/merchants/${report?.reportedMerchant?.id}`,
     "GET",
     { Authorization: `Bearer ${userToken}` }
   );
@@ -134,7 +142,7 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
   };
 
   const handleClick = () => {
-    navigate(`/report/details/${reportId}`);
+    navigate(`/report/${reportId}`);
   };
 
   return (
