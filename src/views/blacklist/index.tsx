@@ -106,11 +106,6 @@ const BlackList = () => {
     localStorage.setItem("activeTab", activeTab);
   }, [activeTab]);
 
-  // Add this useEffect hook to set the active tab to "reports" when the component mounts
-  useEffect(() => {
-    setActiveTab("reports");
-  }, []);
-
   return (
     <>
       <div className="flex justify-between w-[95%]">

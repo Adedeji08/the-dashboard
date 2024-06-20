@@ -132,9 +132,7 @@ const Transaction = () => {
     localStorage.setItem("activeTab", activeTab);
   }, [activeTab]);
 
-  useEffect(() => {
-    setActiveTab("payment");
-  }, []);
+
 
   return (
     <>

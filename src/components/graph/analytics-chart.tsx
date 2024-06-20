@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactECharts from "echarts-for-react";
-import * as echarts from "echarts"; // Import echarts
+import * as echarts from "echarts";
 import { CircleLoader } from "react-spinners";
 
 interface ChartData {

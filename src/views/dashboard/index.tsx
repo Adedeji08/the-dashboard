@@ -39,7 +39,6 @@ const Dashboard = () => {
     setModalVisible(true);
   };
 
-
   const updateUrlParams = (params: { [key: string]: string | number }) => {
     const url = new URL(window.location.href);
     Object.keys(params).forEach((key) => {
@@ -129,10 +128,6 @@ const Dashboard = () => {
     localStorage.setItem("activeTab", activeTab);
   }, [activeTab]);
 
-  useEffect(() => {
-    setActiveTab("merchant");
-  }, []);
-
   return (
     <>
       <div className="flex justify-between w-[95%]">
@@ -169,8 +164,6 @@ const Dashboard = () => {
           tabs={["merchant", "buyer"]}
           setActiveTab={setActiveTab}
         />
-
-       
       </div>
       <div>
         {activeTab === "merchant" && (
@@ -205,8 +198,6 @@ const Dashboard = () => {
         visible={modalVisible}
         handleClose={() => setModalVisible(false)}
       />
-
-      
     </>
   );
 };
