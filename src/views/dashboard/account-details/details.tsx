@@ -129,7 +129,7 @@ const Details: React.FC<DetailsProps> = ({ account }) => {
         <div className="flex justify-between px-6 mt-4">
           <p className="">Account status:</p>
           <p
-            className="text-[12px] w-20 h-4 text-center rounded-md"
+            className="text-[12px] w-20 p-2 text-center rounded-md"
             style={{
               backgroundColor: getStatusColor(
                 account?.status || "N/A"

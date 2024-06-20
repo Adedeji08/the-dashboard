@@ -38,7 +38,7 @@ const UserTransactionDetails: React.FC<UserTransactionDetailsProps> = ({
       const [response] = await makeRequest(undefined, {
         email: account?.email,
       });
-      setData(response.data?.transactions || []);
+      setData(response.data?.data?.transactions || []);
     }
   };
 
@@ -66,7 +66,7 @@ const UserTransactionDetails: React.FC<UserTransactionDetailsProps> = ({
       </section>
       <div>
         {data.length > 0 ? (
-          data.map((transaction, index) => (
+          data.slice(0, 5).map((transaction, index) => (
             <div key={index} className="flex justify-between">
               <section>
                 <div className="flex mt-5 gap-4">
@@ -75,7 +75,7 @@ const UserTransactionDetails: React.FC<UserTransactionDetailsProps> = ({
                     {transaction?.orderId}
                   </p>
                   <p
-                    className="-mt-1 text-[12px] font-normal w-20 h-4 rounded-md"
+                    className="-mt-1 text-[12px] p-2 font-normal w-20 rounded-md"
                     style={{
                       backgroundColor: getStatusColor(
                         transaction?.status ? transaction?.status : "N/A"
