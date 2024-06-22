@@ -213,3 +213,18 @@
 .custom-next {
   right: -25px;
 }
+
+aside {
+  ::-webkit-scrollbar {
+    width: 8px !important;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #f1f1f1;
+    border-radius: 17px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+  scrollbar-color: #ccc #f1f1f1; 
+  scrollbar-width: thin; /* or "thin" or "auto" */
+}
