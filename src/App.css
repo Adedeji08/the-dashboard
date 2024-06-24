@@ -213,18 +213,33 @@
 .custom-next {
   right: -25px;
 }
+aside::-webkit-scrollbar {
+  width: 8px;
+}
+
+aside::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); 
+  border-radius: 4px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px; 
+}
+aside::-webkit-scrollbar-track {
+  background: transparent; 
+  border-radius: 8px;
+}
 
 aside {
-  ::-webkit-scrollbar {
-    width: 8px !important;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: #f1f1f1;
-    border-radius: 17px;
-  }
-  ::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
-  }
-  scrollbar-color: #ccc #f1f1f1; 
-  scrollbar-width: thin; /* or "thin" or "auto" */
+  scrollbar-width: thin; 
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+  scrollbar-corner-radius: 8px; 
 }
+
+aside {
+  --scrollbar-thumb-color: rgba(0, 0, 0, 0.2); 
+}
+
+aside::-moz-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-color);
+  border-radius: 8px; 
+}
+

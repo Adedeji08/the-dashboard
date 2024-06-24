@@ -18,6 +18,7 @@ import RequestDetails from "../views/customer-support/request-details";
 import Analytics from "../views/analytics";
 import Admins from "../views/admins";
 import AdminDetails from "../views/admins/adminDetails";
+import RefundDetails from "../views/refunds/refund-details";
 
 
 const MainRoutes = {
@@ -101,6 +102,10 @@ const MainRoutes = {
     {
       path: "/analytics",
       element: <Analytics />,
+    },
+    {
+      path: "/refund/:id",
+      element: <RefundDetails />,
     },
   ],
 };

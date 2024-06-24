@@ -59,7 +59,7 @@ const Table: React.FC<TableProps> = ({
       case "in_progress":
         return "In Progress";
       default:
-        return status.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+        return status?.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
     }
   };
 
@@ -67,7 +67,7 @@ const Table: React.FC<TableProps> = ({
     <table className="table mt-6 w-full">
       <thead className="bg-[#CFF0FC] h-10">
         <tr className="text-[16px] text-left">
-          {columns.map((column, index) => (
+          {columns?.map((column, index) => (
             <th className="font-medium" key={index}>
               {column.header}
             </th>
@@ -75,7 +75,7 @@ const Table: React.FC<TableProps> = ({
         </tr>
       </thead>
       <tbody className="text-[12px]" >
-        {data.map((row, rowIndex) => (
+        {data?.map((row, rowIndex) => (
           <tr key={rowIndex} 
           onClick={() => onUserClick(row["id"] || row["_id"])}
           className={`cursor-pointer ${selectedUserId === (row["id"] || row["_id"]) ? 'bg-gray-200' : ''}`}

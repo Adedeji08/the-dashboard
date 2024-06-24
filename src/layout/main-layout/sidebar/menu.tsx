@@ -49,7 +49,7 @@ const Menu: React.FC = () => {
       icon: "transaction",
       label: "Transactions",
     },
-    // { to: "/refunds", icon: "refund", label: "Refunds" },
+    { to: "/refunds", icon: "refund", label: "Refunds" },
     { to: "/mediation", icon: "mediation", label: "Mediation" },
     { to: "/blacklist", icon: "blacklist", label: "Blacklist" },
     {
