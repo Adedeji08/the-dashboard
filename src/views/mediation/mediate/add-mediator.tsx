@@ -29,6 +29,9 @@ const AddMediator = ({ visible, handleClose }: any) => {
         position: "top-center",
       });
       reset()
+      setTimeout(() => {
+        window.location.reload()
+      },3000 );
     } else {
       showToast(response.message, false, {
         position: "top-center",
