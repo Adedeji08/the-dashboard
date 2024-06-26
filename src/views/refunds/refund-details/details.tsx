@@ -159,7 +159,7 @@ const Details: React.FC<DetailsProps> = ({ refund }) => {
         <div className="flex justify-between">
           <h2 className="font-bold text-[18px]">Request Details</h2>
           <p
-            className="text-[10px] flex gap-3 w-20 h-4 text-center rounded-md"
+            className="text-[10px] flex gap-3 w-28 p-2 text-center rounded-md"
             style={{
               backgroundColor: getStatusColor(
                refund?.status || "N/A"
@@ -169,7 +169,7 @@ const Details: React.FC<DetailsProps> = ({ refund }) => {
             <span
               style={{
                 backgroundColor:
-                  refund?.status === "active" ? "green" : "red",
+                  refund?.status === "approved" ? "green" : "red",
               }}
               className="h-[6px] w-[6px] rounded-full mt-1 ml-3"
             ></span>

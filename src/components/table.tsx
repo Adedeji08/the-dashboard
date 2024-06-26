@@ -51,6 +51,10 @@ const Table: React.FC<TableProps> = ({
         return "#D9D9D9";
       default:
         return "transparent";
+        case "approved":
+        return "#D1FFC9";
+      case "rejected":
+        return "#FCCFCF";
     }
   };
 
