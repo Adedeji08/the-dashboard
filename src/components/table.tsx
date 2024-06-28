@@ -92,8 +92,8 @@ const Table: React.FC<TableProps> = ({
                   <img
                     src={
                       row[column.accessor]
-                        ? row[column.accessor]
-                        : PlaceholderImage
+                        ||
+                       `https://ui-avatars.com/api/?name=${row[column.accessor]}&background=0979A1&color=fff`
                     }
                     className="rounded-full w-[40px] h-[40px]"
                     alt="profile"

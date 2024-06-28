@@ -82,16 +82,16 @@ const Mediation = () => {
     const page = currentPage;
     const limit = itemsPerPage;
     const params: {
-      // limit: number;
-      // page: number;
+      limit: number;
+      page: number;
       status?: string;
       title?: string;
       caseID?: string;
       email?: string;
       fullName?: string;
     } = {
-      // limit,
-      // page,
+      limit,
+      page,
     };
     if (selectedStatus) {
       params.status = selectedStatus;
