@@ -12,7 +12,7 @@ const AgentTable = ({ data }: any) => {
     { header: "Email Address", accessor: "email" },
     { header: "Phone No", accessor: "phone" },
     { header: "Date Added", accessor: "created_at" },
-    { header: "", accessor: "id" },
+    { header: " ", accessor: "id" },
   ];
 
   const handleUserClick = (id: string) => {

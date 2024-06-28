@@ -103,8 +103,17 @@ const Mediation = () => {
         !isNaN(Number(searchQuery.substring(1)))
       ) {
         params.caseID = searchQuery;
-      } else {
+      } else if (
+        searchQuery
+      ) {
         params.title = searchQuery;
+      } else if(
+        searchQuery.startsWith("#") &&
+        !isNaN(Number(searchQuery.substring(1)))
+      ){
+        params.email = searchQuery;
+      } else{
+        params.fullName = searchQuery;
       }
     }
 
@@ -118,7 +127,7 @@ const Mediation = () => {
       setTotalPages(Math.ceil(response.data?.totalPages));
     }
   };
-  
+
 
   function handlePageChange(page: number) {
     setCurrentPage(page);

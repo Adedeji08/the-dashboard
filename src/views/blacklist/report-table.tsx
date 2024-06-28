@@ -15,7 +15,7 @@ const ReportTable = ({
     { header: "Name", accessor: "fullname" },
     { header: "Status", accessor: "status" },
     { header: "Date", accessor: "created_at" },
-    { header: "", accessor: "id" },
+    { header: " ", accessor: "id" },
   ];
 
   const mappedData = data.map((report: any) => ({

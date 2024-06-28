@@ -19,7 +19,7 @@ const TransactionTable = ({
     { header: "Status", accessor: "status" },
     { header: "Amount", accessor: "amount" },
     { header: "Date", accessor: "created_at" },
-    { header: "", accessor: "id" },
+    { header: " ", accessor: "id" },
   ];
 
   useEffect(() => {

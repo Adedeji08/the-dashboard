@@ -1,5 +1,4 @@
 import React from "react";
-import PlaceholderImage from "../assets/Ellipse 5.svg";
 import Icon from "../assets/icons";
 import { formatDate } from "../utilities/functions";
 
@@ -30,31 +29,23 @@ const Table: React.FC<TableProps> = ({
   const getStatusColor = (status: string) => {
     switch (status) {
       case "successful":
-        return "#D1FFC9";
       case "active":
-        return "#D1FFC9";
       case "resolved":
+      case "approved":
         return "#D1FFC9";
       case "pending":
+      case "suspended":
+      case "closed":
+      case "blocked":
+      case "rejected":
         return "#FCCFCF";
       case "in_progress":
         return "#87CEEB";
       case "failed":
-        return "#D9D9D9";
-      case "suspended":
-        return "#FCCFCF";
-      case "closed":
-        return "#FCCFCF";
-      case "blocked":
-        return "#FCCFCF";
       case "inactive":
         return "#D9D9D9";
       default:
         return "transparent";
-        case "approved":
-        return "#D1FFC9";
-      case "rejected":
-        return "#FCCFCF";
     }
   };
 
@@ -65,6 +56,13 @@ const Table: React.FC<TableProps> = ({
       default:
         return status?.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
     }
+  };
+
+  const getInitials = (name: string) => {
+    if (!name) return '';
+    const nameParts = name.split(" ");
+    const initials = nameParts.map(part => part[0]).join("");
+    return initials.substring(0, 2).toUpperCase();
   };
 
   return (
@@ -78,11 +76,12 @@ const Table: React.FC<TableProps> = ({
           ))}
         </tr>
       </thead>
-      <tbody className="text-[12px]" >
+      <tbody className="text-[12px]">
         {data?.map((row, rowIndex) => (
-          <tr key={rowIndex} 
-          onClick={() => onUserClick(row["id"] || row["_id"])}
-          className={`cursor-pointer ${selectedUserId === (row["id"] || row["_id"]) ? 'bg-gray-200' : ''}`}
+          <tr
+            key={rowIndex}
+            onClick={() => onUserClick(row["id"] || row["_id"])}
+            className={`cursor-pointer ${selectedUserId === (row["id"] || row["_id"]) ? "bg-gray-200" : ""}`}
           >
             {columns.map((column, colIndex) => (
               <td key={colIndex} className="pt-5">
@@ -92,8 +91,8 @@ const Table: React.FC<TableProps> = ({
                   <img
                     src={
                       row[column.accessor]
-                        ||
-                       `https://ui-avatars.com/api/?name=${row[column.accessor]}&background=0979A1&color=fff`
+                       ||
+                         `https://ui-avatars.com/api/?name=${(row["fullname"]) || (row["fullName"])}&background=0979A1&color=fff`
                     }
                     className="rounded-full w-[40px] h-[40px]"
                     alt="profile"

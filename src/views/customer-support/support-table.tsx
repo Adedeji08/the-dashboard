@@ -19,7 +19,7 @@ const SupportTable = ({
     { header: "Status", accessor: "status" },
     { header: "Assigned To", accessor: "fullName" },
     { header: "Date", accessor: "created_at" },
-    { header: "", accessor: "id" },
+    { header: " ", accessor: "id" },
   ];
 
   useEffect(() => {

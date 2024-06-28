@@ -16,7 +16,7 @@ const BlacklistedTable = ({
     { header: "Email Address", accessor: "email" },
     { header: "Name", accessor: "fullname" },
     { header: "Date", accessor: "created_at" },
-    { header: "", accessor: "id" },
+    { header: " ", accessor: "id" },
   ];
 
   const mappedData = blacklist.map((blacklist: any) => ({

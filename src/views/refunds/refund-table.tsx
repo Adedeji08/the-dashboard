@@ -12,7 +12,7 @@ const RefundTable = ({ refunds, selectedStatus, handleStatusChange }: any) => {
     { header: "Amount", accessor: "amount" },
     { header: "Status", accessor: "status" },
     { header: "Date", accessor: "created_at" },
-    { header: "", accessor: "id" },
+    { header: " ", accessor: "id" },
   ];
 
   useEffect(() => {

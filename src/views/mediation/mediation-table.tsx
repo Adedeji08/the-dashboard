@@ -13,7 +13,7 @@ import { TailSpin } from "react-loader-spinner";
     { header: "Assigned To", accessor: "fullname" },
     { header: "Status", accessor: "status" },
     { header: "Date", accessor: "createdAt" },
-    { header: "", accessor: "_id" },
+    { header: " ", accessor: "_id" },
   ];
 
   useEffect(() => {

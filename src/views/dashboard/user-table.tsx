@@ -21,7 +21,7 @@ const UserTable = ({
     { header: "Phone No", accessor: "phone" },
     { header: "Status", accessor: "status" },
     { header: "Date Joined", accessor: "created_at" },
-    { header: "", accessor: "id" },
+    { header: " ", accessor: "id" },
   ];
 
   useEffect(() => {

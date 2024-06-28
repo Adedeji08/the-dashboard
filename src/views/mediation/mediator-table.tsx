@@ -10,7 +10,7 @@ const MediatorTable = ({ data }: any) => {
     { header: "Email Address", accessor: "email" },
     { header: "Role", accessor: "role" },
     { header: "Date Added", accessor: "createdAt" },
-    { header: "", accessor: "_id" },
+    { header: " ", accessor: "_id" },
   ];
 
   const handleUserClick = (_id: string) => {
