@@ -5,6 +5,8 @@ import useRequest from "../../components/hooks/use-request";
 import AddMediator from "./mediate/add-mediator";
 import Pagination from "../../components/pagination/pagination";
 import NotificationModal from "../notification/notification-modal";
+import Tabs from "../../components/tab";
+import MediatorList from "./mediators/mediators";
 
 interface UserData {
   channels: {
@@ -13,6 +15,10 @@ interface UserData {
 }
 
 const Mediation = () => {
+  const [activeTab, setActiveTab] = useState<"requests" | "mediators">(
+    (localStorage.getItem("activeTab") as "requests" | "mediators") ||
+      "requests"
+  );
   const [modalVisible, setModalVisible] = useState(false);
   const params = new URLSearchParams(new URL(window.location.href).search);
   const [currentPage, setCurrentPage] = useState(
@@ -21,6 +27,7 @@ const Mediation = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const itemsPerPage = 10;
   const [data, setData] = useState<UserData>();
+  const [mediators, setMediators] = useState<UserData>();
   const [statistics, setStatistics] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,6 +35,12 @@ const Mediation = () => {
   const { makeRequest } = useRequest("/mediation", "GET", {
     Authorization: `Bearer ${userToken}`,
   });
+
+  const { makeRequest: getMediators } = useRequest(
+    `/mediation/mediators`,
+    "GET",
+    { userToken }
+  );
 
   const { makeRequest: getStatistics } = useRequest(
     "/mediation/channels/statistics",
@@ -63,37 +76,49 @@ const Mediation = () => {
     });
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery, selectedStatus, currentPage]);
+  }, [activeTab, searchQuery, selectedStatus, currentPage]);
 
   const fetchData = async () => {
     const page = currentPage;
     const limit = itemsPerPage;
     const params: {
-      limit: number;
-      page: number;
+      // limit: number;
+      // page: number;
       status?: string;
       title?: string;
       caseID?: string;
+      email?: string;
+      fullName?: string;
     } = {
-      limit,
-      page,
+      // limit,
+      // page,
     };
     if (selectedStatus) {
       params.status = selectedStatus;
     }
 
     if (searchQuery) {
-      if (searchQuery.startsWith("#") && !isNaN(Number(searchQuery.substring(1)))) {
+      if (
+        searchQuery.startsWith("#") &&
+        !isNaN(Number(searchQuery.substring(1)))
+      ) {
         params.caseID = searchQuery;
       } else {
         params.title = searchQuery;
       }
     }
 
-    const [response] = await makeRequest(undefined, params);
-    setData(response.data?.channels || []);
-    setTotalPages(Math.ceil(response.data?.totalPages));
+    if (activeTab === "requests") {
+      const [response] = await makeRequest(undefined, params);
+      setData(response.data?.channels || []);
+      setTotalPages(Math.ceil(response.data?.totalPages));
+    } else if (activeTab === "mediators") {
+      const [response] = await getMediators(undefined, params);
+      setMediators(response?.data?.mediators || []);
+      setTotalPages(Math.ceil(response.data?.totalPages));
+    }
   };
+  
 
   function handlePageChange(page: number) {
     setCurrentPage(page);
@@ -123,6 +148,10 @@ const Mediation = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("activeTab", activeTab);
+  }, [activeTab]);
 
   return (
     <>
@@ -154,19 +183,33 @@ const Mediation = () => {
         </section>
       </div>
 
-      <button
-        className="h-[50px] mt-8 w-[300px] bg-[#0979A1] text-white rounded-md font-bold text-[12px] "
-        onClick={addMediator}
-      >
-        Add A Mediator
-      </button>
+      <div className="flex justify-between pr-10">
+        <Tabs
+          activeTab={activeTab}
+          tabs={["requests", "mediators"]}
+          setActiveTab={setActiveTab}
+        />
 
-      <Mediator
-        data={data}
-        statistics={statistics}
-        selectedStatus={selectedStatus}
-        handleStatusChange={handleStatusChange}
-      />
+        {activeTab === "mediators" && (
+          <button
+            className="h-[50px] mt-8 w-[200px]  border-2 border-[#0979A1] text-[#0979A1] rounded-md font-bold text-[12px] "
+            onClick={addMediator}
+          >
+            Add A Mediator
+          </button>
+        )}
+      </div>
+
+      {activeTab === "requests" && (
+        <Mediator
+          data={data}
+          statistics={statistics}
+          selectedStatus={selectedStatus}
+          handleStatusChange={handleStatusChange}
+        />
+      )}
+
+      {activeTab === "mediators" && <MediatorList data={mediators} />}
 
       <AddMediator
         visible={modalVisible}
