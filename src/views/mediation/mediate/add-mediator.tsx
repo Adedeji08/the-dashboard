@@ -80,7 +80,7 @@ const AddMediator = ({ visible, handleClose }: any) => {
             <Controller
               name="email"
               control={control}
-              defaultValue={" "}
+              defaultValue={""}
               rules={{
                 required: "Email is required",
                 pattern: {

@@ -71,7 +71,7 @@ const TableAdmin: React.FC<TableProps> = ({
                 ) : column.accessor === "phone" && !row[column.accessor] ? (
                   "N/A"
                 ): column.accessor === "role"? (
-                  capitalizeFirstLetter( row[column.accessor].name)
+                  capitalizeFirstLetter( row[column.accessor]?.name)
                 )
 
                 :(
