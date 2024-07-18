@@ -16,7 +16,7 @@ const DeleteMediator: React.FC<AgentProfileProps> = ({
   id,
 }: any) => {
   const { makeRequest: getMediationDeletedById, loading } = useRequest(
-    `/mediation/${'999999'}`,
+    `/mediation/${id}`,
     "DELETE"
   );
 
