@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { Modal } from "antd";
 import Icon from "../../../assets/icons";
 
-const ImageReport = ({ visible, handleClose, images }: any) => {
+const ImageProof = ({ visible, handleClose, images }: any) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const goToNextSlide = () => {
-    const nextIndex =
-      currentIndex + 1 >= images.length ? 0 : currentIndex + 1;
+    const nextIndex = currentIndex + 1 >= images.length ? 0 : currentIndex + 1;
     setCurrentIndex(nextIndex);
   };
 
@@ -17,40 +16,18 @@ const ImageReport = ({ visible, handleClose, images }: any) => {
     setCurrentIndex(prevIndex);
   };
 
-  const downloadImage = (url: any) => {
-    fetch(url)
-      .then(response => response.blob())
-      .then(blob => {
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = url.split("/").pop() || "download";
-        link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
-        URL.revokeObjectURL(url);
-      });
-  };
-
   return (
     <Modal
       visible={visible}
       onCancel={handleClose}
       closable={true}
       footer={null}
-      width={790}
-      className="flex justify-center items-center mt-14"
+      width={690}
     >
-      <div className="flex justify-between px-6 py-4 w-full">
-        <h1 className="font-bold text-left text-[#040821] text-[18px] mb-4">
-          Media
+      <div className="py-4 w-full">
+        <h1 className="font-bold text-center text-[#040821] text-[18px] mb-4">
+          Image {currentIndex + 1}
         </h1>
-        <button
-          className="text-white bg-[#0979A1] rounded-md hover:bg-blue-700 font-bold py-2 px-4 inline-flex gap-3 items-center"
-          onClick={() =>
-            images.forEach((image: any) => downloadImage(image))
-          }
-        >
-          <Icon name="downloadIcon" /> Download All
-        </button>
       </div>
       <div className="">
         <div className="custom-slider">
@@ -87,4 +64,4 @@ const ImageReport = ({ visible, handleClose, images }: any) => {
   );
 };
 
-export default ImageReport;
+export default ImageProof;

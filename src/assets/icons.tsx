@@ -32,7 +32,10 @@ type IconName =
   | "clipBoard"
   | "slideForwardIcon"
   | "slideBackwardIcon"
-  | "backupIcon";
+  | "backupIcon"
+  | "saveIcon"
+  | "deleteIcon"
+  | "cancelIcon";
 
 interface IconProps {
   name: IconName;
@@ -1063,21 +1066,40 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
       return (
         <svg
           className={className}
-          width="40"
-          height="40"
-          viewBox="0 0 40 40"
+          width="136"
+          height="136"
+          viewBox="0 0 136 136"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path
-            d="M10 19.9998V15.5498C10 10.0331 13.9167 7.76646 18.7 10.5331L22.55 12.7665L26.4 14.9998C31.1833 17.7665 31.1833 22.2831 26.4 25.0498L22.55 27.2831L18.7 29.5165C13.9167 32.2331 10 29.9831 10 24.4498V19.9998Z"
+          <rect
+            width="136"
+            height="136"
+            transform="matrix(-1 0 0 1 136 0)"
             fill="black"
-            stroke="black"
-            stroke-width="1.5"
-            stroke-miterlimit="10"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            fill-opacity="0.4"
           />
+          <mask
+            id="mask0_10640_19064"
+            maskUnits="userSpaceOnUse"
+            x="32"
+            y="37"
+            width="72"
+            height="73"
+          >
+            <rect
+              width="72"
+              height="72"
+              transform="matrix(-1 0 0 1 104 37.5)"
+              fill="#D9D9D9"
+            />
+          </mask>
+          <g mask="url(#mask0_10640_19064)">
+            <path
+              d="M55.6621 97.5L85.6621 67.5L55.6621 37.5L50.3371 42.825L75.0121 67.5L50.3371 92.175L55.6621 97.5Z"
+              fill="#D7D7D7"
+            />
+          </g>
         </svg>
       );
 
@@ -1085,21 +1107,29 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
       return (
         <svg
           className={className}
-          width="40"
-          height="40"
-          viewBox="0 0 40 40"
+          width="136"
+          height="136"
+          viewBox="0 0 136 136"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path
-            d="M30.0002 19.9998V24.4498C30.0002 29.9664 26.0835 32.2331 21.3002 29.4664L17.4502 27.2331L13.6002 24.9998C8.81686 22.2331 8.81686 17.7164 13.6002 14.9498L17.4502 12.7164L21.3002 10.4831C26.0835 7.76643 30.0002 10.0164 30.0002 15.5498V19.9998Z"
-            fill="black"
-            stroke="black"
-            stroke-width="1.5"
-            stroke-miterlimit="10"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
+          <rect width="136" height="136" fill="black" fill-opacity="0.4" />
+          <mask
+            id="mask0_10640_19060"
+            maskUnits="userSpaceOnUse"
+            x="32"
+            y="37"
+            width="72"
+            height="73"
+          >
+            <rect x="32" y="37.5" width="72" height="72" fill="#D9D9D9" />
+          </mask>
+          <g mask="url(#mask0_10640_19060)">
+            <path
+              d="M80.3379 97.5L50.3379 67.5L80.3379 37.5L85.6629 42.825L60.9879 67.5L85.6629 92.175L80.3379 97.5Z"
+              fill="#D7D7D7"
+            />
+          </g>
         </svg>
       );
 
@@ -1116,6 +1146,104 @@ const Icon: React.FC<IconProps> = ({ name, className }) => {
           <path
             d="M11.59 6.5H10V1.5C10 0.95 9.55 0.5 9 0.5H5C4.45 0.5 4 0.95 4 1.5V6.5H2.41C1.52 6.5 1.07 7.58 1.7 8.21L6.29 12.8C6.68 13.19 7.31 13.19 7.7 12.8L12.29 8.21C12.92 7.58 12.48 6.5 11.59 6.5ZM0 16.5C0 17.05 0.45 17.5 1 17.5H13C13.55 17.5 14 17.05 14 16.5C14 15.95 13.55 15.5 13 15.5H1C0.45 15.5 0 15.95 0 16.5Z"
             fill="#0979A1"
+          />
+        </svg>
+      );
+
+    case "saveIcon":
+      return (
+        <svg
+          className={className}
+          width="48"
+          height="48"
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="48" height="48" rx="8" fill="black" fill-opacity="0.7" />
+          <mask
+            id="mask0_10640_18331"
+            maskUnits="userSpaceOnUse"
+            x="12"
+            y="12"
+            width="24"
+            height="24"
+          >
+            <rect x="12" y="12" width="24" height="24" fill="#D9D9D9" />
+          </mask>
+          <g mask="url(#mask0_10640_18331)">
+            <path
+              d="M24 28L19 23L20.4 21.55L23 24.15V16H25V24.15L27.6 21.55L29 23L24 28ZM18 32C17.45 32 16.9792 31.8042 16.5875 31.4125C16.1958 31.0208 16 30.55 16 30V27H18V30H30V27H32V30C32 30.55 31.8042 31.0208 31.4125 31.4125C31.0208 31.8042 30.55 32 30 32H18Z"
+              fill="white"
+            />
+          </g>
+        </svg>
+      );
+
+    case "deleteIcon":
+      return (
+        <svg
+          className={className}
+          width="40"
+          height="41"
+          viewBox="0 0 40 41"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect y="0.5" width="40" height="40" rx="20" fill="#F8F8F8" />
+          <path
+            d="M26 16.4867C23.78 16.2667 21.5467 16.1533 19.32 16.1533C18 16.1533 16.68 16.22 15.36 16.3533L14 16.4867"
+            stroke="#4A4A4A"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M17.6667 15.8135L17.8134 14.9402C17.9201 14.3068 18.0001 13.8335 19.1267 13.8335H20.8734C22.0001 13.8335 22.0867 14.3335 22.1867 14.9468L22.3334 15.8135"
+            stroke="#4A4A4A"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M24.5667 18.5933L24.1334 25.3066C24.06 26.3533 24 27.1666 22.14 27.1666H17.86C16 27.1666 15.94 26.3533 15.8667 25.3066L15.4333 18.5933"
+            stroke="#4A4A4A"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M18.8867 23.5H21.1067"
+            stroke="#4A4A4A"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M18.3333 20.8335H21.6666"
+            stroke="#4A4A4A"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
+
+    case "cancelIcon":
+      return (
+        <svg
+          className={className}
+          width="61"
+          height="60"
+          viewBox="0 0 61 60"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect x="0.5" width="60" height="60" rx="30" fill="#EDEDED" />
+          <path
+            d="M41.7275 20.5454L42.0812 20.1906L41.7257 19.8376L40.6212 18.7409L40.2671 18.3893L39.9148 18.7427L30.5 28.1875L21.0853 18.7427L20.733 18.3893L20.3789 18.7409L19.2744 19.8376L18.9189 20.1906L19.2726 20.5454L28.6974 30.0001L19.2726 39.4549L18.9189 39.8097L19.2744 40.1627L20.3789 41.2594L20.733 41.611L21.0853 41.2576L30.5 31.8128L39.9148 41.2576L40.2671 41.611L40.6212 41.2594L41.7257 40.1627L42.0812 39.8097L41.7275 39.4549L32.3027 30.0001L41.7275 20.5454Z"
+            fill="black"
+            stroke="black"
           />
         </svg>
       );

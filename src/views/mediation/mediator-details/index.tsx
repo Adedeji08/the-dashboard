@@ -12,6 +12,7 @@ interface DetailsProps {
     createdAt: string;
     caseID: string;
     description: string;
+    attachment: string[];
     claimant: {
       email: string;
       fullName: string;

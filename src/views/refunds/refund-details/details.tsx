@@ -201,6 +201,7 @@ const Details: React.FC<DetailsProps> = ({ refund }) => {
 
           <div className="mt-5">
             <p>Proof:</p>
+            <div className="overflow-auto">
             {refund?.proof?.length ? (
               refund.proof.map((url) => <Proof key={url} proofUrl={url} />)
             ) : (
@@ -208,6 +209,7 @@ const Details: React.FC<DetailsProps> = ({ refund }) => {
                 N/A
               </p>
             )}
+            </div>
           </div>
 
           <div className="flex flex-col gap-5 items-center justify-between mt-5">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Table from "../../components/table";
 import { TailSpin } from "react-loader-spinner";
+import DeleteMediator from "./mediators/delete-mediator";
 
 const MediatorTable = ({ data }: any) => {
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
@@ -10,7 +11,7 @@ const MediatorTable = ({ data }: any) => {
     { header: "Email Address", accessor: "email" },
     { header: "Role", accessor: "role" },
     { header: "Date Added", accessor: "createdAt" },
-    { header: " ", accessor: "_id" },
+    { header: " ", accessor: "updatedAt" },
   ];
 
   const handleUserClick = (_id: string) => {
@@ -40,13 +41,13 @@ const MediatorTable = ({ data }: any) => {
         </div>
       )}
 
-      {/* {selectedUserId && (
-        <AgentProfile
+       {selectedUserId && (
+        <DeleteMediator
           visible={!!selectedUserId} 
           handleClose={handleCloseModal}
           id={selectedUserId}
         />
-      )} */}
+      )} 
     </div>
   );
 };

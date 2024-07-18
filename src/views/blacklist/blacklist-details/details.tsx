@@ -87,6 +87,7 @@ const Details: React.FC<DetailsProps> = ({ blacklist }) => {
               ? blacklist?.merchant?.profilePhoto
               : PlaceholderImage
           }
+          alt="pics"
         />
       </div>
 

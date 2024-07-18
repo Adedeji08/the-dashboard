@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import Table from "../../components/table";
 import AgentProfile from "./agents/agent-profile";
 import { TailSpin } from "react-loader-spinner";

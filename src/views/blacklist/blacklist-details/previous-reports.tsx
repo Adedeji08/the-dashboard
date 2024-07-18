@@ -91,7 +91,7 @@ const PreviousReport: React.FC<DetailsProps> = ({ report }) => {
                 }
                 width={25}
                 className="rounded-full"
-                alt="photo"
+                alt="pics"
               />
               <p
                 className="text-[10px] rounded-md h-6 w-20 text-center pt-1 "

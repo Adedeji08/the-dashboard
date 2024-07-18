@@ -54,14 +54,16 @@ const Table: React.FC<TableProps> = ({
       case "in_progress":
         return "In Progress";
       default:
-        return status?.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+        return status
+          ?.replace(/_/g, " ")
+          .replace(/\b\w/g, (char) => char.toUpperCase());
     }
   };
 
   const getInitials = (name: string) => {
-    if (!name) return '';
+    if (!name) return "";
     const nameParts = name.split(" ");
-    const initials = nameParts.map(part => part[0]).join("");
+    const initials = nameParts.map((part) => part[0]).join("");
     return initials.substring(0, 2).toUpperCase();
   };
 
@@ -81,18 +83,22 @@ const Table: React.FC<TableProps> = ({
           <tr
             key={rowIndex}
             onClick={() => onUserClick(row["id"] || row["_id"])}
-            className={`cursor-pointer ${selectedUserId === (row["id"] || row["_id"]) ? "bg-gray-200" : ""}`}
+            className={`cursor-pointer ${
+              selectedUserId === (row["id"] || row["_id"]) ? "bg-gray-200" : ""
+            }`}
           >
             {columns.map((column, colIndex) => (
               <td key={colIndex} className="pt-5">
-                {column.accessor === "created_at" || column.accessor === "createdAt" ? (
+                {column.accessor === "created_at" ||
+                column.accessor === "createdAt" ? (
                   formatDate(row[column.accessor])
                 ) : column.accessor === "profilePhoto" ? (
                   <img
                     src={
-                      row[column.accessor]
-                       ||
-                         `https://ui-avatars.com/api/?name=${(row["fullname"]) || (row["fullName"])}&background=0979A1&color=fff`
+                      row[column.accessor] ||
+                      `https://ui-avatars.com/api/?name=${
+                        row["fullname"] || row["fullName"]
+                      }&background=0979A1&color=fff`
                     }
                     className="rounded-full w-[40px] h-[40px]"
                     alt="profile"
@@ -104,6 +110,10 @@ const Table: React.FC<TableProps> = ({
                 ) : column.accessor === "_id" ? (
                   <button onClick={() => onUserClick(row["_id"])}>
                     <Icon name="dotIcon" />
+                  </button>
+                ) : column.accessor === "updatedAt" ? (
+                  <button onClick={() => onUserClick(row["updatedAt"])}>
+                    <Icon name="deleteIcon" />
                   </button>
                 ) : column.accessor === "phone" && !row[column.accessor] ? (
                   "N/A"

@@ -8,6 +8,7 @@ import { Controller, useForm } from "react-hook-form";
 import { showToast } from "../../../components/toast";
 import SearchSelect from "../../../components/search-select";
 import { CircleLoader } from "react-spinners";
+import ImagesDisplayed from "./images";
 
 interface DetailsProps {
   mediateById:
@@ -19,6 +20,7 @@ interface DetailsProps {
           createdAt: string;
           caseID: string;
           description: string;
+          attachment: string[];
           claimant: {
             email: string;
             fullName: string;
@@ -40,6 +42,7 @@ interface Mediators {
 const Details: React.FC<DetailsProps> = ({ mediateById }) => {
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
+  const [viewAll, setViewAll] = useState(false);
   const userToken = localStorage.getItem("token");
   const id = mediateById?.channel?._id;
   const { makeRequest: getMediators } = useRequest(
@@ -57,6 +60,8 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
     }
   );
   const [mediate, setMediate] = useState<Mediators[]>([]);
+  const attachments = mediateById?.channel?.attachment || [];
+  const displayedImages = attachments.slice(0, 2);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -99,6 +104,9 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
     if (selectedMediator) {
       handleAssignMediator(selectedMediator._id);
     } else {
+      showToast("Mediator not found", false, {
+        position: "top-center",
+      });
     }
   };
 
@@ -115,7 +123,7 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
     }
   };
 
-  const Detail = ({ title, value, img }: any) => {
+  const Detail = ({ title, value }: any) => {
     return (
       <div className="flex justify-between mt-4">
         <p>{title}</p>
@@ -124,8 +132,12 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
     );
   };
 
+  if (viewAll) {
+    return <ImagesDisplayed images={attachments} />;
+  }
+
   return (
-    <div className=" bg-white border border-[#fff] mt-10 pt-7 h-[680px] rounded-lg w-[95%] ">
+    <div className="bg-white border border-[#fff] mt-10 pt-7 h-[870px] rounded-lg w-[95%]">
       <section className="w-[36%] mx-auto">
         <div className="flex justify-between">
           <h2 className="font-bold text-[18px]">Request Details</h2>
@@ -175,19 +187,44 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
           value={formatDate(mediateById?.channel?.createdAt || "N/A")}
         />
 
-        <div className=" mt-5">
+        <div className="mt-5">
           <p>Request Title:</p>
           <p className="border pl-10 text-[14px] p-3 mt-3 rounded-md">
             {mediateById?.channel?.title || "N/A"}
           </p>
         </div>
 
-        <div className=" mt-5">
+        <div className="mt-5">
           <p>Request:</p>
           <p className="border pl-10 text-[14px] p-3 mt-3 rounded-md">
             {mediateById?.channel?.description || "N/A"}
           </p>
         </div>
+
+        <div className="flex justify-between px-10 w-full mt-6">
+          <h1 className="text-[18px] font-semibold">Media</h1>
+          <button
+            className="text-[12px] text-[#0979A1]"
+            onClick={() => setViewAll(true)}
+          >
+            View all ({attachments.length})
+          </button>
+        </div>
+
+        {displayedImages.length > 0 ? (
+          <div className="images-container flex gap-4 items-center justify-between mt-5">
+            {displayedImages.map((img: string, index: number) => (
+              <img
+                key={index}
+                src={img}
+                alt={`Images ${index + 1}`}
+                className="w-[180px] h-[120px] rounded-md"
+              />
+            ))}
+          </div>
+        ) : (
+          <p className="px-10 mt-4 text-center">No images available</p>
+        )}
 
         <div className="flex-[40%] mt-4">
           <Controller
@@ -220,7 +257,7 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
         </div>
 
         <button
-          className="h-[50px] mt-8 w-full bg-[#0979A1] text-white rounded-md font-bold text-[12px] "
+          className="h-[50px] mt-8 w-full bg-[#0979A1] text-white rounded-md font-bold text-[12px]"
           onClick={handleSubmit(onSubmit)}
         >
           {loading ? (
@@ -229,12 +266,9 @@ const Details: React.FC<DetailsProps> = ({ mediateById }) => {
             "Assign a Mediator"
           )}
         </button>
-
-        {/* DO NOT REMOVE */}
-        {/* <button className="h-[50px] mt-8 w-full bg-transparent text-[#0979A1] border border-[#0979A1] rounded-md font-bold text-[12px] ">
-          Delete Request
-        </button> */}
       </section>
+
+      {viewAll && <ImagesDisplayed images={displayedImages} />}
     </div>
   );
 };

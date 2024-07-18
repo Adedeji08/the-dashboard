@@ -1,77 +1,79 @@
 import { Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import useRequest from "../../../components/hooks/use-request";
-import defaultPhoto from "../../../assets/default-avatar.svg";
-
-interface DetailsProps {
-  agent: {
-    id: string;
-    fullname: string;
-    email: string;
-    status: string;
-    created_at: string;
-    profilePhoto: string;
-    phone: string;
-  };
-}
-
+import { CircleLoader } from "react-spinners";
+import Icon from "../../../assets/icons";
+import { showToast } from "../../../components/toast";
 interface AgentProfileProps {
   visible: boolean;
   handleClose: () => void;
   id: string;
 }
 
-const DeleteMediator: React.FC<AgentProfileProps> = ({ visible, handleClose, id }: any) => {
-  const Details = ({ title, value}: any) => {
-    return (
-      <div className="flex justify-between text-[16px]  px-6 mt-4 w-[90%]">
-        <p>{title}</p>
-        <p className="text-left">{value}</p>
-      </div>
-    );
-  };
-
-  const [agent, setAgent] = useState<DetailsProps>();
-  const { makeRequest: getRequestById } = useRequest(
-    `/customer-support/agents/${id}`,
-    "GET"
+const DeleteMediator: React.FC<AgentProfileProps> = ({
+  visible,
+  handleClose,
+  id,
+}: any) => {
+  const { makeRequest: getMediationDeletedById, loading } = useRequest(
+    `/mediation/${'999999'}`,
+    "DELETE"
   );
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const [response] = await getRequestById(undefined, {id});
-      setAgent(response?.data || null);
-    };
-
-    if (id) {
-      fetchData();
+  const handleDelete = async () => {
+    const [response] = await getMediationDeletedById();
+    if (response.status) {
+      showToast(response.message, true, {
+        position: "top-center",
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } else {
+      showToast(response.message, false, {
+        position: "top-center",
+      });
     }
-  }, [id]);
+  };
 
   return (
     <Modal
       visible={visible}
       onCancel={handleClose}
-      width={600}
-      closable={true}
+      width={500}
+      closable={false}
       footer={null}
-      className=" items-center mt-14"
     >
-      <div className="px-10 py-10">
-        <p className="text-[16px] font-semibold">Profile</p>
-        <section className="flex gap-8 mt-10">
-          <img src={agent?.agent?.profilePhoto || defaultPhoto} className="w-[100px] h-[100px]" />
-          <p className="text-[16px] font-bold">{agent?.agent?.fullname}<br/>
-          <span className="text-[14px] font-medium">{agent?.agent?.email} </span>
-           </p>
-          
-        </section>
+      <button onClick={handleClose} className="flex ml-auto">
+        <Icon name="cancelIcon" />
+      </button>
+      <h1 className="text-black font-semibold text-[24px] text-center py-5">
+        Are you sure you want to delete this mediator
+      </h1>
 
-        <Details title={"Name"} value={agent?.agent?.fullname || "N/A"} />
+      <div className="flex gap-8 justify-center items-center mt-5">
+        <button
+          className="bg-[#FFC6D1] w-full rounded-md h-[47px] font-semibold text-[#FF2D55]"
+          onClick={handleDelete}
+        >
+          {loading ? (
+            <CircleLoader color="#0979A1" loading={loading} size={20} />
+          ) : (
+            "Delete"
+          )}
+        </button>
 
-        <Details title={"Email address:"} value={agent?.agent?.email || "N/A"} />
-
-        <Details title={"Phone:"} value={agent?.agent?.phone || "N/A"} />
+        <button
+          className="bg-[#0979A1] w-full rounded-md h-[47px] font-semibold text-[#fff]"
+          type="button"
+          onClick={handleClose}
+        >
+          {loading ? (
+            <CircleLoader color="#0979A1" loading={loading} size={20} />
+          ) : (
+            "Cancel"
+          )}
+        </button>
       </div>
     </Modal>
   );
