@@ -1,12 +1,15 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import Routes from "./routes";
+import Toast from "./components/toast";
+import "./App.css"
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-    hjcgmh,bjknl
-    </div>
+    <>
+      <Routes />
+      <Toast />
+    </>
   );
-}
+};
 
 export default App;

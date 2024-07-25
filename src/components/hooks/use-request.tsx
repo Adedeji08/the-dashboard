@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { showToast } from "../toast";
 
-const baseURL = process.env.BACKEND_URL ?? "https://vendstash.mitochronhub.com";
+const baseURL =  process.env.REACT_APP_BACKEND_URL || 'https://staging-api.admin.vendstash.com'
 
 export default function useRequest(
   endpoint: string,
-  method: "GET" | "POST" | "PUT" | "DELETE",
+  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH",
   headers?: Record<string, any>
 ) {
   const [loading, setLoading] = useState(false);
@@ -20,28 +21,47 @@ export default function useRequest(
       ? `${baseURL}${endpoint}?${queryParams}`
       : `${baseURL}${endpoint}`;
 
-    const response = await fetch(urlWithParams, {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-        ...headers,
-      },
-      body:
-        method === "POST" || method === "PUT" || method === "DELETE"
-          ? JSON.stringify(data)
-          : undefined,
-    });
-
-    const json = await response.json();
-
-    setResponse(json);
-    setStatusCode(response.status);
-
-    setLoading(false);
-
-    return [json, response.status];
+      try {
+        const response = await fetch(urlWithParams, {
+          method,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            ...headers,
+          },
+          body:
+            method === "POST" || method === "PUT" || method === "DELETE"
+              ? JSON.stringify(data)
+              : undefined,
+        });
+  
+        const json = await response.json();
+  
+        setResponse(json);
+        setStatusCode(response.status);
+  
+        if (response.status === 500) {
+          showToast(
+            json.message || "An error occurred, please try again",
+            false,
+            {
+              position: "top-center",
+            }
+          );
+        }
+  
+        setLoading(false);
+  
+        return [json, response.status];
+      } catch (error) {
+        setLoading(false);
+        showToast("An error occurred, please try again", false, {
+          position: "top-center",
+        });
+        return [{}, 500];
+      }
+    }
+  
+    return { loading, makeRequest, response, statusCode };
   }
-
-  return { loading, makeRequest, response, statusCode };
-}
+  
