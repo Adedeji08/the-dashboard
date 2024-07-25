@@ -18,6 +18,7 @@ interface DetailsProps {
     phone: string;
     profilePhoto: string;
     userType: string;
+    referralBalance: number;
   };
 }
 
@@ -27,7 +28,6 @@ interface ReferralsProps {
 }
 
 const Details: React.FC<DetailsProps> = ({ admin }) => {
- 
   const { id } = useParams<{ id: string }>();
   const { makeRequest: getReferrals } = useRequest(
     `/users/${id}/referrals`,
@@ -48,7 +48,10 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
         const [response] = await getReferrals(undefined, {
           year: year,
         });
-        const total = response?.data.reduce((sum:number, item:any) => sum + (item.count || 0), 0);
+        const total = response?.data.reduce(
+          (sum: number, item: any) => sum + (item.count || 0),
+          0
+        );
 
         setTotalCount(total);
         setData(response?.data || []);
@@ -74,46 +77,50 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
           position: "top-center",
         });
       }
-    } catch (err) {
-     
-    }
+    } catch (err) {}
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setYear(Number(event.target.value));
   };
 
-
   const userType = admin.userType;
   const Details = ({ title, value, img }: any) => {
     return (
-      <div className="flex justify-between px-6 mt-4 font-normal text-base">
+      <div className="grid grid-cols-2 px-6 mt-4 font-normal text-base">
         <p>{title}</p>
         <p className="text-left">{value}</p>
       </div>
     );
   };
+
+  const truncateText = (text: string, length: number) => {
+    if (text.length <= length) {
+      return text;
+    }
+    return text.substring(0, length) + "...";
+  };
+
   const ReferralLink = ({ title, value, img }: any) => {
     return (
-      <div className="flex justify-between gap-10 px-6 mt-4">
-        <p>{title}</p>
-        <button
-          className={`border-2 ${"border-[#0979A1] bg-[#0979A1]"} w-[289px] flex items-center justify-center h-[43px] font-bold text-[#fff] rounded-md`}
-          type="submit"
-          onClick={generateReferralLink}
-        >
-          {loading ? (
-            <CircleLoader color="#ffffff" loading={loading} size={20} />
-          ) : (
-            "Generate Referral Link"
-          )}
-        </button>
-      </div>
+      <button
+        className={`border-2 ${"border-[#0979A1] bg-[#0979A1]"} w-[289px] flex items-center justify-center h-[43px] font-bold text-[#fff] rounded-md`}
+        type="submit"
+        onClick={generateReferralLink}
+      >
+        {loading ? (
+          <CircleLoader color="#ffffff" loading={loading} size={20} />
+        ) : (
+          "Generate Referral Link"
+        )}
+      </button>
     );
   };
+
   const CopyReferralLink = ({ title, value, img }: any) => {
+    const shortenedValue = truncateText(value, 16);
     return (
-      <div className="flex justify-between px-6 mt-4">
+      <div className="grid grid-cols-2 px-6 mt-4">
         <p>{title}</p>
         <button
           className={`border-none border-0 text-right rounded-md flex gap-1 items-center`}
@@ -123,7 +130,37 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
             alert("Copied to clipboard");
           }}
         >
-          {value}
+          {shortenedValue}
+          <Icon name="clipBoard" />
+        </button>
+      </div>
+    );
+  };
+
+  const CopyReferralCode = ({ title, value, img }: any) => {
+    const getReferralCode = (link: string) => {
+      try {
+        const url = new URL(link);
+        return url.searchParams.get("r") || link;
+      } catch (error) {
+        return link;
+      }
+    };
+
+    const referralCode = getReferralCode(value);
+
+    return (
+      <div className="grid grid-cols-2 px-6 mt-4">
+        <p>{title}</p>
+        <button
+          className={`border-none border-0 text-right rounded-md flex gap-1 items-center`}
+          type="submit"
+          onClick={() => {
+            navigator.clipboard.writeText(referralCode);
+            alert("Copied to clipboard");
+          }}
+        >
+          {referralCode}
           <Icon name="clipBoard" />
         </button>
       </div>
@@ -165,6 +202,13 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
           ) : (
             <ReferralLink
               title="Generate referral link:"
+              value={admin?.referralLink || "N/A"}
+            />
+          )}
+
+          {admin?.referralLink && (
+            <CopyReferralCode
+              title="Referral Code:"
               value={admin?.referralLink || "N/A"}
             />
           )}
@@ -211,12 +255,20 @@ const Details: React.FC<DetailsProps> = ({ admin }) => {
               ))}
             </tbody>
             <tfoot className="bg-[#0979A1] text-white mt-auto">
-              <tr >
-                <td className="py-2 px-4 border-r border-gray-200 ">Total</td>
-              <td className="py-2 px-4 text-center">{totalCount}</td>
+              <tr>
+                <td className="py-2 px-4 text-center border-r border-gray-200 ">
+                  <span className="block text-[#fff] text-[12px]">
+                    Calculated Amount:{" "}
+                  </span>{" "}
+                  {admin?.referralBalance}
+                </td>
+                <td className="py-2 px-4 text-center border-r border-gray-200 ">
+                  <span className="block text-[#fff] text-[12px]">
+                    Number of Referrals
+                  </span>
+                  {totalCount}
+                </td>
               </tr>
-              
-
             </tfoot>
           </table>
         </div>

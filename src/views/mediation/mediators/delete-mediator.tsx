@@ -1,5 +1,5 @@
 import { Modal } from "antd";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useRequest from "../../../components/hooks/use-request";
 import { CircleLoader } from "react-spinners";
 import Icon from "../../../assets/icons";

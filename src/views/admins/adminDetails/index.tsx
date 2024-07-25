@@ -18,6 +18,7 @@ interface DetailsProps {
   phone: string;
   profilePhoto: string;
   userType: string;
+  referralBalance: number;
 }
 
 const AdminDetails = () => {
@@ -33,6 +34,7 @@ const AdminDetails = () => {
     phone: "",
     profilePhoto: "",
     userType: "",
+    referralBalance: 0
   });
 
   const { id } = useParams<{ id: string }>();
